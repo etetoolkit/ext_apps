@@ -1,0 +1,37 @@
+CC=gcc
+# debug
+#CPPFLAGS=-g -O0 -Q -v -da
+#CPPFLAGS=-g -O0 -fstack-check -Q -v -da
+
+#CPPFLAGS=-g -D_REENTRANT
+
+# THIS IS FOR THE OPTIMIZED ONE
+#CPPFLAGS=-g 
+CPPFLAGS=-O3  -funroll-loops
+
+OBJ_DIR=.
+TARGET=.
+
+OBJ =  \
+	$(OBJ_DIR)/museq.o \
+	$(OBJ_DIR)/parameters_MAC.o \
+	$(OBJ_DIR)/io.o \
+	$(OBJ_DIR)/diag.o \
+	$(OBJ_DIR)/alig.o \
+	$(OBJ_DIR)/assemble.o \
+	$(OBJ_DIR)/prob.o \
+	$(OBJ_DIR)/orf.o \
+	$(OBJ_DIR)/translate.o \
+
+
+all: museq
+
+clean:
+	rm -rf *.o *rtl *jump *addre* *cfg *life *reg *reload *flow* *stack  museq dialign-tx
+
+museq:	$(OBJ)
+	rm -f $(TARGET)/$@
+	$(CC) -o $(TARGET)/$@ \
+	$(OBJ) \
+	-pipe -Wall -lm 
+	mv museq dialign-tx

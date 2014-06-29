@@ -1,0 +1,35 @@
+progs="_PROGS"
+for prog in $progs; do
+	printf  $prog" "
+done
+
+make clean
+make CC="gcc-4.0" CFLAGS="-arch ppc64 -m64 -O3 -mmacosx-version-min=10.4 -isysroot/Developer/SDKs/MacOSX10.4u.sdk -DMACOSX_DEPLOYMENT_TARGET=10.4"
+for prog in $progs; do
+	mv $prog $prog.ppc64
+done
+
+make clean
+make CC="gcc-4.0" CFLAGS="-arch ppc -m32 -O3 -mmacosx-version-min=10.4 -isysroot/Developer/SDKs/MacOSX10.4u.sdk -DMACOSX_DEPLOYMENT_TARGET=10.4"
+for prog in $progs; do
+	mv $prog $prog.ppc32
+done
+
+make clean
+make CC="gcc-4.0" CFLAGS="-arch i386 -fast -m32 -mmacosx-version-min=10.4 -isysroot/Developer/SDKs/MacOSX10.4u.sdk -DMACOSX_DEPLOYMENT_TARGET=10.4"
+for prog in $progs; do
+	mv $prog $prog.intel32
+done
+
+make clean
+make CC="gcc-4.0" CFLAGS="-arch x86_64 -fast -m64 -mmacosx-version-min=10.4 -isysroot/Developer/SDKs/MacOSX10.4u.sdk -DMACOSX_DEPLOYMENT_TARGET=10.4"
+for prog in $progs; do
+	mv $prog $prog.intel64
+done
+
+set $progs
+for prog in $progs; do
+#	lipo -create $prog.icc $prog.ppc32 $prog.ppc64 -output $prog
+	lipo -create $prog.intel64 $prog.intel32 $prog.ppc32 $prog.ppc64 -output $prog
+	cp $prog ../binaries
+done

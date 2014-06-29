@@ -1,0 +1,939 @@
+#include "mltaln.h"
+#include "dp.h"
+
+#define DEBUG 1
+#define XXXXXXX    0
+#define USE_PENALTY_EX  0
+
+#define DPTANNI 100
+
+static void OpeningGapCount( double *ogcp, int clus, char **seq, double *eff )
+{
+	int i, j, gc, gb; 
+	int len = strlen( seq[0] );
+	double totaleff = 0.0;
+	
+	for( i=0; i<len; i++ ) ogcp[i] = 0.0;
+	for( j=0; j<clus; j++ ) 
+	{
+		gc = 0;
+		for( i=0; i<len; i++ ) 
+		{
+			gb = gc;
+			gc = ( seq[j][i] == '-' );
+			{
+				if( !gb *  gc ) ogcp[i] += eff[j];
+			}
+		}
+		totaleff+= eff[j];
+	}
+	for( i=0; i<len; i++ ) 
+		ogcp[i] /= totaleff;
+}
+
+static void FinalGapCount( double *fgcp, int clus, char **seq, double *eff )
+{
+	int i, j, gc, gb; 
+	int len = strlen( seq[0] );
+	double totaleff = 0.0;
+	
+	for( i=0; i<len; i++ ) fgcp[i] = 0.0;
+	for( j=0; j<clus; j++ ) 
+	{
+		gc = ( seq[j][0] == '-' );
+		for( i=1; i<len+1; i++ ) 
+		{
+			gb = gc;
+			gc = ( seq[j][i] == '-' );
+			{
+				if( gb * !gc ) fgcp[i-1] += eff[j];
+			}
+		}
+		totaleff += eff[j];
+	}
+	for( i=0; i<len; i++ ) 
+		fgcp[i] /= totaleff;
+}
+
+static void match_calc( float *match, float **cpmx1, float **cpmx2, int i1, int lgth2, float **floatwork, int **intwork, int initialize )
+{
+	int j, k, l;
+	float scarr[26];
+	float **cpmxpd = floatwork;
+	int **cpmxpdn = intwork;
+	int count = 0;
+
+	if( initialize )
+	{
+		for( j=0; j<lgth2; j++ )
+		{
+			count = 0;
+			for( l=0; l<26; l++ )
+			{
+				if( cpmx2[j][l] )
+				{
+					cpmxpd[j][count] = cpmx2[j][l];
+					cpmxpdn[j][count] = l;
+					count++;
+				}
+			}
+			cpmxpdn[j][count] = -1;
+		}
+	}
+
+	for( l=0; l<26; l++ )
+	{
+		scarr[l] = 0.0;
+		for( k=0; k<26; k++ )
+		{
+			scarr[l] += n_dis[k][l] * cpmx1[i1][k];
+		}
+	}
+#if 0 /* これを使うときはfloatworkのアロケートを逆にする */
+	{
+		float *fpt, **fptpt, *fpt2;
+		int *ipt, **iptpt;
+		fpt2 = match;
+		iptpt = cpmxpdn;
+		fptpt = cpmxpd;
+		while( lgth2-- )
+		{
+			*fpt2 = 0.0;
+			ipt=*iptpt,fpt=*fptpt;
+			while( *ipt > -1 )
+				*fpt2 += scarr[*ipt++] * *fpt++;
+			fpt2++,iptpt++,fptpt++;
+		} 
+	}
+#else
+	for( j=0; j<lgth2; j++ )
+	{
+		match[j] = 0.0;
+		for( k=0; cpmxpdn[j][k]>-1; k++ )
+			match[j] += scarr[cpmxpdn[j][k]] * cpmxpd[j][k];
+	} 
+#endif
+}
+
+static float Atracking( float *lasthorizontalw, float *lastverticalw, 
+						char **seq1, char **seq2, 
+                        char **mseq1, char **mseq2, 
+                        float **cpmx1, float **cpmx2, 
+                        short **ijp, int icyc, int jcyc,
+						int ist, int ien, int jst, int jen )
+{
+	int i, j, l, iin, jin, ifi, jfi, lgth1, lgth2, k, klim;
+	char gap[] = "-";
+	float wm;
+	lgth1 = ien-ist+1;
+	lgth2 = jen-jst+1;
+
+#if 1
+	for( i=0; i<lgth1; i++ ) 
+	{
+		fprintf( stderr, "lastverticalw[%d] = %f\n", i, lastverticalw[i] );
+	}
+#endif
+ 
+    for( i=0; i<lgth1+1; i++ ) 
+    {
+        ijp[i][0] = i + 1;
+    }
+    for( j=0; j<lgth2+1; j++ ) 
+    {
+        ijp[0][j] = -( j + 1 );
+    }
+
+	for( i=0; i<icyc; i++ )
+	{
+		mseq1[i] += lgth1+lgth2;
+		*mseq1[i] = 0;
+	}
+	for( j=0; j<jcyc; j++ )
+	{
+		mseq2[j] += lgth1+lgth2;
+		*mseq2[j] = 0;
+	}
+	iin = lgth1; jin = lgth2;
+	klim = lgth1+lgth2;
+	for( k=0; k<=klim; k++ ) 
+	{
+		if( ijp[iin][jin] < 0 ) 
+		{
+			ifi = iin-1; jfi = jin+ijp[iin][jin];
+		}
+		else if( ijp[iin][jin] > 0 )
+		{
+			ifi = iin-ijp[iin][jin]; jfi = jin-1;
+		}
+		else
+		{
+			ifi = iin-1; jfi = jin-1;
+		}
+		l = iin - ifi;
+		while( --l ) 
+		{
+			for( i=0; i<icyc; i++ )
+				*--mseq1[i] = seq1[i][ist+ifi+l];
+			for( j=0; j<jcyc; j++ ) 
+				*--mseq2[j] = *gap;
+			k++;
+		}
+		l= jin - jfi;
+		while( --l )
+		{
+			for( i=0; i<icyc; i++ ) 
+				*--mseq1[i] = *gap;
+			for( j=0; j<jcyc; j++ ) 
+				*--mseq2[j] = seq2[j][jst+jfi+l];
+			k++;
+		}
+		if( iin <= 0 || jin <= 0 ) break;
+		for( i=0; i<icyc; i++ ) 
+			*--mseq1[i] = seq1[i][ist+ifi];
+		for( j=0; j<jcyc; j++ ) 
+			*--mseq2[j] = seq2[j][jst+jfi];
+		k++;
+		iin = ifi; jin = jfi;
+
+		fprintf( stderr, "in Atracking, mseq1 = %s, mseq2 = %s\n", mseq1[0], mseq2[0] );
+	}
+	fprintf( stderr, "in Atracking (owari), mseq1 = %s, mseq2 = %s\n", mseq1[0], mseq2[0] );
+	return( 0.0 );
+}
+
+static float MSalignmm_tanni( int icyc, int jcyc, double *eff1, double *eff2, char **seq1, char **seq2, float **cpmx1, float **cpmx2, int ist, int ien, int jst, int jen, int alloclen, char **mseq1, char **mseq2  )
+/* score no keisan no sai motokaraaru gap no atukai ni mondai ga aru */
+{
+//	int k;
+	register int i, j;
+	int ll1, ll2;
+	int lasti, lastj;
+	int resultlen;
+	float wm;   /* int ?????? */
+	float g;
+	float *currentw, *previousw;
+	float fpenalty = (float)penalty;
+	float fpenalty_ex = (float)penalty_ex;
+#if 1
+	float *wtmp;
+	short *ijppt;
+	float *mjpt, *prept, *curpt;
+	int *mpjpt;
+#endif
+	float mi, *m;
+	short **ijp;
+	int mpi, *mp;
+	float *w1, *w2;
+	float *match;
+	float *initverticalw;    /* kufuu sureba iranai */
+	float *lastverticalw;    /* kufuu sureba iranai */
+	int **intwork;
+	float **floatwork;
+	short **shortmtx;
+	float **WMMTX;
+	float dumfl;
+	int lgth1, lgth2;
+	static char **aseq1 = NULL;
+	static char **aseq2 = NULL;
+	static char **aseq1bk, **aseq2bk;
+
+	if( !aseq1 )
+	{
+		aseq1 = AllocateCharMtx( icyc, 0 );
+		aseq2 = AllocateCharMtx( jcyc, 0 );
+	}
+
+	lgth1 = ien-ist+1;
+	lgth2 = jen-jst+1;
+
+	fprintf( stderr, "seq1[0]+ist = %s\n", seq1[0]+ist );
+	fprintf( stderr, "seq2[0]+jst = %s\n", seq2[0]+jst );
+
+	fprintf( stderr, "ist,ien = %d,%d, lgth1=%d\n", ist, ien, lgth1 );
+	fprintf( stderr, "jst,jen = %d,%d, lgth2=%d\n", jst, jen, lgth2 );
+
+
+	ll1 = ( (int)(1.3*lgth1) ) + 100;
+	ll2 = ( (int)(1.3*lgth2) ) + 100;
+
+	aseq1bk = AllocateCharMtx( icyc, lgth1+lgth2+100 );
+	aseq2bk = AllocateCharMtx( jcyc, lgth1+lgth2+100 );
+	for( i=0; i<icyc; i++ ) aseq1[i] = aseq1bk[i];
+	for( i=0; i<jcyc; i++ ) aseq2[i] = aseq2bk[i];
+
+	w1 = AllocateFloatVec( ll2+2 );
+	w2 = AllocateFloatVec( ll2+2 );
+	match = AllocateFloatVec( ll2+2 );
+
+	initverticalw = AllocateFloatVec( ll1+2 );
+	lastverticalw = AllocateFloatVec( ll1+2 );
+
+	m = AllocateFloatVec( ll2+2 );
+	mp = AllocateIntVec( ll2+2 );
+
+	floatwork = AllocateFloatMtx( MAX( ll1, ll2 )+2, 26 ); 
+	intwork = AllocateIntMtx( MAX( ll1, ll2 )+2, 26 ); 
+
+
+	shortmtx = AllocateShortMtx( ll1, ll2 );
+	WMMTX = AllocateFloatMtx( ll1, ll2 );
+
+	ijp = shortmtx;
+
+	currentw = w1;
+	previousw = w2;
+
+	fprintf( stderr, "calling match_calc\n" );
+	match_calc( initverticalw, cpmx2+jst, cpmx1+ist, 0, lgth1, floatwork, intwork, 1 );
+
+	match_calc( currentw, cpmx1+ist, cpmx2+jst, 0, lgth2, floatwork, intwork, 1 );
+
+	WMMTX[0][0] = initverticalw[0];
+	for( i=1; i<lgth1+1; i++ )
+	{
+		initverticalw[i] += fpenalty;
+		WMMTX[i][0] = initverticalw[i];
+	}
+	for( j=1; j<lgth2+1; j++ )
+	{
+		currentw[j] += fpenalty;
+		WMMTX[0][j] = currentw[j];
+	}
+
+	for( j=1; j<lgth2+1; ++j ) 
+	{
+		m[j] = currentw[j-1];
+	}
+
+	lastverticalw[0] = currentw[lgth2-1];
+
+	fprintf( stderr, "entering to loop\n" );
+
+	lasti = lgth1+1;
+	for( i=1; i<lasti; i++ )
+	{
+
+		fprintf( stderr, "i=%d\n", i );
+		wtmp = previousw; 
+		previousw = currentw;
+		currentw = wtmp;
+
+		previousw[0] = initverticalw[i-1];
+
+		fprintf( stderr, "calling match_calc, ist=%d, lgth2=%d\n", ist, lgth2 );
+		match_calc( currentw, cpmx1+ist, cpmx2+jst, i, lgth2, floatwork, intwork, 0 );
+		fprintf( stderr, "done\n" );
+		currentw[0] = initverticalw[i];
+
+		mi = previousw[0]; mpi = 0;
+
+		ijppt = ijp[i] + 1;
+		mjpt = m + 1;
+		prept = previousw;
+		curpt = currentw + 1;
+		mpjpt = mp + 1;
+		lastj = lgth2+1;
+		for( j=1; j<lastj; j++ )
+		{
+			fprintf( stderr, "j=%d\n", j );
+			wm = *prept;
+			*ijppt = 0;
+
+#if 0
+			fprintf( stderr, "%5.0f->", wm );
+#endif
+			g = mi + fpenalty;
+#if 0
+			fprintf( stderr, "%5.0f?", g );
+#endif
+			if( g > wm )
+			{
+				wm = g;
+				*ijppt = -( j - mpi );
+			}
+			g = *prept;
+			if( g >= mi )
+			{
+				mi = g;
+				mpi = j-1;
+			}
+#if USE_PENALTY_EX
+			mi += fpenalty_ex;
+#endif
+
+			g = *mjpt + fpenalty;
+#if 0 
+			fprintf( stderr, "%5.0f?", g );
+#endif
+			if( g > wm )
+			{
+				wm = g;
+				*ijppt = +( i - *mpjpt );
+			}
+			g = *prept;
+			if( g >= *mjpt )
+			{
+				*mjpt = g;
+				*mpjpt = i-1;
+			}
+#if USE_PENALTY_EX
+			m[j] += fpenalty_ex;
+#endif
+
+#if 0
+			fprintf( stderr, "%5.0f ", wm );
+#endif
+			*curpt += wm;
+
+			WMMTX[i][j] = *curpt;
+
+			ijppt++;
+			mjpt++;
+			prept++;
+			mpjpt++;
+			curpt++;
+			fprintf( stderr, "j=%d end\n", j );
+		}
+		lastverticalw[i] = currentw[lgth2-1];
+		fprintf( stderr, "i=%d end\n", i );
+	}
+
+#if 1
+    for( i=0; i<lgth1; i++ )
+    {
+        for( j=0; j<lgth2; j++ )
+        {
+            fprintf( stderr, "% 10.2f ", WMMTX[i][j] );
+        }
+        fprintf( stderr, "\n" );
+    }
+	fprintf( stderr, "\n" );
+#endif
+
+	Atracking( currentw, lastverticalw, seq1, seq2, aseq1, aseq2, cpmx1+ist, cpmx2+jst, ijp, icyc, jcyc, ist, ien, jst, jen );
+
+	for( i=0; i<icyc; i++ ) strcpy( mseq1[i], aseq1[i] );
+	for( i=0; i<jcyc; i++ ) strcpy( mseq2[i], aseq2[i] );
+
+	fprintf( stderr, "in _tanni, aseq1 = %s\n", aseq1[0] );
+	fprintf( stderr, "in _tanni, mseq1 = %s\n", mseq1[0] );
+
+	FreeFloatVec( w1 );
+	FreeFloatVec( w2 );
+	FreeFloatVec( match );
+	FreeFloatVec( initverticalw );
+	FreeFloatVec( lastverticalw );
+
+	FreeFloatVec( m );
+	FreeIntVec( mp );
+
+
+	FreeFloatMtx( floatwork );
+	FreeIntMtx( intwork );
+
+	FreeShortMtx( shortmtx );
+	FreeFloatMtx( WMMTX );
+
+	FreeCharMtx( aseq1bk );
+	FreeCharMtx( aseq2bk );
+
+	return( wm );
+}
+
+static float MSalignmm_rec( int icyc, int jcyc, double *eff1, double *eff2, char **seq1, char **seq2, float **cpmx1, float **cpmx2, int ist, int ien, int jst, int jen, int alloclen, char **mseq1, char **mseq2, int depth )
+/* score no keisan no sai motokaraaru gap no atukai ni mondai ga aru */
+{
+//	int k;
+	register int i, j;
+	char **aseq1, **aseq2;
+	int ll1, ll2;
+	int lasti, lastj, imid, jmid;
+	int resultlen;
+	float wm;   /* int ?????? */
+	float g;
+	float *currentw, *previousw;
+	float fpenalty = (float)penalty;
+	float fpenalty_ex = (float)penalty_ex;
+#if 1
+	float *wtmp;
+	short *ijppt;
+	float *mjpt, *prept, *curpt;
+	int *mpjpt;
+#endif
+	float mi, *m;
+	short **ijp;
+	int mpi, *mp;
+	float *w1, *w2;
+	float *match;
+	float *initverticalw;    /* kufuu sureba iranai */
+	float *lastverticalw;    /* kufuu sureba iranai */
+	int **intwork;
+	float **floatwork;
+	short **shortmtx;
+	float **WMMTX;
+	float dumfl;
+	int lgth1, lgth2;
+	float maxwm;
+
+	depth++;
+
+	lgth1 = ien-ist+1;
+	lgth2 = jen-jst+1;
+
+	fprintf( stderr, "==== MSalign (%d), ist=%d, ien=%d, jst=%d, jen=%d\n", depth, ist, ien, jst, jen );
+	if( lgth2 <= 0 )
+	{
+		fprintf( stderr, "==== Jimei\n" );
+		for( i=0; i<icyc; i++ ) 
+		{
+			strncpy( mseq1[i], seq1[i]+ist, lgth1 );
+			mseq1[i][lgth1] = 0;
+		}
+		for( i=0; i<jcyc; i++ ) 
+		{
+			mseq2[i][0] = 0;
+			for( j=0; j<lgth1; j++ )
+				strcat( mseq2[i], "-" );
+		}
+
+		fprintf( stderr, "==== mseq1[0] (%d) = %s\n", depth, mseq1[0] );
+		fprintf( stderr, "==== mseq2[0] (%d) = %s\n", depth, mseq2[0] );
+
+		return( (float)offset * lgth1 );
+	}
+
+
+	aseq1 = AllocateCharMtx( icyc, lgth1+lgth2+100 );
+	aseq2 = AllocateCharMtx( jcyc, lgth1+lgth2+100 );
+
+	if( lgth1 < DPTANNI )
+	{
+		fprintf( stderr, "==== Going to _tanni\n" );
+		wm = MSalignmm_tanni( icyc, jcyc, eff1, eff2, seq1, seq2, cpmx1, cpmx2, ist, ien, jst, jen, alloclen, aseq1, aseq2 );	
+
+
+		for( i=0; i<icyc; i++ ) strcpy( mseq1[i], aseq1[i] );
+		for( i=0; i<jcyc; i++ ) strcpy( mseq2[i], aseq2[i] );
+
+		fprintf( stderr, "==== mseq1[0] (%d) = %s\n", depth, mseq1[0] );
+		fprintf( stderr, "==== mseq2[0] (%d) = %s\n", depth, mseq2[0] );
+
+		fprintf( stderr, "freeing aseq\n" );
+		FreeCharMtx( aseq1 );
+		FreeCharMtx( aseq2 );
+
+		return( wm );
+	}
+	fprintf( stderr, "Trying to divide the mtx\n" );
+
+
+	ll1 = ( (int)(1.3*lgth1) ) + 100;
+	ll2 = ( (int)(1.3*lgth2) ) + 100;
+
+	fprintf( stderr, "ll1,ll2=%d,%d\n", ll1, ll2 );
+
+	w1 = AllocateFloatVec( ll2+2 );
+	w2 = AllocateFloatVec( ll2+2 );
+	match = AllocateFloatVec( ll2+2 );
+
+	initverticalw = AllocateFloatVec( ll1+2 );
+	lastverticalw = AllocateFloatVec( ll1+2 );
+
+	m = AllocateFloatVec( ll2+2 );
+	mp = AllocateIntVec( ll2+2 );
+
+	floatwork = AllocateFloatMtx( MAX( ll1, ll2 )+2, 26 ); 
+	intwork = AllocateIntMtx( MAX( ll1, ll2 )+2, 26 ); 
+
+#if DEBUG
+	fprintf( stderr, "succeeded\n" );
+#endif
+
+
+#if DEBUG
+	fprintf( stderr, "\n\ntrying to allocate %dx%d matrices ... ", ll1+1, ll2+1 );
+#endif
+
+	shortmtx = AllocateShortMtx( ll1, ll2 );
+	WMMTX = AllocateFloatMtx( ll1, ll2 );
+
+#if DEBUG
+	fprintf( stderr, "succeeded\n\n" );
+#endif
+
+	ijp = shortmtx;
+
+	currentw = w1;
+	previousw = w2;
+
+	match_calc( initverticalw, cpmx2+jst, cpmx1+ist, 0, lgth1, floatwork, intwork, 1 );
+
+	match_calc( currentw, cpmx1+ist, cpmx2+jst, 0, lgth2, floatwork, intwork, 1 );
+
+	WMMTX[0][0] = initverticalw[0];
+	for( i=1; i<lgth1+1; i++ )
+	{
+		initverticalw[i] += fpenalty;
+		WMMTX[i][0] = initverticalw[i];
+	}
+	for( j=1; j<lgth2+1; j++ )
+	{
+		currentw[j] += fpenalty;
+		WMMTX[0][j] = currentw[j];
+	}
+
+	for( j=1; j<lgth2+1; ++j ) 
+	{
+		m[j] = currentw[j-1];
+	}
+
+	lastverticalw[0] = currentw[lgth2-1];
+
+	imid = lgth1 / 2;
+
+	lasti = lgth1+1;
+//	for( i=1; i<lasti; i++ )
+	for( i=1; i<=imid; i++ )
+	{
+		wtmp = previousw; 
+		previousw = currentw;
+		currentw = wtmp;
+
+		previousw[0] = initverticalw[i-1];
+
+		match_calc( currentw, cpmx1+ist, cpmx2+jst, i, lgth2, floatwork, intwork, 0 );
+		currentw[0] = initverticalw[i];
+
+		mi = previousw[0]; mpi = 0;
+
+		ijppt = ijp[i] + 1;
+		mjpt = m + 1;
+		prept = previousw;
+		curpt = currentw + 1;
+		mpjpt = mp + 1;
+		lastj = lgth2+1;
+		for( j=1; j<lastj; j++ )
+		{
+			wm = *prept;
+			*ijppt = 0;
+
+#if 0
+			fprintf( stderr, "%5.0f->", wm );
+#endif
+			g = mi + fpenalty;
+#if 0
+			fprintf( stderr, "%5.0f?", g );
+#endif
+			if( g > wm )
+			{
+				wm = g;
+				*ijppt = -( j - mpi );
+			}
+			g = *prept;
+			if( g >= mi )
+			{
+				mi = g;
+				mpi = j-1;
+			}
+#if USE_PENALTY_EX
+			mi += fpenalty_ex;
+#endif
+
+			g = *mjpt + fpenalty;
+#if 0 
+			fprintf( stderr, "%5.0f?", g );
+#endif
+			if( g > wm )
+			{
+				wm = g;
+				*ijppt = +( i - *mpjpt );
+			}
+			g = *prept;
+			if( g >= *mjpt )
+			{
+				*mjpt = g;
+				*mpjpt = i-1;
+			}
+#if USE_PENALTY_EX
+			m[j] += fpenalty_ex;
+#endif
+
+#if 0
+			fprintf( stderr, "%5.0f ", wm );
+#endif
+			*curpt += wm;
+
+			WMMTX[i][j] = *curpt;
+
+			ijppt++;
+			mjpt++;
+			prept++;
+			mpjpt++;
+			curpt++;
+		}
+		lastverticalw[i] = currentw[lgth2-1];
+	}
+
+#if 0
+    for( i=0; i<lgth1; i++ )
+    {
+        for( j=0; j<lgth2; j++ )
+        {
+            fprintf( stderr, "% 10.2f ", WMMTX[i][j] );
+        }
+        fprintf( stderr, "\n" );
+    }
+	fprintf( stderr, "\n" );
+#endif
+
+// gyakudp
+
+	match_calc( initverticalw, cpmx2+jst, cpmx1+ist, lgth2-1, lgth1, floatwork, intwork, 1 );
+	match_calc( currentw, cpmx1+ist, cpmx2+jst, lgth1-1, lgth2, floatwork, intwork, 1 );
+
+	for( i=0; i<lgth1-1; i++ )
+	{
+		initverticalw[i] += fpenalty;
+		WMMTX[i][lgth2-1] += fpenalty;
+	}
+	for( j=0; j<lgth2-1; j++ )
+	{
+		currentw[j] += fpenalty;
+		WMMTX[lgth1-1][j] += fpenalty;
+	}
+
+	for( j=lgth2-1; j>0; --j )
+	{
+		m[j-1] = currentw[j];
+	}
+
+//	for( j=0; j<lgth2; j++ ) m[j] = 0.0;
+	// m[lgth2-1] ha irunoka?
+
+	for( i=lgth1-2; i>=imid; i-- )
+//	for( i=lgth1-2; i>-1; i-- )
+	{
+		wtmp = previousw;
+		previousw = currentw;
+		currentw = wtmp;
+		previousw[lgth2-1] = initverticalw[i+1];
+//		match_calc( currentw, seq1, seq2, i, lgth2 );
+		match_calc( currentw, cpmx1+ist, cpmx2+jst, i, lgth2, floatwork, intwork, 0 );
+
+		currentw[lgth2-1] = initverticalw[i];
+
+		mi = previousw[lgth2-1];
+
+		mjpt = m + lgth2 - 2;
+		prept = previousw + lgth2 - 1;
+		curpt = currentw + lgth2 - 2;
+		mpjpt = mp + lgth2 - 2;
+
+		for( j=lgth2-2; j>-1; j-- )
+		{
+			wm = *prept;
+			g = mi + fpenalty;
+			if( g > wm ) wm = g;
+
+			g = *prept;
+			if( g >= mi ) mi = g;
+
+#if USE_PENALTY_EX
+			mi += fpenalty_ex;
+#endif
+
+			g = *mjpt + fpenalty;
+			if( g > wm ) wm = g;
+
+			g = *prept;
+			if( g >= *mjpt ) *mjpt = g;
+
+#if USE_PENALTY_EX
+			m[j] += fpenalty_ex;
+#endif
+
+			WMMTX[i][j] += wm;
+			*curpt += wm;
+
+			mjpt--;
+			prept--;
+			mpjpt--;
+			curpt--;
+		}
+	}
+
+#if 0
+    for( i=0; i<lgth1; i++ )
+    {
+        for( j=0; j<lgth2; j++ )
+        {
+            fprintf( stderr, "% 10.2f ", WMMTX[i][j] );
+        }
+        fprintf( stderr, "\n" );
+    }
+#endif
+
+//	Atracking( currentw, lastverticalw, seq1, seq2, mseq1, mseq2, cpmx1, cpmx2, ijp, icyc, jcyc );
+
+#if 0 // irukamo
+	resultlen = strlen( mseq1[0] );
+	if( alloclen < resultlen || resultlen > N )
+	{
+		fprintf( stderr, "alloclen=%d, resultlen=%d, N=%d\n", alloclen, resultlen, N );
+		ErrorExit( "LENGTH OVER!\n" );
+	}
+#endif
+
+
+	maxwm = -999999999.9;
+	jmid = -100;
+	for( j=0; j<lgth2; j++ )
+	{
+		wm = WMMTX[imid][j];
+		if( wm > maxwm )
+		{
+			jmid = j;
+			maxwm = wm;
+		}
+	}
+	// gap no tochu de kirrareru kanousei ari.
+
+	fprintf( stderr, "wm = %f\n", wm );
+	fprintf( stderr, "imid = %d\n", imid );
+	fprintf( stderr, "jmid = %d\n", jmid );
+
+	FreeFloatVec( w1 );
+	FreeFloatVec( w2 );
+	FreeFloatVec( match );
+	FreeFloatVec( initverticalw );
+	FreeFloatVec( lastverticalw );
+
+	FreeFloatVec( m );
+	FreeIntVec( mp );
+
+	FreeFloatMtx( floatwork );
+	FreeIntMtx( intwork );
+
+	FreeShortMtx( shortmtx );
+	FreeFloatMtx( WMMTX );
+
+
+	fprintf( stderr, "==== calling myself (first)\n" );
+	MSalignmm_rec( icyc, jcyc, eff1, eff2, seq1, seq2, cpmx1, cpmx2, ist, ist+imid, jst, jst+jmid, alloclen, aseq1, aseq2, depth );	
+	for( i=0; i<icyc; i++ ) strcpy( mseq1[i], aseq1[i] );
+	for( i=0; i<jcyc; i++ ) strcpy( mseq2[i], aseq2[i] );
+
+	fprintf( stderr, "====(f) aseq1[0] (%d) = %s (%d-%d)\n", depth, aseq1[0], ist, ien );
+	fprintf( stderr, "====(f) aseq2[0] (%d) = %s (%d-%d)\n", depth, aseq2[0], jst, jen );
+
+
+	fprintf( stderr, "==== calling myself (second)\n" );
+	MSalignmm_rec( icyc, jcyc, eff1, eff2, seq1, seq2, cpmx1, cpmx2, ist+imid+1, ien, jst+jmid+1, jen, alloclen, aseq1, aseq2, depth );	
+
+	for( i=0; i<icyc; i++ ) strcat( mseq1[i], aseq1[i] );
+	for( i=0; i<jcyc; i++ ) strcat( mseq2[i], aseq2[i] );
+
+	fprintf( stderr, "====(s) aseq1[0] (%d) = %s (%d-%d)\n", depth, aseq1[0], ist, ien );
+	fprintf( stderr, "====(s) aseq2[0] (%d) = %s (%d-%d)\n", depth, aseq2[0], jst, jen );
+
+	fprintf( stderr, "==== mseq1[0] (%d) = %s\n", depth, mseq1[0] );
+	fprintf( stderr, "==== mseq2[0] (%d) = %s\n", depth, mseq2[0] );
+
+	FreeCharMtx( aseq1 );
+	FreeCharMtx( aseq2 );
+	
+	return( wm );
+}
+
+
+
+float MSalignmm( char **seq1, char **seq2, double *eff1, double *eff2, int icyc, int jcyc, int alloclen )
+/* score no keisan no sai motokaraaru gap no atukai ni mondai ga aru */
+{
+//	int k;
+	int i, j;
+	int ll1, ll2;
+	int lgth1, lgth2;
+	float wm;   /* int ?????? */
+	static char **mseq1 = NULL;
+	static char **mseq2 = NULL;
+	char **mseq;
+	double *ogcp1;
+	double *ogcp2;
+	double *fgcp1;
+	double *fgcp2;
+	float **cpmx1;
+	float **cpmx2;
+
+#if 1
+	fprintf( stderr, "eff in SA+++align\n" );
+	for( i=0; i<icyc; i++ ) fprintf( stderr, "eff1[%d] = %f\n", i, eff1[i] );
+#endif
+	if( mseq1 == NULL )
+	{
+		mseq1 = AllocateCharMtx( njob, 0 );
+		mseq2 = AllocateCharMtx( njob, 0 );
+	}
+
+
+
+
+	lgth1 = strlen( seq1[0] );
+	lgth2 = strlen( seq2[0] );
+
+	ll1 = ( (int)(1.3*lgth1) ) + 100;
+	ll2 = ( (int)(1.3*lgth2) ) + 100;
+
+	mseq = AllocateCharMtx( njob, ll1+ll2 );
+
+	ogcp1 = AllocateDoubleVec( ll1+2 );
+	ogcp2 = AllocateDoubleVec( ll2+2 );
+	fgcp1 = AllocateDoubleVec( ll1+2 );
+	fgcp2 = AllocateDoubleVec( ll2+2 );
+
+	cpmx1 = AllocateFloatMtx( ll1+2, 26 );
+	cpmx2 = AllocateFloatMtx( ll2+2, 26 );
+
+	for( i=0; i<icyc; i++ ) mseq1[i] = mseq[i];
+	for( j=0; j<jcyc; j++ ) mseq2[j] = mseq[icyc+j];
+
+
+	MScpmx_calc_new( seq1, cpmx1, eff1, strlen( seq1[0] ), icyc );
+	MScpmx_calc_new( seq2, cpmx2, eff2, strlen( seq2[0] ), jcyc );
+
+#if 0
+	OpeningGapCount( ogcp1, icyc, seq1, eff1 );
+	OpeningGapCount( ogcp2, jcyc, seq2, eff2 );
+	FinalGapCount( fgcp1, icyc, seq1, eff1 );
+	FinalGapCount( fgcp2, jcyc, seq2, eff2 );
+
+	for( i=0; i<lgth1; i++ ) 
+	{
+		ogcp1[i] = 1.0 - ogcp1[i];
+		fgcp1[i] = 1.0 - fgcp1[i];
+	}
+	for( i=0; i<lgth2; i++ ) 
+	{
+		ogcp2[i] = 1.0 - ogcp2[i];
+		fgcp2[i] = 1.0 - fgcp2[i];
+	}
+#endif
+
+	wm = MSalignmm_rec( icyc, jcyc, eff1, eff2, seq1, seq2, cpmx1, cpmx2, 0, lgth1-1, 0, lgth2-1, alloclen, mseq1, mseq2, 0 );
+
+	for( i=0; i<icyc; i++ ) strcpy( seq1[i], mseq1[i] );
+	for( i=0; i<jcyc; i++ ) strcpy( seq2[i], mseq2[i] );
+
+
+	FreeDoubleVec( ogcp1 );
+	FreeDoubleVec( ogcp2 );
+	FreeDoubleVec( fgcp1 );
+	FreeFloatMtx( cpmx1 );
+	FreeFloatMtx( cpmx2 );
+	FreeDoubleVec( fgcp2 );
+
+	FreeCharMtx( mseq );
+
+	return( wm );
+}

@@ -1,0 +1,42 @@
+\BOOKMARK [1][-]{section.1}{Citation}{}
+\BOOKMARK [1][-]{section.2}{Availability}{}
+\BOOKMARK [1][-]{section.3}{Authors}{}
+\BOOKMARK [1][-]{section.4}{Overview}{}
+\BOOKMARK [1][-]{section.5}{Bug report}{}
+\BOOKMARK [1][-]{section.6}{Installing PhyML}{}
+\BOOKMARK [2][-]{subsection.6.1}{Sources and compilation}{section.6}
+\BOOKMARK [2][-]{subsection.6.2}{Installing PhyML on UNIX-like systems \(including Mac OS\)}{section.6}
+\BOOKMARK [2][-]{subsection.6.3}{Installing PhyML on Microsoft Windows}{section.6}
+\BOOKMARK [2][-]{subsection.6.4}{Installing the parallel version of PhyML}{section.6}
+\BOOKMARK [1][-]{section.7}{Program usage.}{}
+\BOOKMARK [2][-]{subsection.7.1}{PHYLIP-like interface}{section.7}
+\BOOKMARK [3][-]{subsubsection.7.1.1}{Input Data sub-menu}{subsection.7.1}
+\BOOKMARK [3][-]{subsubsection.7.1.2}{Substitution model sub-menu}{subsection.7.1}
+\BOOKMARK [3][-]{subsubsection.7.1.3}{Tree searching sub-menu}{subsection.7.1}
+\BOOKMARK [3][-]{subsubsection.7.1.4}{Branch support sub-menu}{subsection.7.1}
+\BOOKMARK [2][-]{subsection.7.2}{Command-line interface}{section.7}
+\BOOKMARK [2][-]{subsection.7.3}{Parallel bootstrap}{section.7}
+\BOOKMARK [1][-]{section.8}{Inputs / outputs}{}
+\BOOKMARK [2][-]{subsection.8.1}{Sequence formats}{section.8}
+\BOOKMARK [3][-]{subsubsection.8.1.1}{Gaps and ambiguous characters}{subsection.8.1}
+\BOOKMARK [3][-]{subsubsection.8.1.2}{Specifying outgroup sequences}{subsection.8.1}
+\BOOKMARK [2][-]{subsection.8.2}{Tree format}{section.8}
+\BOOKMARK [2][-]{subsection.8.3}{Multiple alignments and trees}{section.8}
+\BOOKMARK [2][-]{subsection.8.4}{Custom amino-acid rate model}{section.8}
+\BOOKMARK [2][-]{subsection.8.5}{Topological constraint file}{section.8}
+\BOOKMARK [2][-]{subsection.8.6}{Output files}{section.8}
+\BOOKMARK [2][-]{subsection.8.7}{Treatment of invariable sites with fixed branch lengths}{section.8}
+\BOOKMARK [1][-]{section.9}{Other programs in the PhyML package}{}
+\BOOKMARK [2][-]{subsection.9.1}{PhyTime \(Guindon, Mol. Biol. Evol. 2010\)}{section.9}
+\BOOKMARK [3][-]{subsubsection.9.1.1}{Installing PhyTime}{subsection.9.1}
+\BOOKMARK [3][-]{subsubsection.9.1.2}{Running PhyTime}{subsection.9.1}
+\BOOKMARK [3][-]{subsubsection.9.1.3}{Upper bounds of model parameters}{subsection.9.1}
+\BOOKMARK [3][-]{subsubsection.9.1.4}{PhyTime specific options}{subsection.9.1}
+\BOOKMARK [3][-]{subsubsection.9.1.5}{PhyTime output}{subsection.9.1}
+\BOOKMARK [3][-]{subsubsection.9.1.6}{ClockRate vs. EvolRate}{subsection.9.1}
+\BOOKMARK [3][-]{subsubsection.9.1.7}{Effective sample size}{subsection.9.1}
+\BOOKMARK [1][-]{section.10}{Recommendations on program usage}{}
+\BOOKMARK [2][-]{subsection.10.1}{PhyML}{section.10}
+\BOOKMARK [2][-]{subsection.10.2}{PhyTime}{section.10}
+\BOOKMARK [1][-]{section.11}{Frequently asked questions}{}
+\BOOKMARK [1][-]{section.12}{Acknowledgements}{}

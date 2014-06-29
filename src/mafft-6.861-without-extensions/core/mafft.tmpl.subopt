@@ -1,0 +1,788 @@
+#! /bin/sh
+er=0;
+myself=`dirname $0`/`basename $0`; export myself
+version="version 6.00 (2005/05/01)"; export version
+LANG=C; export LANG
+os=`uname`
+progname=`basename $0`
+if [ `echo $os | grep -i cygwin` ]; then
+	os="cygwin"
+elif [ `echo $os | grep -i darwin` ]; then
+	os="darwin"
+elif [ `echo $os | grep -i sunos` ]; then
+	os="sunos"
+else
+	os="unix"
+fi
+export os
+
+if [ $MAFFT_BINARIES ]; then
+	prefix=$MAFFT_BINARIES
+else
+	prefix=_PREFIX
+fi
+export prefix
+if [ ! -x $prefix/tbfast ]; then
+	echo ""
+	echo "correctly installed?" 2>&1
+	echo "mafft binaries have to be installed in" $prefix.
+	echo ""
+	exit 1
+	er=1
+fi
+
+defaultiterate=0
+defaultcycle=2
+defaultmodel=" -b 62 "
+defaultgop="1.53"
+defaultaof="0.123"
+defaultfft=1
+defaultrough=0
+defaultdistance="sixtuples"
+if [ $progname = "linsi" ]; then
+	defaultfft=0
+	defaultcycle=1
+	defaultiterate=1000
+	defaultdistance="local"
+elif [ $progname = "ginsi" ]; then
+	defaultfft=1
+	defaultcycle=1
+	defaultiterate=1000
+	defaultdistance="global"
+elif [ $progname = "einsi" ]; then
+	defaultfft=0
+	defaultcycle=1
+	defaultiterate=1000
+	defaultdistance="genaf"
+elif [ $progname = "fftns" ]; then
+	defaultfft=1
+	defaultcycle=2
+elif [ $progname = "fftnsi" ]; then
+	defaultfft=1
+	defaultcycle=2
+	defaultiterate=2
+elif [ $progname = "nwns" ]; then
+	defaultfft=0
+	defaultcycle=2
+elif [ $progname = "nwnsi" ]; then
+	defaultfft=0
+	defaultcycle=2
+	defaultiterate=2
+fi
+model=$defaultmodel
+gop=$defaultgop
+aof=$defaultaof
+cycle=$defaultcycle
+iterate=$defaultiterate
+fft=$defaultfft
+rough=$defaultrough
+distance=$defaultdistance
+LGOP="-6.00"
+LEXP="-0.000"
+lgop="-2.00"
+lexp="-0.100"
+laof="0.100"
+seqtype="  "
+param_it=" -x "
+weighti="2.7"
+quiet=0
+sw=0
+scorecalcopt=" "
+coreout=0
+corethr="0.5"
+corewin="100"
+coreext=" "
+outputformat="pir"
+outorder="input"
+if [ $# -gt 0 ]; then
+	while [ $# -gt 1 ];
+	do
+		if [ $1 = "--clustalout" ]; then 
+			outputformat="clustal"
+		elif [ $1 = "--reorder" ]; then 
+			outorder="aligned"
+		elif [ $1 = "--rough" ]; then 
+			rough=1
+		elif [ $1 = "--noscore" ]; then
+			scorecalcopt=" -Z "
+		elif [ $1 = "--fastswpair" ]; then
+			distance="fasta"
+			sw=1
+		elif [ $1 = "--fastapair" ]; then
+			distance="fasta"
+			sw=0
+		elif [ $1 = "--suboptpair" ]; then
+			distance="subopt"
+		elif [ $1 = "--blastpair" ]; then
+			distance="blast"
+		elif [ $1 = "--globalpair" ]; then
+			distance="global"
+		elif [ $1 = "--localpair" ]; then
+			distance="local"
+		elif [ $1 = "--genafpair" ]; then
+			distance="genaf"
+		elif [ $1 = "--nuc" ]; then 
+			seqtype=" -D "
+		elif [ $1 = "--amino" ]; then 
+			seqtype=" -P "
+		elif [ $1 = "--fft" ]; then 
+			fft=1
+		elif [ $1 = "--nofft" ]; then 
+			fft=0
+		elif [ $1 = "--quiet" ]; then 
+			quiet=1
+		elif [ $1 = "--nj" ]; then 
+			param_it=" -n "
+		elif [ $1 = "--coreext" ]; then 
+			coreext=" -c "
+		elif [ $1 = "--core" ]; then 
+			coreout=1
+		elif [ $1 = "--maxiterate" ]; then 
+			shift   
+			iterate=`expr $1 - 0`
+		elif [ $1 = "--retree" ]; then 
+			shift   
+			cycle=`expr $1 - 0`          || er=1
+		elif [ $1 = "--jtt" ]; then 
+			shift   
+			model=" -j "$1
+		elif [ $1 = "--tm" ]; then 
+			shift   
+			model=" -m "$1
+		elif [ $1 = "--bl" ]; then 
+			shift   
+			model=" -b "$1
+		elif [ $1 = "--weighti" ]; then
+			shift   
+			weighti=$1
+		elif [ $1 = "--op" ]; then 
+			shift   
+			gop=$1
+		elif [ $1 = "--ep" ]; then 
+			shift   
+			aof=$1
+		elif [ $1 = "--lop" ]; then 
+			shift   
+			lgop=$1
+		elif [ $1 = "--LOP" ]; then 
+			shift   
+			LGOP=$1
+		elif [ $1 = "--lep" ]; then 
+			shift   
+			laof=$1
+		elif [ $1 = "--lexp" ]; then 
+			shift   
+			lexp=$1
+		elif [ $1 = "--LEXP" ]; then 
+			shift   
+			LEXP=$1
+		elif [ $1 = "--corethr" ]; then 
+			shift   
+			corethr=$1
+		elif [ $1 = "--corewin" ]; then 
+			shift   
+			corewin=$1
+		elif [ $1 -gt 0 -a $progname = "fftns" -o $1 -gt 0 -a $progname = "nwns" ]; then
+			cycle=`expr $1 - 0`
+		else
+			echo "Unknown option: " $1 2>&1
+			er=1;
+		fi
+		shift   
+	done;
+	if [ $fft -eq 1 ]; then
+		param_fft=" -F "
+	else
+		param_fft=" "
+	fi
+	if [ $sw -eq 1 ]; then
+		swopt=" -A "
+	else
+		swopt=" "
+	fi
+
+	if [ $distance = "fasta" ]; then
+		if [ ! $FASTA_4_MAFFT ]; then
+			FASTA_4_MAFFT=`which fasta34`
+		fi
+
+		if [ ! -x $FASTA_4_MAFFT ]; then
+			echo ""
+			echo "== Install FASTA ========================================================"
+			echo "This option requires the fasta34 program (FASTA version x.xx or higher)"
+			echo "installed in your PATH.  If you have the fasta34 program but have renamed"
+			echo "(like /usr/local/bin/myfasta), set the FASTA_4_MAFFT environment variable"
+			echo "to point your fasta34 (like setenv FASTA_4_MAFFT /usr/local/bin/myfasta)."
+			echo "========================================================================="
+			echo ""
+			exit
+		fi
+	fi
+	if [ $distance = "sixtuples" ]; then
+		localparam=" "
+	else
+		cycle=1
+		localparam=" -l "$weighti
+	fi
+
+	if [ $distance = "fasta" -a $sw -eq 0 ]; then
+		strategy="F-I"
+	elif [ $distance = "fasta" -a $sw -eq 1 ]; then
+		strategy="H-I"
+	elif [ $distance = "subopt" ]; then
+		strategy="S-I"
+	elif [ $distance = "blast" ]; then
+		strategy="B-I"
+	elif [ $distance = "global" ]; then
+		strategy="G-I"
+	elif [ $distance = "local" ]; then
+		strategy="L-I"
+	elif [ $distance = "genaf" ]; then
+		strategy="E-I"
+	elif [ $fft -eq 1 ]; then
+		strategy="FFT-"
+	else
+		strategy="NW-"
+	fi
+	strategy=$strategy"NS-"
+	if [ $iterate -gt 0 ]; then
+		strategy=$strategy"i"
+	elif [ $rough -eq 1 ]; then
+		strategy=$strategy"ROUGH"
+	else
+		strategy=$strategy$cycle
+	fi
+
+	explanation='?'
+	performance='Not tested.'
+	if [ $strategy = "F-INS-i" ]; then
+		explanation='Iterative refinement method incorporating LOCAL pairwise alignment information'
+		performance='Most accurate, but very slow'
+	elif [ $strategy = "L-INS-i" ]; then
+		explanation='Iterative refinement method incorporating LOCAL pairwise alignment information'
+		performance='Probably most accurate, very slow'
+	elif [ $strategy = "E-INS-i" ]; then
+		explanation='Iterative refinement method incorporating LOCAL pairwise alignment with generalized affine gap costs (Altshul 1998)'
+		performance='Suitable for sequences with long unalignable regions, very slow'
+	elif [ $strategy = "G-INS-i" ]; then
+		explanation='Iterative refinement method incorporating GLOBAL pairwise alignment information'
+		performance='Suitable for sequences of similar lengths, very slow'
+	elif [ $strategy = "F-INS-1" ]; then
+		explanation='Progressive method incorporating LOCAL pairwise alignment information'
+	elif [ $strategy = "L-INS-1" ]; then
+		explanation='Progressive method incorporating LOCAL pairwise alignment information'
+	elif [ $strategy = "G-INS-1" ]; then
+		explanation='Progressive method incorporating GLOBAL pairwise alignment information'
+	elif [ $strategy = "FFT-NS-i" -o $strategy = "NW-NS-i" ]; then
+		explanation='Iterative refinement method (max. '$iterate' iterations)'
+		if [ $iterate -gt 2 ]; then
+			performance='Accurate but slow'
+		else
+			performance='Standard'
+		fi
+	elif [ $strategy = "FFT-NS-2" -o $strategy = "NW-NS-2" ]; then
+		explanation='Progressive method (guide trees were built '$cycle' times.)'
+		performance='Fast but rough'
+	elif [ $strategy = "FFT-NS-1" -o $strategy = "NW-NS-1" ]; then
+		explanation='Progressive method (rough guide tree was used.)'
+		performance='Very fast but very rough'
+	fi
+
+	if [ $outputformat = "clustal" -a $outorder = "aligned" ]; then
+		outputcommand="$prefix/f2cl -c $strategy -r order  "
+	elif [ $outputformat = "clustal" -a $outorder = "input" ]; then
+		outputcommand="$prefix/f2cl -c $strategy  "
+	elif [ $outputformat = "pir" -a $outorder = "aligned" ]; then
+		outputcommand="$prefix/f2cl -f -r order "
+	else
+		outputcommand=" cat "
+	fi
+
+	TMPFILE=/tmp/`basename $0`.`whoami`.$$.`date +%y%m%d%H%M%S`
+	TMPFILE=/tmp/$progname.$$
+	umask 077
+	mkdir  $TMPFILE  || er=1
+	trap "rm -r $TMPFILE " 0
+	if [ $# -eq 1 ]; then
+		if [ -s "$1" -o "$1" = - ]; then
+			cat "$1" | tr "\r" "\n" > $TMPFILE/infile 
+		else
+			echo "Cannot open $1." 2>&1
+			er=1
+		fi
+	else
+		echo '$#'"=$#" 2>&1
+		er=1
+	fi
+	
+
+	if [ $er -eq 1 ]; then
+		echo "" 2>&1
+		echo "MAFFT" $version 2>&1
+		echo ""  2>&1
+		echo "    References: " 2>&1
+		echo "      Katoh et al., 2002, NAR 30: 3059-3066" 2>&1
+		echo "      Katoh et al., 2005, NAR 33: 511-518" 2>&1
+	    echo "      http://www.biophys.kyoto-u.ac.jp/~katoh/programs/align/mafft" 2>&1
+		echo "" 2>&1
+#		echo "Usage: `basename $0` [options] inputfile > outputfile" 2>&1
+		echo "    Options: " 2>&1
+		echo "      --globalpair :      All pairwise global alignment information is included."  2>&1
+		echo "                          default: off"  2>&1
+		echo "      --localpair :       All pairwise local alignment information is included."  2>&1
+		echo "                          default: off"  2>&1
+		echo "      --op # :            Gap opening penalty (>0). default: $defaultgop " 2>&1
+		echo "      --ep # :            Offset (>0, works like gap extension penalty). " 2>&1
+		echo "                          default: $defaultaof " 2>&1
+		echo "      --bl #, --jtt # :   Scoring matrix. default: BLOSUM62" 2>&1
+		echo "                          Alternatives are BLOSUM (--bl) 30, 45, 62, 80, " 2>&1
+		echo "                          or JTT (--jtt) # PAM. " 2>&1
+		echo "      --nuc or --amino :  Sequence type. default: auto" 2>&1
+		echo "      --retree # :        The number of tree building in progressive method " 2>&1
+		echo "                          (see the paper for detail). default: $defaultcycle " 2>&1
+		echo "      --maxiterate # :    Maximum number of iterative refinement. default: $defaultiterate " 2>&1
+		echo "      --nj :              Tree dependent iterative refinement is performed" 2>&1
+		echo "                          on an NJ tree. default: UPG tree" 2>&1
+		if [ $defaultfft -eq 1 ]; then
+			echo "      --fft or --nofft:   FFT is enabled or disabled. default: enabled" 2>&1
+		else
+			echo "      --fft or --nofft:   FFT is enabled or disabled. default: disabled" 2>&1
+		fi
+#		if [ $defaultrough -eq 1 ]; then 
+#			echo "      --rough :           Rough alignment, for >1,000 sequences. default: enabled" 2>&1
+#		else
+#			echo "      --rough :           Rough alignment, for >1,000 sequences. default: disabled" 2>&1
+#		i
+		echo "      --clustalout:       Output: clustal format (not tested). default: fasta" 2>&1
+		echo "      --reorder:          Outorder: aligned (not tested). default: input order" 2>&1
+		echo "      --quiet :           Do not report progress." 2>&1
+		echo ""  2>&1
+		echo "    Input format: fasta format" 2>&1
+		echo ""  2>&1
+		echo "    Typical usages:" 2>&1
+		echo "      % mafft --maxiterate 1000 --localpair input > output" 2>&1
+		echo "           L-INS-i (most accurate and very slow, iterative refinement" 2>&1
+		echo "           method incorporating LOCAL alignment information)" 2>&1
+		echo "" 2>&1
+		echo "      % mafft --maxiterate 1000 --globalpair input > output" 2>&1
+		echo "           G-INS-i (slightly less accurate than L-INS-i and very slow," 2>&1
+		echo "           iterative refinement method incorporating GLOBAL alignment" 2>&1
+		echo "           information, suitable for sequences of similar lengths) " 2>&1
+		echo "" 2>&1
+		echo "      % mafft --maxiterate 1000 input > output" 2>&1
+		echo "           FFT-NS-i (accurate and slow, iterative refinement method)" 2>&1
+		echo "" 2>&1
+		echo "      % mafft --retree 2 input > output (DEFAULT; same as mafft input > output)" 2>&1
+		echo "           FFT-NS-2 (rough and fast, default, progressive method)" 2>&1
+		echo "" 2>&1
+		echo "      % mafft --retree 1 input > output" 2>&1
+		echo "           FFT-NS-1 (very rough and very fast, progressive method with" 2>&1
+		echo "           a rough guide tree)" 2>&1
+		echo "" 2>&1
+		exit 1; 
+	fi
+	
+	(
+	cd $TMPFILE;
+	if [ $rough -gt 0 ]; then
+		$prefix/splitseq infile 500
+		for spfile in sp-[0-9]*[0-9]
+		do
+			echo $spfile  > /dev/tty
+			nseq=`grep -c '^[>|=]' $spfile`
+			echo $nseq  > /dev/tty
+			if [ $nseq -eq 1 ]; then
+				cp $spfile $spfile.aln
+			else
+				$prefix/sextet5 $seqtype < $spfile > /dev/null  2>&1      || exit 1
+				$prefix/tbfast $seqtype $model -f "-"$gop  -h "-"$aof  $param_fft  -Ax < $spfile  > /dev/null  2>&1 || exit 1
+				cat pre > $spfile.aln
+			fi
+		done
+		ngroup=0
+		for alfile in sp-[0-9]*[0-9].aln
+		do
+			ngroup=`expr $ngroup + 1`
+			echo $alfile > /dev/tty
+			if [ $ngroup -eq 1 ]; then
+				cp $alfile alall
+			else
+				$prefix/galn -A alall $alfile > altmp
+				mv altmp alall
+			fi
+		done
+		cat alall
+	else
+		if [ $quiet -gt 0 ]; then
+			if [ $distance = "subopt" ]; then
+				$prefix/pairlocalalign   $seqtype -b 62  -g $lexp -f $lgop  -h $laof -O $LGOP -E $LEXP -S < infile > /dev/null  2>&1      || exit 1
+				$prefix/tbfast $seqtype $model -f "-"$gop  -h "-"$aof  $param_fft $localparam   -Ax < infile   > /dev/null 2>&1 || exit 1
+			elif [ $distance = "fasta" ]; then
+				$prefix/dndfast7 $swopt < infile > /dev/null  2>&1      || exit 1
+				$prefix/tbfast $seqtype $model -f "-"$gop  -h "-"$aof  $param_fft $localparam   -Ax < infile   > /dev/null 2>&1 || exit 1
+			elif [ $distance = "blast" ]; then
+				$prefix/dndblast < infile > /dev/null  2>&1      || exit 1
+				$prefix/tbfast $seqtype $model -f "-"$gop  -h "-"$aof  $param_fft $localparam   -Ax < infile   > /dev/null 2>&1 || exit 1
+			elif [ $distance = "global" ]; then
+				$prefix/pairlocalalign   $seqtype $model -f "-"$gop  -h "-"$aof  -F < infile > /dev/null  2>&1      || exit 1
+				$prefix/tbfast $seqtype $model -f "-"$gop  -h "-"$aof  $param_fft $localparam   -Ax < infile   > /dev/null 2>&1 || exit 1
+			elif [ $distance = "local" ]; then
+				$prefix/pairlocalalign   $seqtype -b 62  -g $lexp -f $lgop  -h $laof -L < infile > /dev/null  2>&1      || exit 1
+				$prefix/tbfast $seqtype $model -f "-"$gop  -h "-"$aof  $param_fft $localparam   -Ax < infile   > /dev/null 2>&1 || exit 1
+			elif [ $distance = "genaf" ]; then
+				$prefix/pairlocalalign   $seqtype -b 62  -g $lexp -f $lgop  -h $laof -O $LGOP -E $LEXP -N < infile > /dev/null  2>&1      || exit 1
+				$prefix/tbfast $seqtype $model -f "-"$gop  -h "-"$aof  $param_fft $localparam   -Ax < infile   > /dev/null 2>&1 || exit 1
+			else
+				$prefix/disttbfast $seqtype $model -f "-"$gop  -h "-"$aof  $param_fft -Ax < infile   > pre 2>/dev/null || exit 1
+			fi
+			while [ $cycle -gt 1 ]
+			do
+				$prefix/tbfast $seqtype $model  -f "-"$gop  -h "-"$aof  $param_fft   -JAx < pre > /dev/null 2>&1 || exit 1
+				cycle=`expr $cycle - 1`
+			done
+			if [ $iterate -gt 0 ]; then
+				if [ $distance == "sixtuples" ]; then
+				    $prefix/dndpre       < pre     > /dev/null 2>&1 || exit 1
+				fi
+				$prefix/dvtditr $scorecalcopt $localparam -F -z 50 $seqtype $model -f "-"$gop -h "-"$aof -A -c -I $iterate $param_it < pre     > /dev/null 2>&1 || exit 1
+			fi
+		else
+			if [ $distance = "subopt" ]; then
+				$prefix/pairlocalalign   $seqtype -b 62  -g $lexp -f $lgop  -h $laof -O $LGOP -E $LEXP -S < infile > /dev/null  || exit 1
+				$prefix/tbfast $seqtype $model -f "-"$gop  -h "-"$aof  $param_fft $localparam   -Ax < infile   > /dev/null || exit 1
+			elif [ $distance = "fasta" ]; then
+				$prefix/dndfast7 $swopt < infile > /dev/null     || exit 1
+				$prefix/tbfast $seqtype $model -f "-"$gop  -h "-"$aof  $param_fft $localparam  -Ax < infile   > /dev/null || exit 1
+			elif [ $distance = "blast" ]; then
+				$prefix/dndblast < infile > /dev/null     || exit 1
+				$prefix/tbfast $seqtype $model -f "-"$gop  -h "-"$aof  $param_fft $localparam  -Ax < infile   > /dev/null || exit 1
+			elif [ $distance = "global" ]; then
+				$prefix/pairlocalalign   $seqtype $model -f "-"$gop  -h "-"$aof -F  < infile > /dev/null     || exit 1
+				$prefix/tbfast $seqtype $model -f "-"$gop  -h "-"$aof  $param_fft $localparam  -Ax < infile   > /dev/null || exit 1
+			elif [ $distance = "local" ]; then
+				$prefix/pairlocalalign   $seqtype -b 62  -g $lexp -f $lgop  -h $laof -L  < infile > /dev/null     || exit 1
+				$prefix/tbfast $seqtype $model -f "-"$gop  -h "-"$aof  $param_fft $localparam  -Ax < infile   > /dev/null || exit 1
+			elif [ $distance = "genaf" ]; then
+				$prefix/pairlocalalign   $seqtype -b 62  -g $lexp -f $lgop  -h $laof -O $LGOP -E $LEXP -N  < infile > /dev/null     || exit 1
+				$prefix/tbfast $seqtype $model -f "-"$gop  -h "-"$aof  $param_fft $localparam  -Ax < infile   > /dev/null || exit 1
+			else
+				$prefix/disttbfast $seqtype $model -f "-"$gop  -h "-"$aof  $param_fft  -Ax < infile   > pre || exit 1
+			fi
+			while [ $cycle -gt 1 ]
+			do
+				$prefix/tbfast $seqtype $model  -f "-"$gop  -h "-"$aof $param_fft  -JAx < pre > /dev/null || exit 1
+				cycle=`expr $cycle - 1`
+			done
+			if [ $iterate -gt 0 ]; then
+				if [ $distance = "sixtuples" ]; then
+			    	$prefix/dndpre       < pre     > /dev/null 2>&1 || exit 1
+				fi
+				$prefix/dvtditr $scorecalcopt $localparam -F -z 50 $seqtype $model -f "-"$gop -h "-"$aof -A -c -I $iterate $param_it < pre     > /dev/null || exit 1
+			fi
+		fi
+#		cat  < pre             || exit 1
+		if [ $coreout -eq 0 ]; then
+			$outputcommand < pre   || exit 1
+		else
+			$prefix/setcore -w $corewin -i $corethr $coreext < pre > pre2
+			$outputcommand < pre2 || exit 1
+		fi
+	fi
+	)
+	echo '' >/dev/tty
+	if [ $distance = "fasta" ]; then
+		echo "Pairwise alignments were computed by FASTA" >/dev/tty
+		echo "(Pearson & Lipman, 1988, PNAS 85:2444-2448)" >/dev/tty
+	fi
+	if [ $distance = "blast" ]; then
+		echo "Pairwise alignments were computed by BLAST">/dev/tty
+		echo "(Altschul et al., 1997, NAR 25:3389-3402)">/dev/tty
+	fi
+	printf "\n" >/dev/tty
+	echo 'Strategy:' >/dev/tty
+	printf ' '$strategy >/dev/tty
+	echo ' ('$performance')' >/dev/tty
+	echo ' '$explanation >/dev/tty
+	echo '' >/dev/tty
+	echo "Type '$0 --help' for other options." >/dev/tty
+	echo '' >/dev/tty
+	exit 0;
+fi
+
+prog="awk"
+
+if [ $os != "darwin" ]; then
+	echo "checking nawk"
+	tmpawk=`which nawk 2>/dev/null | awk '{print $1}'`
+	if [ -x $tmpawk ]; then
+		prog=$tmpawk
+	fi
+
+	echo "checking gawk"
+	tmpawk=`which gawk 2>/dev/null | awk '{print $1}'`
+	if [ -x $tmpawk ]; then
+		prog=$tmpawk
+	fi
+fi
+
+echo "prog="$prog
+
+umask 077
+export defaultaof
+export defaultgop
+export defaultfft
+export defaultcycle
+export defaultiterate
+(
+$prog '
+BEGIN {
+	prefix = ENVIRON["prefix"];
+	version = ENVIRON["version"];
+	myself = ENVIRON["myself"];
+	defaultgop = ENVIRON["defaultgop"]
+	defaultaof = ENVIRON["defaultaof"]
+	defaultfft = ENVIRON["defaultfft"]
+	defaultcycle = ENVIRON["defaultcycle"]
+	defaultiterate = ENVIRON["defaultiterate"]
+	while( 1 )
+	{
+		options = ""
+		printf( "\n" ) > "/dev/tty";
+		printf( "---------------------------------------------------------------------\n" )      > "/dev/tty";
+		printf( "\n" )                                                                           > "/dev/tty";
+		printf( "   MAFFT %s\n", version )                                                       > "/dev/tty";
+		printf( "\n" )                                                                           > "/dev/tty";
+		printf( "        K. Katoh, K. Misawa, K. Kuma and T. Miyata (2002)\n" )                  > "/dev/tty";
+		printf( "        Nucleic Acids Research 30: 3059-3066.\n" )                              > "/dev/tty";
+		printf( "        http://www.biophys.kyoto-u.ac.jp/~katoh/programs/align/mafft\n" )       > "/dev/tty";
+		printf( "---------------------------------------------------------------------\n" )      > "/dev/tty";
+		printf( "\n" );
+	
+		while( 1 )
+		{
+			printf( "\n" ) > "/dev/tty";
+			printf( "Input file? (fasta format)\n@ " ) > "/dev/tty";
+			res = getline < "/dev/tty";
+			close( "/dev/tty" )
+			if( res == 0 || NF == 0 )
+				continue;
+			infile0 = sprintf( "%s", $1 );
+			infile = sprintf( "%s", $1 );
+	
+			res = getline < infile;
+			close( infile );
+			if( res == -1 )
+				printf( "%s: No such file.\n\n", infile );
+			else if( res == 0 )
+				printf( "%s: Empty.\n", infile );
+			else
+			{
+				printf( "OK. infile = %s\n\n", infile );
+				break;
+			}
+		}
+		nseq = 0;
+	
+		while( 1 )
+		{
+			printf( "\n" ) > "/dev/tty";
+			printf( "Output file?\n" ) > "/dev/tty";
+			printf( "@ " ) > "/dev/tty";
+			res = getline < "/dev/tty";
+			close( "/dev/tty" );
+			if( res == 0 || NF == 0 )
+				continue;
+			else
+			{
+				outfile = sprintf( "%s", $1 );
+				printf( "OK. outfile = %s\n\n", outfile );
+				break;
+			}
+		}
+	
+	
+		while( 1 )
+		{
+			retree = defaultcycle
+			printf( "\n" );
+			printf( "Number of tree-rebuilding?\n" ) > "/dev/tty";
+			printf( "@ [%d] ", retree ) > "/dev/tty";
+			res = getline < "/dev/tty";
+			close( "/dev/tty" );
+			if( res == 0 )
+				continue;
+			else if( NF == 0 )
+				;
+			else
+				retree = 0 + $1;
+			if( retree < 1 || 10 < retree )
+				;
+			else
+			{
+				printf( "OK. %d\n\n", retree );
+				break;
+			}
+		}
+	
+		while( 1 )
+		{
+			niterate = defaultiterate;
+			printf( "\n" );
+			printf( "Maximum number of iterations?\n" ) > "/dev/tty";
+			printf( "@ [%d] ", niterate ) > "/dev/tty";
+			res = getline < "/dev/tty";
+			close( "/dev/tty" );
+			if( res == 0 )
+				continue;
+			else if( NF == 0 )
+				;
+			else
+				niterate = 0 + $1;
+			if( niterate < 0 || 1000 < niterate )
+				;
+			else
+			{
+				printf( "OK. %d\n\n", niterate );
+				break;
+			}
+		}
+
+		while( 1 )
+		{
+			fft = defaultfft;
+			printf( "\n" );
+			printf( "Use fft?\n" ) > "/dev/tty";
+			printf( "@ [%s] ", fft?"Yes":"No" ) > "/dev/tty";
+			res = getline < "/dev/tty";
+			close( "/dev/tty" );
+			if( res == 0 )
+				continue;
+			else if( NF == 0 )
+			{
+				break;
+			}
+			else if( NF == 0 || $0 ~ /^[Yy]/ )
+			{
+				fft = 1;
+				break;
+			}
+			else if( NF == 0 || $0 ~ /^[Nn]/ )
+			{
+				fft = 0;
+				break;
+			}
+		}
+		if( fft )
+		{
+				printf( "OK. FFT is enabled.\n\n" );
+				fftparam = " --fft ";
+		}
+		else
+		{
+				printf( "OK. FFT is disabled.\n\n" );
+				fftparam = " --nofft ";
+		}
+
+		while( 1 )
+		{
+			scoringmatrix = 3;
+			printf( "\n" );
+			printf( "Scoring matrix? (ignored when DNA sequence is input.)\n" ) > "/dev/tty";
+			printf( " 1. BLOSUM 30\n" ) > "/dev/tty";
+			printf( " 2. BLOSUM 45\n" ) > "/dev/tty";
+			printf( " 3. BLOSUM 62\n" ) > "/dev/tty";
+			printf( " 4. BLOSUM 80\n" ) > "/dev/tty";
+			printf( " 5. JTT 200\n" ) > "/dev/tty";
+			printf( " 6. JTT 100\n" ) > "/dev/tty";
+			printf( "@ [%d] ", scoringmatrix ) > "/dev/tty";
+			res = getline < "/dev/tty";
+			close( "/dev/tty" );
+			if( res == 0 )
+				continue;
+			else if( NF == 0 )
+				;
+			else
+				scoringmatrix = 0 + $1;
+			if( scoringmatrix < 1 || 6 < scoringmatrix )
+				;
+			else
+			{
+				break;
+			}
+		}
+		if( scoringmatrix == 1 )
+			scoringparam = " --bl 30 ";
+		else if( scoringmatrix == 2 )
+			scoringparam = " --bl 45 ";
+		else if( scoringmatrix == 3 )
+			scoringparam = " --bl 62 ";
+		else if( scoringmatrix == 4 )
+			scoringparam = " --bl 80 ";
+		else if( scoringmatrix == 5 )
+			scoringparam = " --jtt 200 ";
+		else if( scoringmatrix == 6 )
+			scoringparam = " --jtt 100 ";
+		printf( "OK. %s\n\n",scoringparam );
+	
+		while( 1 )
+		{
+			penalty = 0.0 + defaultgop;
+			offset = 0.0 + defaultaof;
+			printf( "\n" );
+			printf( "Parameters (gap opening penalty, offset)?\n", penalty, offset ) > "/dev/tty";
+			printf( "@ [%5.3f, %5.3f] ", penalty, offset ) > "/dev/tty";
+			res = getline < "/dev/tty";
+			close( "/dev/tty" );
+			if( res == 0 )
+				continue;
+			else if( NF == 2 )
+			{
+				penalty = 0.0 + $1;
+				offset = 0.0 + $2;
+			}
+			else if( NF == 0 )
+				;
+			else
+				continue;
+			if( penalty <= 0.0 || 10.0 < penalty )
+				;
+			else if( offset <= 0.0 || 10.0 < offset )
+				;
+			else
+			{
+				printf( "OK. %5.3f %5.3f\n\n", penalty, offset );
+				break;
+			}
+		}
+	
+		command = sprintf( "%s %s --retree %d --maxiterate %d %s --op %f --ep %f %s > %s", myself, fftparam, retree, niterate, scoringparam, penalty, offset, infile, outfile );
+		printf( "%s\n\n", command );
+	
+	
+		while( 1 )
+		{
+			go = 0;
+			printf( "\n" );
+			printf( "OK?\n" );
+			printf( "@ [Y] " ) > "/dev/tty";
+			res = getline < "/dev/tty";
+			close( "/dev/tty" );
+			if( res == 0 )
+				continue;
+			else if( NF == 0 || $0 ~ /^[Yy]/ )
+			{
+				go=1;
+				break;
+			}
+			else
+				break;
+		}
+		if( go ) break;
+		printf( "\n" );
+		printf( "\n" );
+	}
+	system( command );
+}
+'
+)
+exit 0;

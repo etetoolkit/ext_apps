@@ -1,0 +1,240 @@
+Only in /home/guindon/Desktop/phyml-20120412/src/: alrt.o
+Only in /home/guindon/Desktop/phyml-20120412/src/: bionj.o
+Only in /home/guindon/Desktop/phyml-20120412/src/: cl.o
+Only in /home/guindon/Desktop/phyml-20120412/src/: .deps
+Only in /home/guindon/Desktop/phyml-20120412/src/: draw.o
+Only in /home/guindon/Desktop/phyml-20120412/src/: eigen.o
+Only in /home/guindon/Desktop/phyml-20120412/src/: final_alg.iphylip
+Only in /home/guindon/Desktop/phyml-20120412/src/: final_alg.iphylip_phyml_stats.txt
+Only in /home/guindon/Desktop/phyml-20120412/src/: final_alg.iphylip_phyml_tree.txt
+Only in /home/guindon/Desktop/phyml-20120412/src/: free.o
+diff -rup ./src/help.c /home/guindon/Desktop/phyml-20120412/src/help.c
+--- ./src/help.c	2011-09-22 14:51:57.000000000 +1200
++++ /home/guindon/Desktop/phyml-20120412/src/help.c	2012-04-25 11:44:00.223996882 +1200
+@@ -96,7 +96,7 @@ void Usage()
+   PhyML_Printf("\n");
+ 
+   
+-  PhyML_Printf("%s\n\t-q (or --sequential)\n",BOLD);
++  PhyML_Printf("%s\n\t-q (or --sequential)%s\n",BOLD,FLAT);
+   PhyML_Printf("%s\t\tChanges interleaved format (default) to sequential format.\n",FLAT);
+   PhyML_Printf("\n");
+ 
+Only in /home/guindon/Desktop/phyml-20120412/src/: help.c~
+Only in /home/guindon/Desktop/phyml-20120412/src/: help.c.orig
+Only in /home/guindon/Desktop/phyml-20120412/src/: help.c.rej
+Only in /home/guindon/Desktop/phyml-20120412/src/: help.o
+Only in /home/guindon/Desktop/phyml-20120412/src/: interface.o
+diff -rup ./src/lk.c /home/guindon/Desktop/phyml-20120412/src/lk.c
+--- ./src/lk.c	2012-04-05 14:47:37.000000000 +1200
++++ /home/guindon/Desktop/phyml-20120412/src/lk.c	2012-04-26 20:31:31.206512408 +1200
+@@ -472,7 +472,7 @@ phydbl Lk_Core(t_edge *b, t_tree *tree)
+   phydbl site_lk_cat, site_lk;
+   int sum_scale_left, sum_scale_rght;
+   int fact_sum_scale;
+-  phydbl max_sum_scale;
++  phydbl max_sum_scale,min_sum_scale;
+   phydbl sum;
+   int ambiguity_check,state;
+   int catg,ns,k,l,site;
+@@ -481,11 +481,12 @@ phydbl Lk_Core(t_edge *b, t_tree *tree)
+   phydbl multiplier;
+   int exponent, piecewise_exponent;
+   phydbl tmp;
+-  phydbl logbig;
++  phydbl logbig,logsmall;
+   phydbl inv_site_lk;
+ 
+ 
+-  logbig = LOG((phydbl)BIG);
++  logbig   = LOG((phydbl)BIG);
++  logsmall = LOG((phydbl)SMALL);
+ 
+   dim1 = tree->mod->n_catg * tree->mod->ns;
+   dim2 = tree->mod->ns;
+@@ -555,7 +556,7 @@ phydbl Lk_Core(t_edge *b, t_tree *tree)
+                             b->Pij_rr[catg*dim3+k*dim2+l] *
+                             b->p_lk_left[site*dim1+catg*dim2+l];
+                         }
+-
++		      
+                       site_lk_cat +=
+                         sum *
+                         tree->mod->pi->v[k] *
+@@ -578,7 +579,7 @@ phydbl Lk_Core(t_edge *b, t_tree *tree)
+                         b->Pij_rr[catg*dim3+k*dim2+l] *
+                         b->p_lk_left[site*dim1+catg*dim2+l];
+                     }
+-
++		  
+                   site_lk_cat +=
+                     sum *
+                     tree->mod->pi->v[k] *
+@@ -588,8 +589,9 @@ phydbl Lk_Core(t_edge *b, t_tree *tree)
+ 	}
+       tree->site_lk_cat[catg] = site_lk_cat;
+     }
+-    
++
+   max_sum_scale =  (phydbl)BIG;
++  min_sum_scale =  (phydbl)SMALL;
+   For(catg,tree->mod->n_catg)
+     {
+       sum_scale_left_cat[catg] =
+@@ -606,18 +608,30 @@ phydbl Lk_Core(t_edge *b, t_tree *tree)
+ 
+       if(sum < .0)
+ 	{
+-	  PhyML_Printf("\n. sum = %G",sum);
+-	  PhyML_Printf("\n. Err in file %s at line %d\n\n",__FILE__,__LINE__);
++	  PhyML_Printf("\n== sum = %G",sum);
++	  PhyML_Printf("\n== Err in file %s at line %d\n\n",__FILE__,__LINE__);
+ 	  Warn_And_Exit("\n");
+ 	}
+ 
+       tmp = sum + (logbig - LOG(tree->site_lk_cat[catg]))/(phydbl)LOG2;
+       if(tmp < max_sum_scale) max_sum_scale = tmp; /* min of the maxs */
++
++      tmp = sum + (logsmall - LOG(tree->site_lk_cat[catg]))/(phydbl)LOG2;
++      if(tmp > min_sum_scale) min_sum_scale = tmp; /* max of the mins */
++    }
++
++  if(min_sum_scale > max_sum_scale)
++    {
++      /* PhyML_Printf("\n== Numerical precision issue alert."); */
++      /* PhyML_Printf("\n== min_sum_scale = %G max_sum_scale = %G",min_sum_scale,max_sum_scale); */
++      /* PhyML_Printf("\n== Err in file %s at line %d\n\n",__FILE__,__LINE__); */
++      /* Warn_And_Exit("\n"); */
++      min_sum_scale = max_sum_scale;
+     }
+ 
+-/*   fact_sum_scale = (int)((max_sum_scale + min_sum_scale) / 2); */
++  fact_sum_scale = (int)((max_sum_scale + min_sum_scale) / 2);
+ 
+-  fact_sum_scale = (int)(max_sum_scale / 2);
++  /* fact_sum_scale = (int)(max_sum_scale / 2); */
+ 
+   /* Apply scaling factors */
+   For(catg,tree->mod->n_catg)
+@@ -651,12 +665,13 @@ phydbl Lk_Core(t_edge *b, t_tree *tree)
+ 
+       if(isinf(site_lk_cat))
+ 	{
+-	  PhyML_Printf("\n+ site=%4d cat=%4d site_lk_cat=%G sum_scale=%d max=%G fact=%d expo=%d dbl=%G",
++	  PhyML_Printf("\n+ site=%4d cat=%4d site_lk_cat=%G sum_scale=%d max=%G min=%G fact=%d expo=%d dbl=%G",
+ 		       tree->curr_site,
+ 		       catg,
+ 		       tree->site_lk_cat[catg],
+ 		       sum_scale_left_cat[catg]+sum_scale_rght_cat[catg],
+ 		       max_sum_scale,
++		       min_sum_scale,
+ 		       fact_sum_scale,
+ 		       -(sum_scale_left_cat[catg]+sum_scale_rght_cat[catg])+fact_sum_scale,
+ 		       (double)tree->site_lk_cat[catg] * pow(2.,-(sum_scale_left_cat[catg]+sum_scale_rght_cat[catg])+fact_sum_scale));
+@@ -678,13 +693,11 @@ phydbl Lk_Core(t_edge *b, t_tree *tree)
+ 			   fact_sum_scale,
+ 			   -(sum_scale_left_cat[catg]+sum_scale_rght_cat[catg])+fact_sum_scale,
+ 			   (double)tree->site_lk_cat[catg] * pow(2.,-(sum_scale_left_cat[catg]+sum_scale_rght_cat[catg])+fact_sum_scale));
+-
++	      
+ 	      Exit("\n");
+ 	    }
+-
+ 	  site_lk_cat = .0;
+ 	}
+-
+       tree->site_lk_cat[catg] = site_lk_cat;
+     }
+ 
+@@ -694,6 +707,24 @@ phydbl Lk_Core(t_edge *b, t_tree *tree)
+       site_lk += tree->site_lk_cat[catg] * tree->mod->gamma_r_proba->v[catg];
+     }
+ 
++  if(isinf(site_lk))
++    {
++      PhyML_Printf("\n= Site = %d",site);
++      PhyML_Printf("\n= invar = %d",tree->data->invar[site]);
++      PhyML_Printf("\n= scale_left = %d scale_rght = %d",sum_scale_left,sum_scale_rght);
++      PhyML_Printf("\n= lk = %G log(lk) = %f < %G",site_lk,log_site_lk,-BIG);
++      PhyML_Printf("\n= fact_sum_scale = %d",fact_sum_scale);
++      For(catg,tree->mod->n_catg) PhyML_Printf("\n. rr=%f p=%f lk=%G expo=%d",
++					       tree->mod->gamma_rr->v[catg],
++					       tree->mod->gamma_r_proba->v[catg],
++					       tree->site_lk_cat[catg],
++					       -(sum_scale_left_cat[catg]+sum_scale_rght_cat[catg])+fact_sum_scale);
++      PhyML_Printf("\n= pinv = %G",tree->mod->pinvar->v);
++      PhyML_Printf("\n= bl mult = %G",tree->mod->br_len_multiplier->v);
++      PhyML_Printf("\n. Err in file %s at line %d",__FILE__,__LINE__);
++      Warn_And_Exit("\n");
++    }
++
+ 
+   inv_site_lk = 0.;
+   
+@@ -741,19 +772,22 @@ phydbl Lk_Core(t_edge *b, t_tree *tree)
+ 
+   log_site_lk = LOG(site_lk) - (phydbl)LOG2 * fact_sum_scale;
+ 
+-
+   For(catg,tree->mod->n_catg) tree->log_site_lk_cat[catg][site] = LOG(tree->site_lk_cat[catg]) - (phydbl)LOG2 * fact_sum_scale;
+   
+   if(isinf(log_site_lk) || isnan(log_site_lk))
+     {
+-      PhyML_Printf("\n. Site = %d",site);
+-      PhyML_Printf("\n. invar = %d",tree->data->invar[site]);
+-      PhyML_Printf("\n. scale_left = %d scale_rght = %d",sum_scale_left,sum_scale_rght);
+-      PhyML_Printf("\n. inv_site_lk = %f",inv_site_lk);
+-      PhyML_Printf("\n. Lk = %G LOG(Lk) = %f < %G",site_lk,log_site_lk,-BIG);
+-      For(catg,tree->mod->n_catg) PhyML_Printf("\n. rr=%f p=%f",tree->mod->gamma_rr->v[catg],tree->mod->gamma_r_proba->v[catg]);
+-      PhyML_Printf("\n. pinv = %G",tree->mod->pinvar->v);
+-      PhyML_Printf("\n. bl mult = %G",tree->mod->br_len_multiplier->v);
++      PhyML_Printf("\n= Site = %d",site);
++      PhyML_Printf("\n= invar = %d",tree->data->invar[site]);
++      PhyML_Printf("\n= scale_left = %d scale_rght = %d",sum_scale_left,sum_scale_rght);
++      PhyML_Printf("\n= inv_site_lk = %f",inv_site_lk);
++      PhyML_Printf("\n= lk = %G log(lk) = %f < %G",site_lk,log_site_lk,-BIG);
++      For(catg,tree->mod->n_catg) PhyML_Printf("\n. rr=%f p=%f lk=%G",
++					       tree->mod->gamma_rr->v[catg],
++					       tree->mod->gamma_r_proba->v[catg],
++					       tree->site_lk_cat[catg]);
++      PhyML_Printf("\n= pinv = %G",tree->mod->pinvar->v);
++      PhyML_Printf("\n= bl mult = %G",tree->mod->br_len_multiplier->v);
++      PhyML_Printf("\n= fact_sum_scale = %d",fact_sum_scale);
+ 
+       /* int i; */
+       /* For(i,2*tree->n_otu-3) */
+Only in /home/guindon/Desktop/phyml-20120412/src/: lk.c~
+Only in /home/guindon/Desktop/phyml-20120412/src/: lk.c.orig
+Only in /home/guindon/Desktop/phyml-20120412/src/: lk.c.rej
+Only in /home/guindon/Desktop/phyml-20120412/src/: lk.o
+Only in /home/guindon/Desktop/phyml-20120412/src/: m4.o
+Only in /home/guindon/Desktop/phyml-20120412/src/: main.o
+Only in /home/guindon/Desktop/phyml-20120412/src/: Makefile
+Only in /home/guindon/Desktop/phyml-20120412/src/: mcmc.o
+Only in /home/guindon/Desktop/phyml-20120412/src/: mg.o
+Only in /home/guindon/Desktop/phyml-20120412/src/: models.o
+Only in /home/guindon/Desktop/phyml-20120412/src/: optimiz.o
+Only in /home/guindon/Desktop/phyml-20120412/src/: pars.o
+Only in /home/guindon/Desktop/phyml-20120412/src/: phyml
+Only in /home/guindon/Desktop/phyml-20120412/src/: rates.o
+Only in /home/guindon/Desktop/phyml-20120412/src/: simu.o
+Only in /home/guindon/Desktop/phyml-20120412/src/: spr.o
+Only in /home/guindon/Desktop/phyml-20120412/src/: stats.o
+Only in /home/guindon/Desktop/phyml-20120412/src/: times.o
+Only in /home/guindon/Desktop/phyml-20120412/src/: tiporder.o
+diff -rup ./src/utilities.h /home/guindon/Desktop/phyml-20120412/src/utilities.h
+--- ./src/utilities.h	2012-04-11 11:39:02.000000000 +1200
++++ /home/guindon/Desktop/phyml-20120412/src/utilities.h	2012-04-26 17:31:24.346514047 +1200
+@@ -272,6 +272,8 @@ typedef	double phydbl;
+ /* #define P_LK_LIM_SUP 2.037035976e+90 /\* R: format(2^(+300),digits=10) *\/ */
+ #define  P_LK_LIM_INF   3.054936e-151 /* 2^-500 */
+ #define  P_LK_LIM_SUP   3.273391e+150 /* 2^500 */
++/* #define  P_LK_LIM_INF   1.499697e-241 /\* 2^-800 *\/ */
++/* #define  P_LK_LIM_SUP   6.668014e+240 /\* 2^800 *\/ */
+ 
+ 
+ /*!********************************************************/
+Only in /home/guindon/Desktop/phyml-20120412/src/: utilities.h~
+Only in /home/guindon/Desktop/phyml-20120412/src/: utilities.h.orig
+Only in /home/guindon/Desktop/phyml-20120412/src/: utilities.h.rej
+Only in /home/guindon/Desktop/phyml-20120412/src/: utilities.o

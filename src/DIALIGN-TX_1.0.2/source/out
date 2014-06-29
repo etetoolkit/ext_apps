@@ -1,0 +1,465 @@
+     This is DIALIGN-TX Version 1.0.0 - A Multiple Sequence alignment program.
+                Author: Amarendran R. Subramanian, 2004-2008 
+                 subraman@informatik.uni-tuebingen.de
+
+                    Co-Author: Volker Menrad, 2004 
+                    Co-Author: Dorothea Emig, 2004 
+                    
+                    Special Thanks to:
+                       Burkhard Morgenstern
+                       Michael Kaufmann
+                       David Mathog
+                       Numereous DIALIGN-T/X Users
+DEBUG read_scr_matrix(): Processing input file: ../conf/BLOSUM.scr
+DEBUG read_diag_prob_dist(): Processing input file: ../conf/BLOSUM.diag_prob_t10
+DEBUG: PROB DIST SIZE: 910600 bytes
+DEBUG read_seq_col(): Processing input file: ../data/BB11005.tfa
+
+Found 811 diags in 1.750000 secs
+  Total Weight: 54.95857324353809758577 with pure alignment time 54.958573 
+ Found 3 relevant multi diags
+  Total Weight: 102.66481884065112240023 with pure alignment time 142.582651 
+  Total Weight: 0.00000000000000000000 with pure alignment time 142.582651 
+  Total Weight: 53.84789347329202513492 with pure alignment time 196.430545 
+ Found 3 relevant multi diags
+  Total Weight: 171.78173244905477190514 with pure alignment time 312.326929 
+  Total Weight: 0.00000000000000000000 with pure alignment time 312.326929 
+ Found 1 relevant multi diags
+  Total Weight: 30.82704569218713430701 with pure alignment time 337.326571 
+  Total Weight: 0.00000000000000000000 with pure alignment time 337.326571 
+ Found 3 relevant multi diags
+  Total Weight: 199.38183995014051674843 with pure alignment time 466.564155 
+  Total Weight: 11.40157603395434371407 with pure alignment time 477.965731 
+  Total Weight: 47.36541123942483011433 with pure alignment time 525.331142 
+ Found 3 relevant multi diags
+  Total Weight: 136.58793217737564873460 with pure alignment time 653.311352 
+  Total Weight: 0.00000000000000000000 with pure alignment time 653.311352 
+ Found 4 relevant multi diags
+  Total Weight: 198.96674804994665919367 with pure alignment time 810.099690 
+  Total Weight: 0.00000000000000000000 with pure alignment time 810.099690 
+ Found 1 relevant multi diags
+  Total Weight: 25.64437423981609853740 with pure alignment time 835.744065 
+  Total Weight: 0.00000000000000000000 with pure alignment time 835.744065 
+ Found 1 relevant multi diags
+  Total Weight: 19.95429666766122878130 with pure alignment time 855.698361 
+  Total Weight: 36.36443074234501438013 with pure alignment time 892.062792 
+ Found 0 relevant multi diags
+  Total Weight: 13.45697880128009060741 with pure alignment time 905.519771 
+  Total Weight: 7.53463816903023442251 with pure alignment time 913.054409 
+ Found 0 relevant multi diags
+  Total Weight: 15.15436143182202854973 with pure alignment time 928.208770 
+  Total Weight: 13.61459817568341890137 with pure alignment time 941.823369 
+  Total Weight: 24.19076190763266964723 with pure alignment time 966.014130 
+  Total Weight: 895.92335111668842273502 with pure alignment time 895.923351 
+First alignment after 2.550000 secs. simple: 895.923351 guided: 966.014130
+Found 108 diags after 0.140000 secs
+  Total Weight: 115.77125101811790841566 with pure alignment time 1081.785382 
+Found 8 diags after 0.100000 secs
+  Total Weight: 3.32212386809241877472 with pure alignment time 1085.107505 
+Found 2 diags after 0.090000 secs
+  Total Weight: 0.00000000000000000000 with pure alignment time 1085.107505 
+Found 94 diags after 0.150000 secs
+  Total Weight: 109.83401081584605663011 with pure alignment time 1005.757362 
+Found 4 diags after 0.100000 secs
+  Total Weight: 0.40790885234432999740 with pure alignment time 1006.165271 
+Found 3 diags after 0.100000 secs
+  Total Weight: 0.12989196932080354641 with pure alignment time 1006.295163 
+Alignment ready!
+Final alignment simple: 1006.295163 guided: 1085.107505
+
+************************************************************
+*                Multiple Sequence Alignment               *
+*               Input sequences in aminoacids              *
+*              Alignment output in aminoacids              *
+************************************************************
+
+
+   ALIGNMENT OUTPUT:
+   -----------------
+
+      1b8g_A         1   mlsrnatssy flg------- ---------W QEY------- ----------
+      1lc5_A         1   lfntah---- ---------- ---------- ---------G GNirepatvl
+      1bw0_A         1   wdvsmsnhag lVFNPIRTVS DNAKPSp--- -------SPK PIIK------
+      1d2f_A         1   ---------- ---------- ---------- ---------- -LLP------
+      1dty_A         1   -M-------- -------TTD DLAFDERHIW HPYTSmtSPL PVyp------
+       2dkb_         1   ---------- ---------- ---------- ---------- ----------
+      2gsa_A         1   fkti------ ---------- ---------- ---------- ----------
+      1ohv_A         1   ---------- ---------- ---------- ---------- ----------
+      1b5o_A         1   mrglsrrVQ- -AMKPSATVA VNAKALELRR -----QGVD- -LVA------
+      1fg3_A         1   tV-------- -------TIT DLARENVRNL TPYQSARRlG GNgdvw----
+      1h1c_A         1   liakra---- ---------- ---------- YPYETEKRD- -KTY------
+      1jg8_A         1   midlrs---- ---------- ---------- ---------- ----------
+      1ax4_A         1   akrivepfri k--------- MVEKIRVPSR -----EERE- -AAL------
+      1ajs_A         1   apps---VF- -AEVPQAQPV LVFKLIADFR -----EDPD- -PRK------
+
+
+      1b8g_A        18   ---------- ------EKNP Yhevhntngi iq-------- ----------
+      1lc5_A        18   gispdqlLDF SANINPLGMP VSVKR----- ALID------ ------NLDC
+      1bw0_A        35   ---------- ---LSVGDPT LDknlltsaa QIKK------ ------LKEA
+      1d2f_A         4   ---------- ---FTISDMD FATAP----- CIIE------ ------ALNQ
+      1dty_A        29   ---------- ---------- ---------- ---------- ----------
+       2dkb_         1   ---------- ---------- ---------- ---------- ----------
+      2gsa_A         5   ---------- ---------- ---------- ---------- ----------
+      1ohv_A         1   -------FDY DGPLMKTEVP GPRSR----- ELMK------ ------QLNI
+      1b5o_A        36   ---------- ---LTAGEPD FDTPE----- HVKE------ ------AARR
+      1fg3_A        32   ---------- -----LNANE YPtavefq-- -------LTQ QT--------
+      1h1c_A        19   ---------- ---LALNENP FPFPE----- DLVD------ ------EVFR
+      1jg8_A         7   ---------- ---------- -DTVT----- KPTE------ ------EMRK
+      1ax4_A        29   ---------- ---KEAGYNP FLLPS----- SAVYIdlLTD SG--------
+      1ajs_A        33   ---------- ---VNLGVGA YRTDD----- CQPWVlpvvr kveqriANNS
+
+
+      1b8g_A        34   ---------- ---------- ---------- -MGLAENQLC fdlleswlak
+      1lc5_A        51   IERYPDADYF HL-------- -HQALARHHQ ---------- ----------
+      1bw0_A        60   IDSQ------ ---------- ---ECNGYFP TVGSPEARE- ----------
+      1d2f_A        24   RLMH------ ---------- ---GVFGYSr w--------- ----------
+      1dty_A        29   ---------- ---------- ---------- ---------- ----------
+       2dkb_         1   -LNDD----- ---------- ---------- ---------- ----------
+      2gsa_A         5   ---------- ---------- ---------- ---------- ----------
+      1ohv_A        27   IQNAEAVHFF cn-------- ---------- ---------- ----------
+      1b5o_A        56   ALAQ------ ---------- ---GKTKYAP PAGIPELRE- ----------
+      1fg3_A        50   LNRYPECQPK AV-------- -IENYAQYAG ---------- ----------
+      1h1c_A        39   RLNSDALRIY ydspdeelie kILSYLDTDF ---------- ----------
+      1jg8_A        19   AMAQae---- ---------- --VGDDVYGE DPTINELER- ----------
+      1ax4_A        53   TNAMSDHQWA AM-------- -ITGDEAYAG SRNYYDLKD- ----------
+      1ajs_A        65   SLNH------ ---------- ------EYLP ILGLAEFRTC asrlal----
+
+
+      1b8g_A        53   npeaaafkKN GESIFAELAL FQDYHG---- ---------- ----------
+      1lc5_A        72   ---------- ---------- ---------- ---------- ----------
+      1bw0_A        80   ---------- ---------- ---------- ---------- -------AVA
+      1d2f_A        36   --------KN DEFLAAIAHW FSTQHYtaid sqtvvygpsv iymVSELIRQ
+      1dty_A        29   ---------- ---------- ---------- ---------- ----------
+       2dkb_         5   ---------- ---------- ---------- ---------- ---------A
+      2gsa_A         5   --------KS DEIFAAaqkl mpgG------ ---------- ---VSSPVRA
+      1ohv_A        39   ---------- ---------- ---------- ---------- ----------
+      1b5o_A        76   ---------- ---------- ---------- ---------- -------ALA
+      1fg3_A        71   ---------- ---------- ---------- ---------- ----------
+      1h1c_A        69   ---------- ---------- ---------- ---------- ----------
+      1jg8_A        42   ---------- ---------- ---------- ---------- -------LAA
+      1ax4_A        83   ---------- ---------- ---------- ---------- -------KAK
+      1ajs_A        89   ---------- ---------- ---G------ ---------- ---DDSPALQ
+
+
+      1b8g_A        79   ---------- ---------- ---------- ---------- ----------
+      1lc5_A        72   ---------- ---------- ---------- ---------- ----------
+      1bw0_A        83   TWWR------ ---------- ---------- ---------- ----------
+      1d2f_A        78   WSETGE---- -------GVV IHTPAYDAFY KAIEGNQrtv m---------
+      1dty_A        29   ---------- ---------- -VVSAEGCEL ILSDGRRLVD GMSSWWAAIH
+       2dkb_         6   TFWRnarhhl vryGGTfEPM IIERAKGSFV YDADGRAILD FTSGQMSAVL
+      2gsa_A        28   FKSVGG---- -------QPI VFDRVKDAYA WDVDGNRYID YVGTWGPAIC
+      1ohv_A        39   ---------- ---------- -YEESRGNYL VDVDGNRMLD LYSQISSIPI
+      1b5o_A        79   EKFR------ ---------- ---------- ---------- ----------
+      1fg3_A        71   ---------- ---------- ---------- ---------- ----------
+      1h1c_A        69   ---------- ---------- ---------- ---------- ----------
+      1jg8_A        45   ---------- ---------- ---------- ---------- ----------
+      1ax4_A        86   ---------- ---------- ---------- ---------- ----------
+      1ajs_A        97   EKRVGGvqsl ---GGTg--- ---------- ---------- ----------
+
+
+      1b8g_A        79   ------LPAF KKAMVDFMAE IRGN------ KVTFDPNHLV LTAGAT----
+      1lc5_A        72   ---------- ---------- ---------- ---VPASWIL AGNGET----
+      1bw0_A        87   ---------- ---------- -NSfvhkeel KSTIVKDNVV LCSGGS----
+      1d2f_A       108   ---------- ---------- ---------- ------PVAL E---------
+      1dty_A        58   GYNHPQLNAA MKSQIDAMSH VMFG------ EITHAP---- ------AIEL
+       2dkb_        56   GHCHPEIVSV Igeyagkldh -LFS------ EMLSRP---- ------VVDL
+      2gsa_A        67   GHAHPEVIEA LKVAMEkgt- ---------- --SFGAPCAL E-------NV
+      1ohv_A        68   GYSHPALVKL VQqpqnv--- ---S------ TFINRPalgi lppenfVEKL
+      1b5o_A        83   ---------- ---------- -REN------ GLSVTPEETI VTVGGS----
+      1fg3_A        71   ---------- ---------- ---------- ---VKPEQVL VSRGAD----
+      1h1c_A        69   ---------- ---------- ---------- ---LSKNNVS VGNGAD----
+      1jg8_A        45   ---------- ---------- ---------- -ETFGKEAAL FVPSGT----
+      1ax4_A        86   ---------- ---------- ---------- -ELFNY---- ----------
+      1ajs_A       111   ---------A LRIGAEfl-- ---------- -----ARWYN GTNNKD----
+
+
+      1b8g_A       113   -SANETFIFC LADPGEAVLI PTPYYPGFDR DLKWRTGVE- ----------
+      1lc5_A        85   -ESIFT--VA SGLKPRRAMI VTPGFAEYGR ALA-QSGCE- ----------
+      1bw0_A       112   -HGILMAITA ICDAGDYALV PQPGFPHYET VCK-AYGIG- ----------
+      1d2f_A       113   ---------- ---------- ---------- ---------- ----------
+      1dty_A        92   CRKLVA--MT P--------- -----QPLEC VFLADSGSVA VEVAMKMALQ
+       2dkb_        89   ATRLAN--IT P--------- -----PGLDR ALLLSTGAES NEAAIRMAKL
+      2gsa_A        97   LAEMVN--DA V--------- -----PSIEM VRFVNSGTEA CMAVLRLMRA
+      1ohv_A       106   RESLLS--VA P--------- -----KGMSQ LITMACGSCS NENAFKTIFM
+      1b5o_A       102   -QALFNLFQA ILDPGDEVIV LSPYWVSYPE MVR-FAGGV- ----------
+      1fg3_A        84   -EGIELLIRA FCEPGKDAIL YCPPTY---- ---------- ----------
+      1h1c_A        82   -EIIYVXXLX F-----DRSV FFPPTY---- ---------- ----------
+      1jg8_A        60   -MGNQVSIMA HTQRGDEVIL eadsh----- ---------- --------IF
+      1ax4_A        91   ---------- ---------- --------DY IIPAHQGRGA ENILFPVLLK
+      1ajs_A       131   -TPVYV--SS PTWENHNGVF TTAGFKDirs yr-------- ----------
+
+
+      1b8g_A       151   ---------- ---------- ---------- ---------- ----------
+      1lc5_A       120   ---------- ---------- ---------- ---------- ----------
+      1bw0_A       149   ---------- ---------- ---------- ---------- ----------
+      1d2f_A       113   ---------- ---------- ---------- ---------- ----------
+      1dty_A       126   YWDAKGEAR- ---------- ---------- DRFLTFRNGY HGDTFGA---
+       2dkb_       123   VT-----GK- ---------- ---------- YEIVGFAQSW HGMTGAA---
+      2gsa_A       131   YT-----GR- ---------- ---------- DKIIKFEGCY HGha------
+      1ohv_A       140   WYRSKergqs afskeeletc minqapgcpd YSILSFMGAF HGRTMGC---
+      1b5o_A       139   ---------- ---------- ---------- ---------- ----------
+      1fg3_A       109   ---------- ---------- ---------- -------GXY SVSAETI---
+      1h1c_A       102   ---------- ---------- ---------- -------SCY RIFAKAV---
+      1jg8_A        86   WYevgamavl sgvmphp--- ---------- ---------- ----------
+      1ax4_A       113   YKQKEGKAK- ---------- ---------- Np--VFISNF HFDTTAAhve
+      1ajs_A       160   ---------- ---------- ---------- ---------- ----------
+
+
+      1b8g_A       151   ---------- ---------- ---------- ---------- -------IVP
+      1lc5_A       120   ---------- ---------- ---------- ---------- -------IRR
+      1bw0_A       149   ---------- ---------- ---------- ---------- -------MHF
+      1d2f_A       113   ---------- ---------- ---------- ---------- ----------
+      1dty_A       152   ---------- ---------- ---------- ---------- ----------
+       2dkb_       144   ---------- ---------- ---------- ---------- ----------
+      2gsa_A       149   ---------- ---------- ---------- ---------- ----------
+      1ohv_A       187   ---------- ---------- ---------- ---------- ----------
+      1b5o_A       139   ---------- ---------- ---------- ---------- -------VVE
+      1fg3_A       119   ---------- ---------- ---------- ---------- -------GVE
+      1h1c_A       112   ---------- ---------- ---------- ---------- -------GAK
+      1jg8_A       103   ---------- ---------- ---------- ---------- ----------
+      1ax4_A       140   lngckainiv tekafdsety ddwkgdfdik klkeniaqhg adnivaiVST
+      1ajs_A       160   ---------- ---------- ---------- ---------- ----------
+
+
+      1b8g_A       154   IHCTSS-NGF QIT-ETALEE AYQEAEKRNL RV-------- --KG--VL--
+      1lc5_A       123   WSLREA-DGW QLT-DAILEA LTP------- DL-------- --DC--LF--
+      1bw0_A       152   YNCRPE-NDW EADLDEIRRl KDD------- KT-------- --KL--LI--
+      1d2f_A       113   ---KQA-DGW FCD-MGKLEA VLA------- KP-------- --ECkiML--
+      1dty_A       152   ---------- ---------- ---------- ---------- ------MS--
+       2dkb_       144   ---------- ---------- ---------- ---------- ------AS--
+      2gsa_A       149   ---------- ---------- ---------- ---------- ----------
+      1ohv_A       187   ---------- ---------- ---------- ---------- ------LA--
+      1b5o_A       142   VETLPE-EGF VPDPERVRRA ITP------- RT-------- --KA--LV--
+      1fg3_A       122   CRTVPtlDNW QLD-LQGISD KLD------- GV-------- --KV--VY--
+      1h1c_A       115   FLEVP----- ---------- LTK------- DLripevnvg egDV--VF--
+      1jg8_A       103   ---VPG-KNG AMDPDDVRKA IRP------- RNihfprtsl ia-----I--
+      1ax4_A       190   VTCNSA-GGQ PVS-MSNLKE VYEIAKQHGI FVvmdsa--- ----------
+      1ajs_A       160   ---------- ---------- -YWDTEKRGL DL-------- --QG--FLsd
+
+
+      1b8g_A       188   ---------- --VTNPSNPL GTTMTRNELY LLLSFVEDKG IHLISDEIYS
+      1lc5_A       150   ---------- --LCTPNNPT GLLPERPLLQ AIADRCKSLN INLILDEAFI
+      1bw0_A       180   ---------- --VTNPSNPC GSNFSRKHVE DIVRLAEELR LPLFSDEIYA
+      1d2f_A       139   ---------- --LCSPQNPT GKVWTC---- ---------- ----------
+      1dty_A       154   ---------- --VCDPDNSM HSLWk----- ---------- ----------
+       2dkb_       146   ---------- --AT------ ---------- ---------- ----------
+      2gsa_A       149   ---------- ---------- ---------- ---------D MFLV------
+      1ohv_A       189   ---------- --TT------ ---------- ---------- ----------
+      1b5o_A       170   ---------- --VNSPNNPT GAVYPKEVLE ALARLAVEHD FYLVSDEIYE
+      1fg3_A       150   ---------- --VCSPNNPT GQLINPQDFR TLLELTRGKA I-VVADEAYI
+      1h1c_A       139   ---------- --IPNPNNPT GHVFEREEIE RILKtg---A F-VALDEAYY
+      1jg8_A       135   ---------- --ENTHNRSG GRVVPLENIK EICTIAKEHG INVHIDGARI
+      1ax4_A       225   ---------- ---------- ---------- ---------- ----------
+      1ajs_A       177   lenapefsif vlHACAHNPT GTDPTPEQWK QIASVMKRRF LFPFFDSAYQ
+
+
+      1b8g_A       226   GTAFssPSFI S-----VMEV LKDrncdens evWQ-----R ----------
+      1lc5_A       188   DFI---PHET G-----FIPA LKD------- --NP-----H ----------
+      1bw0_A       218   GMVF------ --KGKDPNAt ftsvadfett vpr------- ----------
+      1d2f_A       153   ---------- ---------- ---------- ---------- ----------
+      1dty_A       167   ---------- G-----YLPe nl-------- ---------- ----------
+       2dkb_       148   ---------- ---------- ---------- ---------- ----------
+      2gsa_A       154   ---------- ---------- ---------- ---------- ----------
+      1ohv_A       191   ---------- ---------- ---------- ---------- ----------
+      1b5o_A       208   HLLY------ --EGEhFSPG RVA------- --PE-----H ----------
+      1fg3_A       187   EFC---PQA- S-----LAGW LAE------- --YP-----H ----------
+      1h1c_A       173   EF-----HGE S-----YVDF LKK------- --YE-----N ----------
+      1jg8_A       173   fnasiasgvp ---------- VKE------- --YA-----G ----------
+      1ax4_A       225   RFC---ENAy fiKARDP--- --K------- --YK-----N atikevifdm
+      1ajs_A       227   GFAS------ --GNLEKDAW AIR------- --YfvsegfE ----------
+
+
+      1b8g_A       256   --VHVVYSLS KDLGLPGFRV GAIYSNDDMV VAA-ATKMSS FGLVSSQTQH
+      1lc5_A       206   --IWVLRSLT KFYAIPGLRL GYLVNSDDAA MArmRRQ--Q -MPWS-----
+      1bw0_A       243   ---VILGGTA XNLVVPGWRL GWLLYVDphg ng-------- ----------
+      1d2f_A       153   ---------- ---------- ---------- ---------- ----------
+      1dty_A       174   ---------- ---------- ---------- ---------- ---FAPAPQS
+       2dkb_       148   ---------- ---------- -YSAGRKGVG PAA-VGSFAI PAPFTYRPRF
+      2gsa_A       154   ---------- ---------- -----KAGSG VAT-LGLPSS PGVPKKTTAN
+      1ohv_A       191   ---------- ---------- -HSkaihkid ipsfdwp--I -APFP-----
+      1b5o_A       226   --TLTVNGAA KAFAMTGWRI GYACGPKEVI KAM-ASVSSQ -STTS-----
+      1fg3_A       204   --LAILRTLS KAFALAGLRC GFTLANEEVI NLL-XKV--I -APYP-----
+      1h1c_A       189   --LAVIRTFS KAFSLAAQRV GYVVASEKFI DAY-NRV--R -LPFN-----
+      1jg8_A       189   --YADSVMFC LSXGLCAPVG SVVVGDRDFI ERA-RKA--R ----------
+      1ax4_A       253   ykYADALTMS AKX------- ---------- ---------- ----------
+      1ajs_A       250   --LFCAQSFS KNFGLYNERV GNLTVVAKEP DSI-LRV--L -Sqmqkiv--
+
+
+      1b8g_A       303   LLSAM----- ---L------ ---------- ---------- ------SDKK
+      1lc5_A       246   -VNALAALAG EVALQDSAWQ --QATWHWLR EEGARFyqAL CQLPLLt---
+      1bw0_A       272   ---------- ---------- ---------- ---------- ----------
+      1d2f_A       153   ---------- ---------- ---------- ---------- ----------
+      1dty_A       181   R--------- ----MDGEWD --E------- ---------- ------RDMV
+       2dkb_       176   E--------- ----RNGAYD --Y------- ---------- ------LAEL
+      2gsa_A       178   TLTTP----- ---Y------ ---------- ---------- ------NDLE
+      1ohv_A       212   ---------- ---------- ----RLKYPL EEfvkenqq- EEARCLEEVE
+      1b5o_A       267   -PDTIAQWAT LEAL------ ---------- ---------- ------TNQE
+      1fg3_A       243   -LSTPVADIA AQALSPQGIv axRERVAQII AEREYLIAAL KEIPCVEQVF
+      1h1c_A       228   -VSYVSQXFA KVALDHREIF --EERTKFIV EERERXKSAL RE--------
+      1jg8_A       224   ---------- ---------- ---------- ---------- ----------
+      1ax4_A       266   ---------- ---------- ---------- ---------- ----------
+      1ajs_A       292   ---------- ---------- --RVTWSNPP AQGARIvart l---------
+
+
+      1b8g_A       313   LTKNYI--AE NHKR------ ---------- ---------- ----------
+      1lc5_A       290   ---------- ---------- ---------- ---------- ----------
+      1bw0_A       272   ---------- ---------- ---------- ----PSFLEG LKRVgmlvCG
+      1d2f_A       153   ---------- ---------- ---------- -----DELEI MADLCERHGV
+      1dty_A       193   GFARLM--AA HRHEIAAVII EPIVQGAGgm rmyhPEWLKR IRKICDREGI
+       2dkb_       188   DYAfdlidRQ SSGNLAAFIA EPILSSGGII ELPD-GYMAA LKRKCEARGM
+      2gsa_A       188   AVKALF--AE NPGEIAGVIL EPIVGNSGFI VPDA-GFLEG LREITLEHDA
+      1ohv_A       237   DLIVKY--RK KKKTVAGIIV EPIQSEGGDN HASD-DFFRK LRDISRKHGC
+      1b5o_A       284   ASRAFV--EM AREA------ ---------- ---------- ----------
+      1fg3_A       292   DSETNY--IL ARFKASSAVF KSLWDQG--- ---------- ----------
+      1h1c_A       267   ---------- ---------- ---------- ---------- --------XG
+      1jg8_A       224   ---------- ---------- ---------- ---------- ----------
+      1ax4_A       266   ---------- ---------- DPLLNIGGLV AIRDneeift l-----ARQR
+      1ajs_A       311   ---------- ---------- ---------- ---------- ----------
+
+
+      1b8g_A       325   ---------- ---------- ---------- ---------- ----------
+      1lc5_A       290   ---------- ---------- ---------- ---------- ----------
+      1bw0_A       288   p--------- ---------- ---------- ---------- ----------
+      1d2f_A       168   RVISDEIHmd mv-------- --WGe----- ---------- ----------
+      1dty_A       241   LLIADEIATG FGRTGKLFAC EHAEIAP--D ILCLG----- -KALTGGtMT
+       2dkb_       237   LLILDEAQTG VGRTGTMFAC QRDGVTP--D ILTLS----- -KTLGAG-LP
+      2gsa_A       235   LLVFDEVMTG Friayggvq- EKFGVTP--D LTTLG----- -KIIGGG-LP
+      1ohv_A       284   AFLVDEVQTG GGSTGKFWAH EHWGLDDPAD VMTFS----- -KKMMTGgff
+      1b5o_A       296   ---------- ---------- ---------- ---------- ----------
+      1fg3_A       317   ---------- ---------- ---------- ---------- ----------
+      1h1c_A       269   y--------- ---------- ---------- ---------- ----------
+      1jg8_A       224   ---------- ---------- ---------- ---------- -KMLGGG-MR
+      1ax4_A       291   CVPMEGFVTY GGLAGRDMAA MVQGLEEGTE EEYLHYRIGQ VKYLGDR-LR
+      1ajs_A       311   ---------- ---------- --------SD PELFHEWTGN VKTMADR-Il
+
+
+      1b8g_A       325   ---------- ---------- ---------- ---------- ----------
+      1lc5_A       290   ---------- ---------- ---------- ---------- ----------
+      1bw0_A       289   ---------- ---------- ---------- ----CTVVQA ALGEALLNTP
+      1d2f_A       183   ---------- ---QPHIP-- -Wsnvar--G DWALLTSGSK SFNIPALTGA
+      1dty_A       283   LSATLTTREV AETISDgeAG CFMHGPTFMG NPLACAAANA SLAILESGDW
+       2dkb_       278   LAAIVTSAAI EERAHELG-- -YLFYTTHVS DPLPAAVGLR VLDVVQRDGL
+      2gsa_A       275   VGAyggkREI MQLVAp--AG PMYQAGTLSG NPLAMTAGIK TLELLRQPGT
+      1ohv_A       328   hk-------- EEFRPNAP-- -YRIFNTWLG DPSKNLLLAE VINIIKREDL
+      1b5o_A       296   ---------- ---------- ---------- ---------- ----------
+      1fg3_A       317   ---------- ---------- ---------- ---------- ----------
+      1h1c_A       270   ---------- ---------- ---------- ---------- ----------
+      1jg8_A       232   QAGVLAAAGI i--------- ---------- ---------- -----ALTKM
+      1ax4_A       340   EAGIpiq--- ---------- ---------- ---------- ----------
+      1ajs_A       332   smrsel---- ---------- ---------- --------RA RLEALKTPGT
+
+
+      1b8g_A       325   ---------- ---------- ---------- ---------- ----------
+      1lc5_A       290   ---VYPGRAN YLLLRCER-- ---------- ---------- ----------
+      1bw0_A       305   QEHLDQIVAK ---------- ---------- ---------- ----------
+      1d2f_A       215   YGIIENSSSR DAYL------ ---------- ---------- ---------S
+      1dty_A       333   QQQVADIEVQ ---------- ---------- ---------- ----------
+       2dkb_       325   VARANVMGDR ---------- ---------- ---------- ----------
+      2gsa_A       323   YEYLDQITKR ---------- ---------- ---------- ----------
+      1ohv_A       367   LSNAAHAGKV ---------- ---------- ---------- ----------
+      1b5o_A       296   ---------- ---------- ---------- ---------- ----------
+      1fg3_A       317   ---------- ---------- ---------- ---------- ----------
+      1h1c_A       270   --RITDSRGN FVFVFXEK-- ---------- ---------- ----------
+      1jg8_A       248   VDRLKEDHEN ARFLALKL-- ---------- ---------- ----------
+      1ax4_A       347   ----YPTGGH AVFVDCKKlv pqipgdqfpa qavinalyle sgvraveigS
+      1ajs_A       350   WNHITDQIGM FSFTGLNP-- ---------- ---------- ----------
+
+
+      1b8g_A       325   ---------- ---------- ---------- ---------- ----------
+      1lc5_A       305   ---------- ---------- ---------- ---------- ----------
+      1bw0_A       315   ---------- ---------- ---------- ---------- ----------
+      1d2f_A       230   ALKGRDglss psvlaltahi aayqqgapwl dALRIYLKDN LTYIADKMna
+      1dty_A       343   ---------- ---------- ---------- ---------- ----------
+       2dkb_       335   ---------- ---------- ---------- ---------- ----------
+      2gsa_A       333   ---------- ---------- ---------- ---------- ----------
+      1ohv_A       377   ---------- ---------- ---------- ---------- ----------
+      1b5o_A       296   ---------- ---------- ---------- ---------- ----------
+      1fg3_A       317   ---------- ---------- ---------- ---------- ----------
+      1h1c_A       286   ---------- ---------- ---------- ---------- ----------
+      1jg8_A       266   ---------- ---------- ---------- ---------- ----------
+      1ax4_A       393   FLLGRDpatg eqkhadmefm rlti------ -ARRVYTNDH MDYIADALig
+      1ajs_A       368   ---------- ---------- ---------- ---------- ----------
+
+
+      1b8g_A       325   -------LKQ RQKKLVSGLQ KSGISC---- ---------- ----------
+      1lc5_A       305   ---------- ---------- ---------- ---------- ----------
+      1bw0_A       315   IEESAMYLYN HIGE------ CIGLAP---- ---------- ----------
+      1d2f_A       280   afpelnwqi- ---------- ---------- ---------- ----------
+      1dty_A       343   LREQLAP--A RDAEMVADVR VLGAI----- -------GVV ETTHPVNMAA
+       2dkb_       335   LRRGLLDLME RF-DCIGDVR GRGLL----- -------LGV Eivkdrrtke
+      2gsa_A       333   LSDGLLAIAQ ETGH------ Aacggqvsgm fgfffteGPV HNYEDAKKSD
+      1ohv_A       377   LLTGLLDLQA RYPQFISRVR GRGTFC---- ---------- ----------
+      1b5o_A       296   -------YRR RRDLLLEGLT ALGLKA---- ---------- ----------
+      1fg3_A       317   ---------- ---------- ---------- ---------- ----------
+      1h1c_A       286   ---------- ---------- ---------- ---------- ----------
+      1jg8_A       266   ---------- ---------- ---------- ---------- ----------
+      1ax4_A       436   LKEKFAT--L KGLEFEYEPP VLrhftarlk pi-------- ----------
+      1ajs_A       368   ---------- ---------- ---------- ---------- ----------
+
+
+      1b8g_A       344   ---------- ---------- ----LNGNAG LFCWVDMRHL LRSNTFEAEM
+      1lc5_A       305   ---------- ---------- ---------- ---------- --EDID----
+      1bw0_A       335   ---------- ---------- ----TMPRGA MYLMsrid-L EKYRDIKTDV
+      1d2f_A       289   ---------- ---------- ------PQST YLAWLDLRPL NIDDNA----
+      1dty_A       379   LQKF------ FVEQG----- --VWIRPFGK LIYLMPPYII LPQQLQ----
+       2dkb_       372   padglgakit recmnlglsm niVQLPGMGG VFRIAPPLTV SEDEID----
+      2gsa_A       377   LQKFsrfhrg MLEQG----- --IYLAPsqf ea-------- ----------
+      1ohv_A       403   ---------- ---------- ---------- ---------- ----------
+      1b5o_A       315   ---------- ---------- ----VRPSGA FYVLMDTSPI APDEVR----
+      1fg3_A       317   ---------- ---------- ---------- ---------- ----------
+      1h1c_A       286   ---------- ---------- ---------- ---------- --EEK-----
+      1jg8_A       266   ---------- ---------- ---------- ---------- --KEI-----
+      1ax4_A       466   ---------- ---------- ---------- ---------- ----------
+      1ajs_A       368   ---------- ---------- ---------- ---------- --KQV-----
+
+
+      1b8g_A       370   EL-----WKK IVYEVHLNIS PGSSCHCT-- --------EP GWFRVcfanl
+      1lc5_A       309   -LqrrllTQR -ILIRSCANY PGLDSRYY-- --------R- -VAIRSAAQN
+      1bw0_A       360   EF-----FEK LLEEENVQVL PGTIFHAP-- --------G- -FTRLTTTRP
+      1d2f_A       309   -L-----QKA LIEQEKVAIM PGYTYGEE-- --------GR GFVRLNAGCP
+      1dty_A       412   -R-----LTA -AVNRAVQde tf-------- ---------- ----------
+       2dkb_       418   -L-----GLS -LLGQAIEra l--------- ---------- ----------
+      2gsa_A       402   ---------- ---------- ---------- --------G- -FTSLAHT--
+      1ohv_A       403   ---------- ---------- ---------- ---------- -----SFDTP
+      1b5o_A       337   -A-----AER -LLEAGVAVV PGTDFAAF-- --------G- -HVRLSYATS
+      1fg3_A       317   ---------- -IILRDQNKQ PSLSGc---- -------LR- -ITVGTREES
+      1h1c_A       289   --------ER LLEH------ ---LRTKNVA VRSfregVR- -ITIGKREEN
+      1jg8_A       269   --------GY SVNPEDVktn mviLRTDNLK VNAhg----- ----------
+      1ax4_A       466   ---------- ---------- ---------- ---------- ----------
+      1ajs_A       371   --------EY LINQKHIYLL PSGRINMC-- --------G- -LTTKNLDYV
+
+
+      1b8g_A       405   p-------ER TLDLAMQRLK AFvg------ ---------- ----------
+      1lc5_A       345   --------ER LLA-----AL RNVL------ ---------- ----------
+      1bw0_A       393   --------VE VYREAVERIK AFCQrhaa-- ---------- ----------
+      1d2f_A       343   rsklEKGVAG LIN-----AI RAVr------ ---------- ----------
+      1dty_A       427   ---------- ---------- -FCQ------ ---------- ----------
+       2dkb_       432   ---------- ---------- ---------- ---------- ----------
+      2gsa_A       410   ----EEDIDA TLA-----AA RTVMsal--- ---------- ----------
+      1ohv_A       408   --------DE SIRNKLISIA RNKGVMLGGC GDKSIRFRPT LVFRDHHAHL
+      1b5o_A       368   --------EE NLRKALERFA Rvl------- ---------- ----------
+      1fg3_A       343   --------QR VID-----AL RAeqv----- ---------- ----------
+      1h1c_A       320   --------DX ILR-----EL evf------- ---------- ----------
+      1jg8_A       296   ---------- -----FIEAL RNSGVLANAV SDTEIRLVTH KDVSRNDIEE
+      1ax4_A       466   ---------- ---------- ---------- ---------- ----------
+      1ajs_A       401   --------AT SIHEAVTKIQ ---------- ---------- ----------
+
+
+      1b8g_A       422   ---------- ---
+      1lc5_A       356   ---------- ---
+      1bw0_A       413   ---------- ---
+      1d2f_A       362   ---------- ---
+      1dty_A       430   ---------- ---
+       2dkb_       432   ---------- ---
+      2gsa_A       428   ---------- ---
+      1ohv_A       450   FLNIFsdila df-
+      1b5o_A       383   ---------- ---
+      1fg3_A       355   ---------- ---
+      1h1c_A       330   ---------- ---
+      1jg8_A       331   ALNIFeklfr kfs
+      1ax4_A       466   ---------- ---
+      1ajs_A       413   ---------- ---
+
+
+Total time:   5.050000 secs
+Total weight: 1085.107505 

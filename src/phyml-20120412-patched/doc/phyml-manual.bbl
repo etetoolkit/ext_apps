@@ -1,0 +1,247 @@
+\begin{thebibliography}{10}
+\expandafter\ifx\csname url\endcsname\relax
+  \def\url#1{\texttt{#1}}\fi
+\expandafter\ifx\csname urlprefix\endcsname\relax\def\urlprefix{URL }\fi
+\providecommand{\bibinfo}[2]{#2}
+\providecommand{\eprint}[2][]{\url{#2}}
+
+\bibitem{guindon03}
+\bibinfo{author}{Guindon, S.} \& \bibinfo{author}{Gascuel, O.}
+\newblock \bibinfo{title}{A simple, fast and accurate algorithm to estimate
+  large phylogenies by maximum likelihood}.
+\newblock \emph{\bibinfo{journal}{Systematic Biology}}
+  \textbf{\bibinfo{volume}{52}}, \bibinfo{pages}{696--704}
+  (\bibinfo{year}{2003}).
+
+\bibitem{raxml}
+\bibinfo{author}{Stamatakis, A.}
+\newblock \bibinfo{title}{{RAxML-VI-HPC}: Maximum likelihood-based phylogenetic
+  analyses with thousands of taxa and mixed models}.
+\newblock \emph{\bibinfo{journal}{Bioinformatics}}
+  \textbf{\bibinfo{volume}{22}}, \bibinfo{pages}{2688--2690}
+  (\bibinfo{year}{2006}).
+
+\bibitem{garli}
+\bibinfo{author}{Zwickl, D.}
+\newblock \emph{\bibinfo{title}{Genetic algorithm approaches for the
+  phylogenetic analysis of large biological sequence datasets under the maximum
+  likelihood criterion}}.
+\newblock Ph.D. thesis, \bibinfo{school}{The University of Texas at Austin}
+  (\bibinfo{year}{2006}).
+
+\bibitem{jukes69}
+\bibinfo{author}{Jukes, T.} \& \bibinfo{author}{Cantor, C.}
+\newblock \bibinfo{title}{Evolution of protein molecules}.
+\newblock In \bibinfo{editor}{Munro, H.} (ed.)
+  \emph{\bibinfo{booktitle}{Mammalian Protein Metabolism}}, vol.
+  \bibinfo{volume}{III}, chap.~\bibinfo{chapter}{24}, \bibinfo{pages}{21--132}
+  (\bibinfo{publisher}{Academic Press}, \bibinfo{address}{New York},
+  \bibinfo{year}{1969}).
+
+\bibitem{kimura80}
+\bibinfo{author}{Kimura, M.}
+\newblock \bibinfo{title}{A simple method for estimating evolutionary rates of
+  base substitutions through comparative studies of nucleotide sequences}.
+\newblock \emph{\bibinfo{journal}{Journal of Molecular Evolution}}
+  \textbf{\bibinfo{volume}{16}}, \bibinfo{pages}{111--120}
+  (\bibinfo{year}{1980}).
+
+\bibitem{felsenstein81a}
+\bibinfo{author}{Felsenstein, J.}
+\newblock \bibinfo{title}{Evolutionary trees from {DNA} sequences: a maximum
+  likelihood approach}.
+\newblock \emph{\bibinfo{journal}{Journal of Molecular Evolution}}
+  \textbf{\bibinfo{volume}{17}}, \bibinfo{pages}{368--376}
+  (\bibinfo{year}{1981}).
+
+\bibitem{phylip2}
+\bibinfo{author}{Felsenstein, J.}
+\newblock \emph{\bibinfo{title}{PHYLIP ({PHYL}ogeny {I}nference {P}ackage)
+  version 3.6a2}} (\bibinfo{publisher}{Distributed by the author},
+  \bibinfo{address}{Department of Genetics, University of Washington, Seattle},
+  \bibinfo{year}{1993}).
+
+\bibitem{hasegawa85}
+\bibinfo{author}{Hasegawa, M.}, \bibinfo{author}{Kishino, H.} \&
+  \bibinfo{author}{Yano, T.}
+\newblock \bibinfo{title}{Dating of the {H}uman-{A}pe splitting by a molecular
+  clock of mitochondrial-{DNA}}.
+\newblock \emph{\bibinfo{journal}{Journal of Molecular Evolution}}
+  \textbf{\bibinfo{volume}{22}}, \bibinfo{pages}{160--174}
+  (\bibinfo{year}{1985}).
+
+\bibitem{tamura93}
+\bibinfo{author}{Tamura, K.} \& \bibinfo{author}{Nei, M.}
+\newblock \bibinfo{title}{Estimation of the number of nucleotide substitutions
+  in the control region of mitochondrial {DNA} in humans and chimpanzees}.
+\newblock \emph{\bibinfo{journal}{Molecular Biology and Evolution}}
+  \textbf{\bibinfo{volume}{10}}, \bibinfo{pages}{512--526}
+  (\bibinfo{year}{1993}).
+
+\bibitem{lanave84}
+\bibinfo{author}{Lanave, C.}, \bibinfo{author}{Preparata, G.},
+  \bibinfo{author}{Saccone, C.} \& \bibinfo{author}{Serio, G.}
+\newblock \bibinfo{title}{A new method for calculating evolutionary
+  substitution rates}.
+\newblock \emph{\bibinfo{journal}{Journal of Molecular Evolution}}
+  \textbf{\bibinfo{volume}{20}}, \bibinfo{pages}{86--93}
+  (\bibinfo{year}{1984}).
+
+\bibitem{tavare86}
+\bibinfo{author}{Tavar\'e, S.}
+\newblock \bibinfo{title}{Some probabilistic and statistical problems on the
+  analysis of {DNA} sequences}.
+\newblock \emph{\bibinfo{journal}{Lectures on Mathematics in the Life
+  Sciences}} \textbf{\bibinfo{volume}{17}}, \bibinfo{pages}{57--86}
+  (\bibinfo{year}{1986}).
+
+\bibitem{le08}
+\bibinfo{author}{Le, S.} \& \bibinfo{author}{Gascuel, O.}
+\newblock \bibinfo{title}{An improved general amino-acid replacement matrix}.
+\newblock \emph{\bibinfo{journal}{Mol. Biol. Evol.}}
+  \textbf{\bibinfo{volume}{25}}, \bibinfo{pages}{1307--1320}
+  (\bibinfo{year}{2008}).
+
+\bibitem{whelan01b}
+\bibinfo{author}{Whelan, S.} \& \bibinfo{author}{Goldman, N.}
+\newblock \bibinfo{title}{A general empirical model of protein evolution
+  derived from multiple protein families using a maximum-likelihood approach}.
+\newblock \emph{\bibinfo{journal}{Molecular Biology and Evolution}}
+  \textbf{\bibinfo{volume}{18}}, \bibinfo{pages}{691--699}
+  (\bibinfo{year}{2001}).
+
+\bibitem{dayhoff78}
+\bibinfo{author}{Dayhoff, M.}, \bibinfo{author}{Schwartz, R.} \&
+  \bibinfo{author}{Orcutt, B.}
+\newblock \bibinfo{title}{A model of evolutionary change in proteins}.
+\newblock In \bibinfo{editor}{Dayhoff, M.} (ed.)
+  \emph{\bibinfo{booktitle}{Atlas of Protein Sequence and Structure}},
+  vol.~\bibinfo{volume}{5}, \bibinfo{pages}{345--352}
+  (\bibinfo{publisher}{National Biomedical Research Foundation},
+  \bibinfo{address}{Washington, D. C.}, \bibinfo{year}{1978}).
+
+\bibitem{jones92}
+\bibinfo{author}{Jones, D.}, \bibinfo{author}{Taylor, W.} \&
+  \bibinfo{author}{Thornton, J.}
+\newblock \bibinfo{title}{The rapid generation of mutation data matrices from
+  protein sequences}.
+\newblock \emph{\bibinfo{journal}{Computer Applications in the Biosciences
+  (CABIOS)}} \textbf{\bibinfo{volume}{8}}, \bibinfo{pages}{275--282}
+  (\bibinfo{year}{1992}).
+
+\bibitem{henikoff92}
+\bibinfo{author}{Henikoff, S.} \& \bibinfo{author}{Henikoff, J.}
+\newblock \bibinfo{title}{Amino acid substitution matrices from protein
+  blocks.}
+\newblock \emph{\bibinfo{journal}{Proceedings of the National Academy of
+  Sciences of the United States of America (PNAS)}}
+  \textbf{\bibinfo{volume}{89}}, \bibinfo{pages}{10915--10919}
+  (\bibinfo{year}{1992}).
+
+\bibitem{adachi96}
+\bibinfo{author}{Adachi, J.} \& \bibinfo{author}{Hasegawa, M.}
+\newblock \bibinfo{title}{{MOLPHY} version 2.3. programs for molecular
+  phylogenetics based on maximum likelihood}.
+\newblock In \bibinfo{editor}{Ishiguro, M.} \emph{et~al.} (eds.)
+  \emph{\bibinfo{booktitle}{Computer Science Monographs}}, \bibinfo{number}{28}
+  (\bibinfo{publisher}{The Institute of Statistical Mathematics},
+  \bibinfo{address}{Tokyo}, \bibinfo{year}{1996}).
+
+\bibitem{dimmic02}
+\bibinfo{author}{Dimmic, M.}, \bibinfo{author}{Rest, J.},
+  \bibinfo{author}{Mindell, D.} \& \bibinfo{author}{Goldstein, D.}
+\newblock \bibinfo{title}{{rtREV}: an amino acid substitution matrix for
+  inference of retrovirus and reverse transcriptase phylogeny}.
+\newblock \emph{\bibinfo{journal}{Journal of Molecular Evolution}}
+  \textbf{\bibinfo{volume}{55}}, \bibinfo{pages}{65--73}
+  (\bibinfo{year}{2002}).
+
+\bibitem{adachi00}
+\bibinfo{author}{Adachi, J.}, \bibinfo{author}{P., W.},
+  \bibinfo{author}{Martin, W.} \& \bibinfo{author}{Hasegawa, M.}
+\newblock \bibinfo{title}{Plastid genome phylogeny and a model of amino acid
+  substitution for proteins encoded by chloroplast {DNA}}.
+\newblock \emph{\bibinfo{journal}{Journal of Molecular Evolution}}
+  \textbf{\bibinfo{volume}{50}}, \bibinfo{pages}{348--358}
+  (\bibinfo{year}{2000}).
+
+\bibitem{kosiol04}
+\bibinfo{author}{Kosiol, C.} \& \bibinfo{author}{Goldman, N.}
+\newblock \bibinfo{title}{Different versions of the {D}ayhoff rate matrix}.
+\newblock \emph{\bibinfo{journal}{Molecular Biology and Evolution}}
+  \textbf{\bibinfo{volume}{22}}, \bibinfo{pages}{193--199}
+  (\bibinfo{year}{2004}).
+
+\bibitem{muller00}
+\bibinfo{author}{Muller, T.} \& \bibinfo{author}{Vingron, M.}
+\newblock \bibinfo{title}{Modeling amino acid replacement.}
+\newblock \emph{\bibinfo{journal}{Journal of Computational Biology}}
+  \textbf{\bibinfo{volume}{7}}, \bibinfo{pages}{761--776}
+  (\bibinfo{year}{2000}).
+
+\bibitem{cao98}
+\bibinfo{author}{Cao, Y.} \emph{et~al.}
+\newblock \bibinfo{title}{Conflict among individual mitochondrial proteins in
+  resolving the phylogeny of eutherian orders}.
+\newblock \emph{\bibinfo{journal}{Journal of Molecular Evolution}}
+  \textbf{\bibinfo{volume}{47}}, \bibinfo{pages}{307--322}
+  (\bibinfo{year}{1998}).
+
+\bibitem{gascuelNJ}
+\bibinfo{author}{Gascuel, O.}
+\newblock \bibinfo{title}{{BIONJ}: an improved version of the {NJ} algorithm
+  based on a simple model of sequence data}.
+\newblock \emph{\bibinfo{journal}{Molecular Biology and Evolution}}
+  \textbf{\bibinfo{volume}{14}}, \bibinfo{pages}{685--695}
+  (\bibinfo{year}{1997}).
+
+\bibitem{maddison97}
+\bibinfo{author}{Maddison, D.}, \bibinfo{author}{Swofford, D.} \&
+  \bibinfo{author}{Maddison, W.}
+\newblock \bibinfo{title}{{NEXUS}: an extensible file format for systematic
+  information}.
+\newblock \emph{\bibinfo{journal}{Systematic Biology}}
+  \textbf{\bibinfo{volume}{46}}, \bibinfo{pages}{590--621}
+  (\bibinfo{year}{1997}).
+
+\bibitem{kishino01}
+\bibinfo{author}{Kishino, H.}, \bibinfo{author}{Thorne, J.} \&
+  \bibinfo{author}{Bruno, W.}
+\newblock \bibinfo{title}{{{P}erformance of a divergence time estimation method
+  under a probabilistic model of rate evolution}}.
+\newblock \emph{\bibinfo{journal}{Molecular Biology and Evolution}}
+  \textbf{\bibinfo{volume}{18}}, \bibinfo{pages}{352--361}
+  (\bibinfo{year}{2001}).
+
+\bibitem{guindon12}
+\bibinfo{author}{Guindon, S.}
+\newblock \bibinfo{title}{From trajectories to averages: an improved
+  description of the heterogeneity of substitution rates along lineages.}
+\newblock \emph{\bibinfo{journal}{Systematic Biology}} \bibinfo{pages}{In
+  press} (\bibinfo{year}{2012}).
+
+\bibitem{posada98}
+\bibinfo{author}{Posada, D.} \& \bibinfo{author}{Crandall, K.}
+\newblock \bibinfo{title}{Modeltest: testing the model of {DNA} substitution}.
+\newblock \emph{\bibinfo{journal}{Bioinformatics}}
+  \textbf{\bibinfo{volume}{14}}, \bibinfo{pages}{817--918}
+  (\bibinfo{year}{1998}).
+
+\bibitem{abascal05}
+\bibinfo{author}{Abascal, F.}, \bibinfo{author}{Zardoya, R.} \&
+  \bibinfo{author}{Posada, D.}
+\newblock \bibinfo{title}{Prottest: selection of best-fit models of protein
+  evolution}.
+\newblock \emph{\bibinfo{journal}{Bioinformatics}}
+  \textbf{\bibinfo{volume}{21}}, \bibinfo{pages}{2104--2105}
+  (\bibinfo{year}{2005}).
+
+\bibitem{galtier04}
+\bibinfo{author}{Galtier, N.} \& \bibinfo{author}{Jean-Marie, A.}
+\newblock \bibinfo{title}{Markov-modulated {M}arkov chains and the covarion
+  process of molecular evolution}.
+\newblock \emph{\bibinfo{journal}{Journal of Computational Biology}}
+  \textbf{\bibinfo{volume}{11}}, \bibinfo{pages}{727--733}
+  (\bibinfo{year}{2004}).
+
+\end{thebibliography}

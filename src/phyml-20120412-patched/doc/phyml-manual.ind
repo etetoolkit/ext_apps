@@ -1,0 +1,135 @@
+\begin{theindex}
+
+  \item $\kappa$, \hyperpage{9}, \hyperpage{14}
+
+  \indexspace
+
+  \item BEAST, \hyperpage{29, 30}
+  \item binary characters, \hyperpage{20}
+  \item BioNJ, \hyperpage{12}
+  \item bootstrap, \hyperpage{13}
+    \subitem parallel, \hyperpage{6}, \hyperpage{17}
+
+  \indexspace
+
+  \item command-line  options
+    \subitem \x{--constraint\_file}, \hyperpage{17}
+  \item command-line options
+    \subitem \x{--aa\_rate\_file}, \hyperpage{14}
+    \subitem \x{--alpha}, \hyperpage{15}
+    \subitem \x{--bootstrap}, \hyperpage{13}
+    \subitem \x{--calibration}, \hyperpage{27}
+    \subitem \x{--chain\_len}, \hyperpage{28}
+    \subitem \x{--codpos}, \hyperpage{15}
+    \subitem \x{--constrained\_lens}, \hyperpage{17}
+    \subitem \x{--data\_type}, \hyperpage{13}
+    \subitem \x{--fastlk}, \hyperpage{29}
+    \subitem \x{--free\_rates}, \hyperpage{15}
+    \subitem \x{--inputtree}, \hyperpage{15}
+    \subitem \x{--input}, \hyperpage{13}
+    \subitem \x{--model}, \hyperpage{13}
+    \subitem \x{--multiple}, \hyperpage{13}
+    \subitem \x{--n\_rand\_starts}, \hyperpage{16}
+    \subitem \x{--nclasses}, \hyperpage{15}
+    \subitem \x{--no\_colalias}, \hyperpage{16}
+    \subitem \x{--no\_data}, \hyperpage{29}
+    \subitem \x{--no\_memory\_check}, \hyperpage{16}
+    \subitem \x{--pars}, \hyperpage{13}
+    \subitem \x{--pinv}, \hyperpage{15}
+    \subitem \x{--print\_site\_lk}, \hyperpage{16}
+    \subitem \x{--print\_trace}, \hyperpage{16}
+    \subitem \x{--quiet}, \hyperpage{17}
+    \subitem \x{--r\_seed}, \hyperpage{16}
+    \subitem \x{--rand\_start}, \hyperpage{16}
+    \subitem \x{--rate\_model}, \hyperpage{29}
+    \subitem \x{--run\_id}, \hyperpage{16}
+    \subitem \x{--sample\_freq}, \hyperpage{28}
+    \subitem \x{--search}, \hyperpage{15}
+    \subitem \x{--sequential}, \hyperpage{13}
+    \subitem \x{--ts/tv}, \hyperpage{14}
+    \subitem \x{--use\_median}, \hyperpage{15}
+    \subitem \x{-f}, \hyperpage{14}
+    \subitem \x{-o}, \hyperpage{15}
+  \item compilation, \hyperpage{5}
+
+  \indexspace
+
+  \item frequencies
+    \subitem amino-acid, \hyperpage{14}
+    \subitem nucleotide, \hyperpage{14}
+
+  \indexspace
+
+  \item gamma distribution (discrete)
+    \subitem mean vs. median, \hyperpage{10}, \hyperpage{15}
+    \subitem number of categories, \hyperpage{10}, \hyperpage{15}
+    \subitem shape parameter, \hyperpage{10}, \hyperpage{15}
+  \item GARLI, \hyperpage{5}
+
+  \indexspace
+
+  \item input tree, \hyperpage{15}
+  \item interleaved, \hyperpage{18}
+  \item invariable sites, \hyperpage{10}, \hyperpage{15}
+
+  \indexspace
+
+  \item likelihood
+    \subitem print site likelihood, \hyperpage{16}
+
+  \indexspace
+
+  \item MPI, \hyperpage{6}, \hyperpage{17}
+  \item Multidivtime, \hyperpage{29}
+  \item multiple data sets, \hyperpage{13}, \hyperpage{22}
+
+  \indexspace
+
+  \item Newick format, \hyperpage{22}
+  \item NEXUS, \hyperpage{18}
+  \item NNI, \hyperpage{15}
+
+  \indexspace
+
+  \item optimisation
+    \subitem substitution parameters, \hyperpage{15}
+    \subitem topology, \hyperpage{15}
+
+  \indexspace
+
+  \item PAML, \hyperpage{10}, \hyperpage{22}
+  \item PHYLIP, \hyperpage{10}, \hyperpage{18}
+  \item PhyTime, \hyperpage{25}
+  \item proportion of invariants, \hyperpage{10}, \hyperpage{15}
+
+  \indexspace
+
+  \item random number, \hyperpage{16}
+  \item random tree, \hyperpage{16}
+  \item RAxML, \hyperpage{5}
+  \item run ID, \hyperpage{8}, \hyperpage{16}
+
+  \indexspace
+
+  \item sequence format
+    \subitem interleaved, \hyperpage{13}
+    \subitem sequential, \hyperpage{13}
+  \item sequential, \hyperpage{18}
+  \item serial sample, \hyperpage{27}
+  \item SPR, \hyperpage{15}
+  \item stationary frequencies, \hyperpage{14}
+  \item substitution models
+    \subitem amino acids, \hyperpage{13}
+    \subitem DNA, \hyperpage{13}
+
+  \indexspace
+
+  \item time scale, \hyperpage{28}
+  \item Tracer, \hyperpage{30}
+  \item ts/tv ratio, \hyperpage{9}, \hyperpage{14}
+
+  \indexspace
+
+  \item user tree, \hyperpage{15}
+
+\end{theindex}

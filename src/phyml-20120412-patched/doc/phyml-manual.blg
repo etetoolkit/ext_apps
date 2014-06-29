@@ -1,0 +1,45 @@
+This is BibTeX, Version 0.99c (TeX Live 2009/Debian)
+The top-level auxiliary file: phyml-manual.aux
+The style file: /home/guindon/latex/biblio/nature/naturemag.bst
+Database file #1: /home/guindon/latex/biblio/ref.bib
+You've used 29 entries,
+            2348 wiz_defined-function locations,
+            1155 strings with 13276 characters,
+and the built_in function-call counts, 11790 in all, are:
+= -- 818
+> -- 264
+< -- 3
++ -- 129
+- -- 66
+* -- 1461
+:= -- 1286
+add.period$ -- 86
+call.type$ -- 29
+change.case$ -- 33
+chr.to.int$ -- 0
+cite$ -- 29
+duplicate$ -- 1062
+empty$ -- 1124
+format.name$ -- 88
+if$ -- 2417
+int.to.chr$ -- 0
+int.to.str$ -- 29
+missing$ -- 245
+newline$ -- 152
+num.names$ -- 35
+pop$ -- 182
+preamble$ -- 1
+purify$ -- 0
+quote$ -- 0
+skip$ -- 197
+stack$ -- 0
+substring$ -- 566
+swap$ -- 1068
+text.length$ -- 3
+text.prefix$ -- 0
+top$ -- 0
+type$ -- 0
+warning$ -- 0
+while$ -- 61
+width$ -- 31
+write$ -- 325

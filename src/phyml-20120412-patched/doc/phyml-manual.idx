@@ -1,0 +1,96 @@
+\indexentry{RAxML|hyperpage}{5}
+\indexentry{GARLI|hyperpage}{5}
+\indexentry{bug|hyperpage}{5}
+\indexentry{compilation|hyperpage}{5}
+\indexentry{MPI|hyperpage}{6}
+\indexentry{bootstrap!parallel|hyperpage}{6}
+\indexentry{run ID|hyperpage}{8}
+\indexentry{$\kappa$|hyperpage}{10}
+\indexentry{ts/tv ratio|hyperpage}{10}
+\indexentry{PAML|hyperpage}{10}
+\indexentry{PHYLIP|hyperpage}{10}
+\indexentry{invariable sites|hyperpage}{10}
+\indexentry{proportion of invariants|hyperpage}{10}
+\indexentry{gamma distribution (discrete)!mean vs. median|hyperpage}{10}
+\indexentry{gamma distribution (discrete)!number of categories|hyperpage}{10}
+\indexentry{gamma distribution (discrete)!shape parameter|hyperpage}{10}
+\indexentry{BioNJ|hyperpage}{12}
+\indexentry{command-line options!\x{--input}|hyperpage}{13}
+\indexentry{command-line options!\x{--data\_type}|hyperpage}{13}
+\indexentry{sequence format!interleaved|hyperpage}{13}
+\indexentry{sequence format!sequential|hyperpage}{13}
+\indexentry{command-line options!\x{--sequential}|hyperpage}{13}
+\indexentry{multiple data sets|hyperpage}{13}
+\indexentry{command-line options!\x{--multiple}|hyperpage}{13}
+\indexentry{command-line options!\x{--pars}|hyperpage}{13}
+\indexentry{bootstrap|hyperpage}{13}
+\indexentry{command-line options!\x{--bootstrap}|hyperpage}{13}
+\indexentry{substitution models!DNA|hyperpage}{13}
+\indexentry{substitution models!amino acids|hyperpage}{13}
+\indexentry{command-line options!\x{--model}|hyperpage}{13}
+\indexentry{command-line options!\x{--aa\_rate\_file}|hyperpage}{14}
+\indexentry{frequencies!nucleotide|hyperpage}{14}
+\indexentry{frequencies!amino-acid|hyperpage}{14}
+\indexentry{stationary frequencies|hyperpage}{14}
+\indexentry{command-line options!\x{-f}|hyperpage}{14}
+\indexentry{$\kappa$|hyperpage}{15}
+\indexentry{ts/tv ratio|hyperpage}{15}
+\indexentry{command-line options!\x{--ts/tv}|hyperpage}{15}
+\indexentry{proportion of invariants|hyperpage}{15}
+\indexentry{invariable sites|hyperpage}{15}
+\indexentry{command-line options!\x{--pinv}|hyperpage}{15}
+\indexentry{gamma distribution (discrete)!number of categories|hyperpage}{15}
+\indexentry{command-line options!\x{--nclasses}|hyperpage}{15}
+\indexentry{gamma distribution (discrete)!shape parameter|hyperpage}{15}
+\indexentry{command-line options!\x{--alpha}|hyperpage}{15}
+\indexentry{gamma distribution (discrete)!mean vs. median|hyperpage}{15}
+\indexentry{command-line options!\x{--use\_median}|hyperpage}{15}
+\indexentry{command-line options!\x{--free\_rates}|hyperpage}{15}
+\indexentry{command-line options!\x{--codpos}|hyperpage}{15}
+\indexentry{NNI|hyperpage}{15}
+\indexentry{SPR|hyperpage}{15}
+\indexentry{command-line options!\x{--search}|hyperpage}{15}
+\indexentry{input tree|hyperpage}{15}
+\indexentry{user tree|hyperpage}{15}
+\indexentry{command-line options!\x{--inputtree}|hyperpage}{15}
+\indexentry{optimisation!topology|hyperpage}{16}
+\indexentry{optimisation!substitution parameters|hyperpage}{16}
+\indexentry{command-line options!\x{-o}|hyperpage}{16}
+\indexentry{random tree|hyperpage}{16}
+\indexentry{command-line options!\x{--rand\_start}|hyperpage}{16}
+\indexentry{command-line options!\x{--n\_rand\_starts}|hyperpage}{16}
+\indexentry{random number|hyperpage}{16}
+\indexentry{command-line options!\x{--r\_seed}|hyperpage}{16}
+\indexentry{likelihood!print site likelihood|hyperpage}{16}
+\indexentry{command-line options!\x{--print\_site\_lk}|hyperpage}{16}
+\indexentry{command-line options!\x{--print\_trace}|hyperpage}{16}
+\indexentry{run ID|hyperpage}{16}
+\indexentry{command-line options!\x{--run\_id}|hyperpage}{16}
+\indexentry{command-line options!\x{--no\_memory\_check}|hyperpage}{16}
+\indexentry{command-line options!\x{--no\_colalias}|hyperpage}{17}
+\indexentry{command-line options!\x{--constrained\_lens}|hyperpage}{17}
+\indexentry{command-line  options!\x{--constraint\_file}|hyperpage}{17}
+\indexentry{command-line options!\x{--quiet}|hyperpage}{17}
+\indexentry{MPI|hyperpage}{17}
+\indexentry{bootstrap!parallel|hyperpage}{17}
+\indexentry{PHYLIP|hyperpage}{18}
+\indexentry{NEXUS|hyperpage}{18}
+\indexentry{sequential|hyperpage}{18}
+\indexentry{interleaved|hyperpage}{18}
+\indexentry{binary characters|hyperpage}{20}
+\indexentry{Newick format|hyperpage}{22}
+\indexentry{multiple data sets|hyperpage}{22}
+\indexentry{PAML|hyperpage}{23}
+\indexentry{PhyTime|hyperpage}{26}
+\indexentry{serial sample|hyperpage}{27}
+\indexentry{command-line options!\x{--calibration}|hyperpage}{27}
+\indexentry{time scale|hyperpage}{28}
+\indexentry{command-line options!\x{--chain\_len}|hyperpage}{29}
+\indexentry{command-line options!\x{--sample\_freq}|hyperpage}{29}
+\indexentry{command-line options!\x{--fastlk}|hyperpage}{29}
+\indexentry{command-line options!\x{--no\_data}|hyperpage}{29}
+\indexentry{command-line options!\x{--rate\_model}|hyperpage}{29}
+\indexentry{Multidivtime|hyperpage}{29}
+\indexentry{BEAST|hyperpage}{29}
+\indexentry{Tracer|hyperpage}{30}
+\indexentry{BEAST|hyperpage}{30}

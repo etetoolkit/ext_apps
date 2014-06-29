@@ -1,0 +1,151 @@
+     This is DIALIGN-T Version 0.1 - A MUltiple SEQuence alignment program.
+                Author: Amarendran R. Subramanian, 2003 
+                 subraman@informatik.uni-tuebingen.de
+
+DEBUG read_scr_matrix(): Processing input file: ../conf/BLOSUM.scr
+DEBUG read_diag_prob_dist(): Processing input file: ../conf/BLOSUM.diag_prob_t10
+DEBUG: PROB DIST SIZE: 910600 bytes
+DEBUG read_seq_col(): Processing input file: ../data/rand3
+
+Found 13 diags in 0.220000 secs
+ Total Weight: 10.26685518176556044523  with pure alignment time 0.010000 
+First alignment after 0.010000 secs
+Found 1 diags after 0.010000 secs
+ Total Weight: 0.00008128334568644221  with pure alignment time 0.000000 
+Found 0 diags after 0.000000 secs
+Alignment ready!
+
+   ALIGNMENT OUTPUT:
+   -----------------
+
+       seq1          1   ---------- ---------- ---------- ---------- ----------
+       seq2          1   ---------- ---------R EFWWMWglyg ygeyqatckt gnim------
+       seq3          1   csctvfhkpk invaarddsR GFSMMWdgqw nqhsgdvggl ligwpyshvq
+
+
+       seq1          1   ---------- ---------- ---------- ---------- ----------
+       seq2         26   ---------- ---------- ---------- ---------- ----------
+       seq3         51   pgyiklafta hmhaahagwf dinhqiandy vqfgrqdsvt kwvrgvklhn
+
+
+       seq1          1   ---------- ---------- ---------- ---------- ----------
+       seq2         26   ---------- ---------- ---------K ELAMKCVVQC QPRRGLRRrp
+       seq3        101   kngtntpnyi mvkawprtqk sihttwvnsK PLNLSTIAPC ESQFMVREyf
+
+
+       seq1          1   ---------- ---------- ---------- ---------- ----------
+       seq2         47   kdawamgtgv ghlyptageI KTHCDRMQGH IAMDDVapch rgimwiyekm
+       seq3        151   aclvcntydy hidwnatlvI KTHGPHYKQI RAMQDVhiyp petyyiphfk
+
+
+       seq1          1   ---------- ---------- ---------- ---------- ----------
+       seq2         97   ieeqgqqkyk nsfiaysiSM TKGHHIRETV KYYQSFQYGL VNGYCSRNWP
+       seq3        201   hh-------- --------NM IKCQSLHDWV KMEYEFMWQH DTEGCVLHYM
+
+
+       seq1          1   ---------- ---------- ---------- ---------- ----------
+       seq2        147   EKEKKNRHmv ---------- ---------- ----VYSGYY HLmppvcqil
+       seq3        235   AYQCFCRHya diipiqgifp vgnvdpvepm cwsqAYWGFY EMaanhfang
+
+
+       seq1          1   ---------- ---------- ---------- ---------- ----------
+       seq2        173   dalwelmlet cvievpervn icggdfdayt eeqanikhHC DRWHY-----
+       seq3        285   c--------- ---------- ---------- --------HC SEWMYkyvps
+
+
+       seq1          1   ---------- ---------- ---------- ---------- ----------
+       seq2        218   ---------- ---------- ---------- ---------- ----------
+       seq3        298   ekraqnmqqs yhepcwmtpq ydhkclvdmi fftpithhms mcksecnlqi
+
+
+       seq1          1   ---------- ---------- ---------- ---------- ----------
+       seq2        218   ---------- --CAEVYigv fkv------- ---------- ----------
+       seq3        348   hhdyyldpgn pdCADIFyyq imhdqyrdsc lhdysywwnt hlrfaknpfc
+
+
+       seq1          1   ---------- ---------- ---------- ---------- ----------
+       seq2        229   ---------- ---------- ---------- ---------- ----------
+       seq3        398   rgwvvgsypk raffrclags fpmfafcmni tpwqwdfivp fdfghlefeq
+
+
+       seq1          1   ---------- ---------- ---------- ---------- ----------
+       seq2        229   --------RY FDCGKRWSTG LKKRDGrcfd ---------- ----------
+       seq3        448   inwyeqspRC IHCGDMMILT YNKTDGsplf ayrdpccegp aipmwmiwpq
+
+
+       seq1          1   ---HVMSERK RREKLNEMFL VLKSLLPSIH RVNKASILAE TIAYLKELap
+       seq2        251   ---HSIAERL RRERIAERIR ALQELVPTVN KTDRAAMIDE IVDYVKFL--
+       seq3        498   kppHIIAERK RREKLTQRFV ALSALVPGLK KMDKASVLGD ALKHIKYL--
+
+
+       seq1         48   vqwkhcfvfd tsmsykyrsf frshisnirk ivaqitvslr ktmseiisii
+       seq2        296   ---------- ---------- ---------- ---------- ----------
+       seq3        546   ---------- ---------- ---------- ---------- ----------
+
+
+       seq1         98   gehfitschn ahrsqfrpsw qqkdqkatdm aydmstcqqh hicnqilefh
+       seq2        296   ---------- ---------- ---------- ---------- ----------
+       seq3        546   ---------- ---------- ---------- ---------- ----------
+
+
+       seq1        148   ikyrrrncgf qyfvfangpd vqlvqcfakl esvqkgptmw sccwedvvvt
+       seq2        296   ---------- ---------- ---------- ---------- ----------
+       seq3        546   ---------- ---------- ---------- ---------- ----------
+
+
+       seq1        198   qtdfvcyisy mwdracvhwm rptkrlcdch lqhcfypeas tgpslwqhgd
+       seq2        296   ---------- ---------- ---------- ---------- ----------
+       seq3        546   ---------- ---------- ---------- ---------- ----------
+
+
+       seq1        248   gsavvwwktl dcawswgcni idsmkeprsk gwvdrevmyg swsnlggitr
+       seq2        296   ---------- ---------- ---------- ---------- ----------
+       seq3        546   ---------- ---------- ---------- ---------- ----------
+
+
+       seq1        298   cmfwwhpwrq imnvkrrkka pmftvqkhgp gmrnewtekr rnmggrcpvt
+       seq2        296   ---------- ---------- ---------- ---------- ----------
+       seq3        546   ---------- ---------- ---------- ---------- ----------
+
+
+       seq1        348   wskekkhans dcppvqycmf vqcrnrrqig wmnnnyacec irwapckmnl
+       seq2        296   ---------- ---------- ---------- ---------- ----------
+       seq3        546   ---------- ---------- ---------- ---------- ----------
+
+
+       seq1        398   hryvtngyla sfssylfvly hnqaqfwple wvgfgaeail iicgkcvtrh
+       seq2        296   ---------- ---------- ---------- ---------- ----------
+       seq3        546   ---------- ---------- ---------- ---------- ----------
+
+
+       seq1        448   nacqapvmny fhcnyteddq tvhdcisgha kthmfkamCL RYLPSMHMEH
+       seq2        296   ---------- ---------- ---------- --------CS LTNPQMHDFW
+       seq3        546   ---------- ---------- ---------- ---------- ----------
+
+
+       seq1        498   HWNPAYPDCp hfgnfcyavh skklfavwgr tp-------- ----------
+       seq2        308   QWSQLFIKCs vegawiphsf iqeiitkpqv emepnnyyfy nmaeppfifv
+       seq3        546   ---------- ---------- ---------- ---------- ----------
+
+
+       seq1        530   ---------- ---------- ---GLIVWPD QYWKFWNIN- ----------
+       seq2        358   ryvpfriisy vvadtvpfem gqyGCWCWIY YYPQSWHLDi hmwdwyvgyp
+       seq3        546   ---------- ---------- ---------- ---------- ----------
+
+
+       seq1        546   ---------- ---------- ---------- ---------- ----------
+       seq2        408   rhqkcvsnaq iftlvtrhfq dlvskgtalk dnlwpmktny sidhtmtmkm
+       seq3        546   ---------- ---------- ---------- ---------- ----------
+
+
+       seq1        546   ---------- ---------- ---------- ---------- ----------
+       seq2        458   veklivvnpi iyemqtiaaf aetvihpnft pfiseciqig ftphprwvhe
+       seq3        546   ---------- ---------- ---------- ---------- ----------
+
+
+       seq1        546   ---------- ---------- ---------- --------
+       seq2        508   ptptenvifs slrwtpsraa nsdqnkkmmv lmnvfgrk
+       seq3        546   ---------- ---------- ---------- --------
+
+
+Total time: 0.250000 secs
