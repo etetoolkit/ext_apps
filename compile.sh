@@ -54,7 +54,7 @@ if [ $TARGET == "tcoffee" ] || [ $TARGET == "all" ]; then
 #cd $BASEDIR
     
 #TCOFFEE 10
-    cd t_coffee_10.00.r1613
+    cd T-COFFEE_distribution_Version_10.00.r1613
     ./install t_coffee m_coffee -plugins=../../bin/ -dis=../../bin/ -exec=../../bin/ 
     ./install clean
     cd $BASEDIR
