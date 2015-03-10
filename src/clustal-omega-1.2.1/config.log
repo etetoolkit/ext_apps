@@ -27,6 +27,7 @@ uname -v = #36-Ubuntu SMP Tue Apr 10 20:39:51 UTC 2012
 /usr/bin/oslevel       = unknown
 /bin/universe          = unknown
 
+PATH: /home/vagrant/testete/bin
 PATH: /home/vagrant/bin
 PATH: /soft/apps/lmod/lmod/libexec
 PATH: /usr/local/sbin
@@ -1078,7 +1079,7 @@ configure:16670: $? = 0
 configure:16670: result: yes
 configure:16670: checking for ntons
 configure:16670: gcc -o conftest -g -O2   conftest.c -largtable2 -lm  >&5
-/tmp/ccg2JeqU.o: In function `main':
+/tmp/ccvpaIAj.o: In function `main':
 /Users/jhc/_Devel/ext_apps/src/clustal-omega-1.2.1/conftest.c:85: undefined reference to `ntons'
 collect2: ld returned 1 exit status
 configure:16670: $? = 1
@@ -1174,7 +1175,7 @@ configure: failed program was:
 configure:16670: result: no
 configure:16670: checking for ntonl
 configure:16670: gcc -o conftest -g -O2   conftest.c -largtable2 -lm  >&5
-/tmp/ccBV5spN.o: In function `main':
+/tmp/ccgGSWop.o: In function `main':
 /Users/jhc/_Devel/ext_apps/src/clustal-omega-1.2.1/conftest.c:85: undefined reference to `ntonl'
 collect2: ld returned 1 exit status
 configure:16670: $? = 1
@@ -1294,7 +1295,7 @@ configure:16788: $? = 0
 configure:16802: result: 8
 configure:16816: checking for stroul
 configure:16816: gcc -o conftest -g -O2   conftest.c -largtable2 -lm  >&5
-/tmp/ccDavbKh.o: In function `main':
+/tmp/cc9gujzW.o: In function `main':
 /Users/jhc/_Devel/ext_apps/src/clustal-omega-1.2.1/conftest.c:89: undefined reference to `stroul'
 collect2: ld returned 1 exit status
 configure:16816: $? = 1
@@ -1414,7 +1415,7 @@ configure:16840: $? = 0
 configure:16840: result: yes
 configure:16852: checking for ftell64
 configure:16852: gcc -o conftest -g -O2   conftest.c -largtable2 -lm  >&5
-/tmp/ccmqLByO.o: In function `main':
+/tmp/cc9s7Zdm.o: In function `main':
 /Users/jhc/_Devel/ext_apps/src/clustal-omega-1.2.1/conftest.c:94: undefined reference to `ftell64'
 collect2: ld returned 1 exit status
 configure:16852: $? = 1
@@ -1519,7 +1520,7 @@ configure: failed program was:
 configure:16852: result: no
 configure:16852: checking for fseek64
 configure:16852: gcc -o conftest -g -O2   conftest.c -largtable2 -lm  >&5
-/tmp/cc3JDd3T.o: In function `main':
+/tmp/ccOsT60q.o: In function `main':
 /Users/jhc/_Devel/ext_apps/src/clustal-omega-1.2.1/conftest.c:94: undefined reference to `fseek64'
 collect2: ld returned 1 exit status
 configure:16852: $? = 1

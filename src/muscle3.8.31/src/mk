@@ -5,8 +5,9 @@ ObjNames='aligngivenpath.o aligngivenpathsw.o aligntwomsas.o aligntwoprofs.o aln
 rm -f *.o muscle.make.stdout.txt muscle.make.stderr.txt
 for CPPName in $CPPNames
 do
-  echo $CPPName >> /dev/tty
+    #echo $CPPName >> /dev/tty
   g++ $ENV_GCC_OPTS -c -O3 -msse2 -mfpmath=sse -D_FILE_OFFSET_BITS=64 -DNDEBUG=1 $CPPName.cpp -o $CPPName.o  >> muscle.make.stdout.txt 2>> muscle.make.stderr.txt
+
 done
 
 LINK_OPTS=

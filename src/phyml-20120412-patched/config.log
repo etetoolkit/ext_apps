@@ -356,7 +356,7 @@ configure:4737: $? = 0
 configure:4737: result: yes
 configure:4743: checking for _doprnt
 configure:4743: gcc -o conftest -g -O2   conftest.c -lm  >&5
-/tmp/ccmyuaC6.o: In function `main':
+/tmp/cc35IOpS.o: In function `main':
 /Users/jhc/_Devel/ext_apps/src/phyml-20120412-patched/conftest.c:69: undefined reference to `_doprnt'
 collect2: ld returned 1 exit status
 configure:4743: $? = 1

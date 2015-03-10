@@ -72,7 +72,7 @@ def compile_muscle():
     rm -f %(BINDIR)s/muscle;
     cd %(SRCDIR)s/muscle3.8.31/src/
     make clean;
-    ./mk
+    ./mk 
     cp muscle %(BINDIR)s/; 
     ls %(BINDIR)s/muscle;
     ) >%(BASE)s/muscle.log 2>&1;
@@ -150,14 +150,6 @@ def compile_consel():
     """ %CONFIG
     return os.system(cmds) == 0
 
-if __name__ == "__main__":
-    try:
-        targets = sys.argv[1:]
-    except: 
-        compile_all()
-    else: 
-        compile_all(targets)
-
 def compile_all(targets = None):
     if not targets:
         targets= ['fasttree', 'raxml', 'phyml', 'tcoffee', 'trimal', 'clustalo', 'muscle', 'dialigntx', 'mafft', 'consel']
@@ -169,3 +161,12 @@ def compile_all(targets = None):
             print >>sys.stderr, "ERROR\nCompiling %s. Check log %s/%s.log" %(name, CONFIG["BASE"], name)
         else:     
             print >>sys.stderr, "Ok"
+
+
+if __name__ == "__main__":
+    try:
+        targets = sys.argv[1:]
+    except: 
+        compile_all()
+    else: 
+        compile_all(targets)
