@@ -32,7 +32,7 @@ def compile_raxml():
     make clean;
     for makefile in Makefile.SSE3.gcc Makefile.SSE3.PTHREADS.gcc;
     do
-       cp $makefile Makefile && make -j %(CORES)s;
+       cp $makefile Makefile && rm -f *.o && make -j %(CORES)s;
     done;
     cp raxmlHPC-SSE3 raxmlHPC-PTHREADS-SSE3 %(BINDIR)s;
     ls %(BINDIR)s/raxmlHPC-SSE3 %(BINDIR)s/raxmlHPC-PTHREADS-SSE3;
