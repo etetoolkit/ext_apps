@@ -28,7 +28,7 @@ def compile_raxml():
     cmds = """(
     rm -f %(BINDIR)s/raxml*;
     cd %(SRCDIR)s;
-    cd RAxML_dev;
+    cd standard-RAxML;
     make clean;
     for makefile in Makefile.SSE3.gcc Makefile.SSE3.PTHREADS.gcc;
     do
