@@ -100,7 +100,7 @@ def compile_clustalo():
     for attempt in ['native', 'local_argtable']:
         if attempt == "local_argtable":
             print 'argtable2 library is missing. Attempting to compile a local version'
-            CONFIG["FLAGS"] = "CFLAGS='-I%(LOCALDIR)s/include' LDFLAGS='-L%(LOCALDIR)s/lib'"
+            CONFIG["FLAGS"] = "CFLAGS='-I%(LOCALDIR)s/include' LDFLAGS='-L%(LOCALDIR)s/lib'" %CONFIG
             compile_argtable2()
         else:
             CONFIG["FLAGS"] = ""
@@ -115,8 +115,11 @@ def compile_clustalo():
         ls %(BINDIR)s/clustalo;
         ) >%(BASE)s/clustalo.log 2>&1;
         """ %CONFIG
+        
         if system(cmds) == 0:
-            return True        
+            return True
+        else:
+            print cmds
     return False
 
 def compile_mafft():
