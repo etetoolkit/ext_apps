@@ -118,8 +118,7 @@ def compile_clustalo():
         
         if system(cmds) == 0:
             return True
-        else:
-            print cmds
+
     return False
 
 def compile_mafft():
