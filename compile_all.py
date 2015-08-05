@@ -3,9 +3,13 @@ import os
 from os import path
 import subprocess 
 
+DEBUG = False
+
 basedir = path.split(path.abspath(__file__))[0]
+
 CONFIG = {
     "BASE": basedir,
+    "LOCALDIR": path.join(basedir, 'local'),
     "BINDIR": path.join(basedir, 'bin'),
     "SRCDIR": path.join(basedir, 'src'),
     "CORES": 4,
@@ -22,7 +26,7 @@ def compile_fasttree():
     ls %(BINDIR)s/FastTree;
     ) > %(BASE)s/fasttree.log 2>&1;
     """ %CONFIG
-    return os.system(cmds) == 0
+    return system(cmds) == 0
 
 def compile_raxml():
     cmds = """(
@@ -39,7 +43,7 @@ def compile_raxml():
     ) >%(BASE)s/raxml.log  2>&1;
 
     """ %CONFIG
-    return os.system(cmds) == 0
+    return system(cmds) == 0
 
 def compile_phyml():
     cmds = """(
@@ -53,7 +57,7 @@ def compile_phyml():
     ls %(BINDIR)s/phyml;
     ) >%(BASE)s/phyml.log  2>&1;
     """ %CONFIG
-    return os.system(cmds) == 0
+    return system(cmds) == 0
 
 def compile_tcoffee():
     cmds = """(
@@ -65,7 +69,7 @@ def compile_tcoffee():
     ) >%(BASE)s/tcoffee.log  2>&1;
 
     """ %CONFIG
-    return os.system(cmds) == 0
+    return system(cmds) == 0
 
 def compile_muscle():
     cmds = """(
@@ -78,21 +82,42 @@ def compile_muscle():
     ) >%(BASE)s/muscle.log 2>&1;
 
     """ %CONFIG
-    return os.system(cmds) == 0
+    return system(cmds) == 0
+
+def compile_argtable2():
+    cmds = """(
+    cd %(SRCDIR)s/argtable2-13;
+    make clean;
+    ./configure --prefix %(LOCALDIR)s;
+    make -j %(CORES)s ;
+    make install;
+    ) >%(BASE)s/argtable2.log 2>&1;
+    """ %CONFIG
+    return system(cmds) == 0
+    
 
 def compile_clustalo():
-    cmds = """(
-    rm -f %(BINDIR)s/clustalo;
-    cd %(SRCDIR)s/clustal-omega-1.2.1;
-    make clean;
-    ./configure;
-    make -j %(CORES)s ;
-    cp src/clustalo %(BINDIR)s/;
-    make clean;
-    ls %(BINDIR)s/clustalo;
-    ) >%(BASE)s/clustalo.log 2>&1;
-    """ %CONFIG
-    return os.system(cmds) == 0
+    for attempt in ['native', 'local_argtable']:
+        if attempt == "local_argtable":
+            print 'argtable2 library is missing. Attempting to compile a local version'
+            CONFIG["FLAGS"] = "CFLAGS='-I%(LOCALDIR)s/include' LDFLAGS='-L%(LOCALDIR)s/lib'"
+            compile_argtable2()
+        else:
+            CONFIG["FLAGS"] = ""
+        cmds = """(
+        rm -f %(BINDIR)s/clustalo;
+        cd %(SRCDIR)s/clustal-omega-1.2.1;
+        make clean;
+        ./configure %(FLAGS)s;
+        make -j %(CORES)s ;
+        cp src/clustalo %(BINDIR)s/;
+        make clean;
+        ls %(BINDIR)s/clustalo;
+        ) >%(BASE)s/clustalo.log 2>&1;
+        """ %CONFIG
+        if system(cmds) == 0:
+            return True        
+    return False
 
 def compile_mafft():
     cmds = """(
@@ -106,7 +131,7 @@ def compile_mafft():
     ls %(BINDIR)s/mafft
     ) >%(BASE)s/mafft.log 2>&1;
     """ %CONFIG
-    return os.system(cmds) == 0
+    return system(cmds) == 0
 
 def compile_trimal():
     cmds = """(
@@ -121,7 +146,7 @@ def compile_trimal():
     ls %(BINDIR)s/readal %(BINDIR)s/trimal  %(BINDIR)s/statal;
     ) >%(BASE)s/trimal.log 2>&1;
     """ %CONFIG
-    return os.system(cmds) == 0
+    return system(cmds) == 0
 
 def compile_dialigntx():
     cmds = """(
@@ -134,7 +159,7 @@ def compile_dialigntx():
     ls %(BINDIR)s/dialign-tx;
     ) >%(BASE)s/dialigntx.log 2>&1;
     """ %CONFIG
-    return os.system(cmds) == 0
+    return system(cmds) == 0
 
 def compile_consel():
     cmds = """(
@@ -148,7 +173,7 @@ def compile_consel():
     ls %(BINDIR)s/consel;
     ) >%(BASE)s/consel.log 2>&1;
     """ %CONFIG
-    return os.system(cmds) == 0
+    return system(cmds) == 0
 
 def compile_all(targets = None):
     if not targets:
@@ -162,8 +187,15 @@ def compile_all(targets = None):
         else:     
             print >>sys.stderr, "Ok"
 
+def system(cmd):
+    if DEBUG:
+        print cmd
+    return os.system(cmd)
 
+            
 if __name__ == "__main__":
+    import platform
+    SYSTEM = platform.system()
     try:
         targets = sys.argv[1:]
     except: 
