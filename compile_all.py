@@ -177,9 +177,40 @@ def compile_consel():
     """ %CONFIG
     return system(cmds) == 0
 
+
+def compile_paml():
+    cmds = """(
+    rm %(BINDIR)s/codeml;
+    cd %(SRCDIR)s/paml4.8/src/
+    rm codeml;
+    make codeml -j %(CORES)s ;
+    cp codeml %(BINDIR)s/;
+    rm codeml;    
+    ls %(BINDIR)s/codeml;
+    ) >%(BASE)s/paml.log 2>&1;
+    """ %CONFIG
+    return system(cmds) == 0
+
+
+def compile_slr():
+    cmds = """(   
+    rm %(BINDIR)s/Slr;
+    cd %(SRCDIR)s/slr/src/
+    make clean;
+    rm ../bin/Slr;
+    make -j %(CORES)s ;
+    cp ../bin/Slr %(BINDIR)s/;
+    rm ../bin/Slr;    
+    ls %(BINDIR)s/Slr;
+    ) >%(BASE)s/slr.log 2>&1;
+    """ %CONFIG
+    return system(cmds) == 0
+
+
+
 def compile_all(targets = None):
     if not targets:
-        targets= ['fasttree', 'raxml', 'phyml', 'tcoffee', 'trimal', 'clustalo', 'muscle', 'dialigntx', 'mafft', 'consel']
+        targets= ['fasttree', 'raxml', 'phyml', 'tcoffee', 'trimal', 'clustalo', 'muscle', 'dialigntx', 'mafft', 'consel', 'paml', 'slr']
    
     fn = globals()
     for name in targets:
