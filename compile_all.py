@@ -1,3 +1,6 @@
+from __future__ import absolute_import
+from __future__ import print_function
+
 import sys
 import os
 from os import path
@@ -100,7 +103,7 @@ def compile_argtable2():
 def compile_clustalo():
     for attempt in ['native', 'local_argtable']:
         if attempt == "local_argtable":
-            print 'argtable2 library is missing. Attempting to compile a local version'
+            print('argtable2 library is missing. Attempting to compile a local version')
             CONFIG["FLAGS"] = "CFLAGS='-I%(LOCALDIR)s/include' LDFLAGS='-L%(LOCALDIR)s/lib'" %CONFIG
             compile_argtable2()
         else:
@@ -207,8 +210,6 @@ def compile_slr():
     """ %CONFIG
     return system(cmds) == 0
 
-
-
 def compile_all(targets=None, verbose=False, cores=1):
     global CONFIG
     
@@ -218,20 +219,20 @@ def compile_all(targets=None, verbose=False, cores=1):
    
     fn = globals()
     for name in targets:
-        print >>sys.stderr, 'Compiling', name, "...",
+        print('Compiling', name, "...", end="")
         if not fn.get("compile_%s"%name)():
             if verbose:
-                print >>sys.stderr, "ERROR\nCompiling %s. Check log %s/%s.log" %(name, CONFIG["BASE"], name)
+                print("ERROR\nCompiling %s. Check log %s/%s.log" %(name, CONFIG["BASE"], name))
                 logfile = open("%s/%s.log" %(CONFIG["BASE"], name)).read()
-                print >>sys.stderr, logfile
+                print(logfile)
             else:
-                print >>sys.stderr, "ERROR\nCompiling %s. Check log %s/%s.log" %(name, CONFIG["BASE"], name)
+                print("ERROR\nCompiling %s. Check log %s/%s.log" %(name, CONFIG["BASE"], name))
         else:     
-            print >>sys.stderr, "Ok"
+            print("Ok")
 
 def system(cmd):
     if DEBUG:
-        print cmd
+        print(cmd)
     return os.system(cmd)
 
 def _main():
