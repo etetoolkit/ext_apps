@@ -13,7 +13,7 @@ CONFIG = {
     "LOCALDIR": path.join(basedir, 'local'),
     "BINDIR": path.join(basedir, 'bin'),
     "SRCDIR": path.join(basedir, 'src'),
-    "CORES": 4,
+    "CORES": 1,
     }
 
 def compile_fasttree():
@@ -209,7 +209,8 @@ def compile_slr():
 
 
 
-def compile_all(targets=None, verbose=False):
+def compile_all(targets=None, verbose=False, cores=1):
+    CONFIG["cores"] = cores
     if not targets:
         targets= ['fasttree', 'raxml', 'phyml', 'tcoffee', 'trimal', 'clustalo', 'muscle', 'dialigntx', 'mafft', 'consel', 'paml', 'slr']
    
