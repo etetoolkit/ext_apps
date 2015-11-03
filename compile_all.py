@@ -210,6 +210,8 @@ def compile_slr():
 
 
 def compile_all(targets=None, verbose=False, cores=1):
+    global CONFIG
+    
     CONFIG["cores"] = cores
     if not targets:
         targets= ['fasttree', 'raxml', 'phyml', 'tcoffee', 'trimal', 'clustalo', 'muscle', 'dialigntx', 'mafft', 'consel', 'paml', 'slr']
