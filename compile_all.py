@@ -2,6 +2,7 @@ import sys
 import os
 from os import path
 import subprocess 
+from argparse import ArgumentParser
 
 DEBUG = False
 
@@ -208,7 +209,7 @@ def compile_slr():
 
 
 
-def compile_all(targets = None):
+def compile_all(targets=None):
     if not targets:
         targets= ['fasttree', 'raxml', 'phyml', 'tcoffee', 'trimal', 'clustalo', 'muscle', 'dialigntx', 'mafft', 'consel', 'paml', 'slr']
    
@@ -216,22 +217,26 @@ def compile_all(targets = None):
     for name in targets:
         print >>sys.stderr, 'Compiling', name, "...",
         if not fn.get("compile_%s"%name)():
-            print >>sys.stderr, "ERROR\nCompiling %s. Check log %s/%s.log" %(name, CONFIG["BASE"], name)
+            if ARGS.verbose:
+                print >>sys.stderr, "ERROR\nCompiling %s. Check log %s/%s.log" %(name, CONFIG["BASE"], name)
+                logfile = open("%s/%s.log" %(CONFIG["BASE"], name)).read()
+                print >>sys.stderr, logfile
+            else:
+                print >>sys.stderr, "ERROR\nCompiling %s. Check log %s/%s.log" %(name, CONFIG["BASE"], name)
         else:     
             print >>sys.stderr, "Ok"
 
 def system(cmd):
-    if DEBUG:
+    if ARGS.debug:
         print cmd
     return os.system(cmd)
 
             
 if __name__ == "__main__":
-    import platform
-    SYSTEM = platform.system()
-    try:
-        targets = sys.argv[1:]
-    except: 
-        compile_all()
-    else: 
-        compile_all(targets)
+    parser = ArgumentParser()
+    parser.add_argument("-v", dest="verbose", action="store_true")
+    parser.add_argument("--debug", dest="debug", action="store_true")
+    parser.add_argument(dest="targets", nargs="*")
+
+    ARGS = parser.parse_args()
+    compile_all(ARGS.targets)
