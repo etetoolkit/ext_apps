@@ -1,4 +1,4 @@
-#!/usr/bin/python
+#!/usr/bin/env python
 """
 14 May 2010
 
@@ -34,6 +34,9 @@ from re import sub
 import sys
 from cmath import exp
 from time import sleep
+import signal
+
+PHYML = 'phyml'
 
 def main():
     '''
@@ -58,7 +61,7 @@ def main():
                             sequential=opts.sequential)
     job_list = run_jobs(job_list, nprocs=opts.nprocs, refresh=opts.refresh)
     job_list = parse_jobs(job_list, opts.algt)
-    job_list, ord_aic = aic_calc(job_list, opts.speedy, verbose=opts.verb)
+    job_list, ord_aic, aic_table = aic_calc(job_list, opts.speedy, verbose=opts.verb)
     if opts.clean:
         clean_all(job_list, opts.algt)
     # if bit fast, second run with wanted models (that sums weight of 0.95)
@@ -67,7 +70,7 @@ def main():
                            refresh=opts.refresh, nprocs=opts.nprocs,
                            verbose=opts.verb)
         job_list = parse_jobs(job_list, opts.algt)
-        job_list, ord_aic = aic_calc(job_list, False, verbose=opts.verb)
+        job_list, ord_aic, aic_table = aic_calc(job_list, False, verbose=opts.verb)
         if opts.clean:
             clean_all(job_list, opts.algt)
 
@@ -75,9 +78,16 @@ def main():
                        verbose=opts.verb)
     if opts.clean:
         clean_all({ord_aic[0]: job_list[ord_aic[0]]}, opts.algt)
+
+    if opts.outtable:
+        with open(opts.outtable, 'w') as TABLE:
+            for values in aic_table:
+                print('\t'.join(map(str, values)), file=TABLE)
     
+        
     if opts.outfile:
-        open (opts.outfile, 'w').write (tree)
+        open(opts.outfile, 'w').write (tree)
+        
     if opts.outtrees:
         out_t = open (opts.outtrees, 'w')
         for run in job_list:
@@ -113,6 +123,7 @@ def get_job_list(algt, wanted_models, speed=True, verbose=False, protein=False,
                                    '-b', '0',
                                    '-o', 'lr' if speed   else 'tlr',
                                    '-m', model,
+                                   '--no_memory_check',
                                    '--run_id', job] + FREQS[typ][freq]
                                                     + INVTS[inv]
                                                     + GAMMA[gam],
@@ -125,22 +136,28 @@ def get_job_list(algt, wanted_models, speed=True, verbose=False, protein=False,
     return job_list
 
 def launch_job(job):
+
+    signal.signal(signal.SIGINT, sys.exit)
     jobname = job[0]
     jobdata = job[1]
     cmd_args = jobdata["cmd"]
     cmd = ' '.join(cmd_args)
-    p = Popen(cmd, stdout=PIPE, stderr=PIPE, shell=True)
-    out, err = p.communicate()
+    try:
+        p = Popen(cmd, stdout=PIPE, stderr=PIPE, shell=True)
+    except:
+        sys.exit(-1)
+    else:
+        out, err = p.communicate()
     return (jobname, out, err)
     
 def run_jobs(job_list, nprocs=1, refresh=2):
     '''
     run jobs, parallelizing in given number of CPUs
     '''
-    print (PHYML)
-    p = Pool(nprocs)
-    data = p.map(launch_job, [(jname, jdata) for jname, jdata in job_list.items()])
-    for jname, out, err in data:
+
+    p = Pool(int(nprocs))
+    data = p.map_async(launch_job, [(jname, jdata) for jname, jdata in job_list.items()])
+    for jname, out, err in data.get():
         job_list[jname]['out'] = out
         job_list[jname]['err'] = err
     return job_list
@@ -185,6 +202,15 @@ def aic_calc(job_list, speed, verbose=False):
         job_list[model]['cumweight'] = cumweight
         if job_list[model]['cumweight'] < 0.9999:
             good_models.append([model, int(1000*job_list[model]['weight']+0.5)])
+
+    values = [(x,
+               job_list[x]['K'],
+               job_list[x]['lnL'],
+               job_list[x]['AIC'],
+               job_list[x]['deltar'],
+               job_list[x]['weight'],
+               job_list[x]['cumweight']) for x in ord_aic]
+           
     if verbose:
         table = ''
         table += '\n\n*************************************\n'
@@ -197,16 +223,10 @@ def aic_calc(job_list, speed, verbose=False):
                          'Cumulative weights')
         table += '   ' + '-'*86 + '\n'
         raw = '   %-15s| %-4s | %-9.2f | %-8.2f | %-9.3f | %-6.3f | %-5.3f'
-        table += '\n'.join([raw % (x,
-                                   job_list[x]['K'],
-                                   job_list[x]['lnL'],
-                                   job_list[x]['AIC'],
-                                   job_list[x]['deltar'],
-                                   job_list[x]['weight'],
-                                   job_list[x]['cumweight']) for x in ord_aic])
+        table += '\n'.join([raw % v for v in values])
         table += '\n'
-        print (table)
-    return job_list, ord_aic
+        print(table)
+    return job_list, ord_aic, values
 
     
 def re_run(job_list, algt, cutoff=0.95, nprocs=1, refresh=2, verbose=False):
@@ -271,7 +291,7 @@ def clean_all(job_list, algt):
               shell=True).communicate()
 
         
-def print_model_estimations (dic):
+def print_model_estimations(dic):
     '''
     prints table with estimation of rates/frequencies done by phyML
     '''
@@ -368,9 +388,12 @@ def get_options():
                         help='path to input file in phylip format')
     parser.add_argument('-o', dest='outfile', type=str, 
                         help='name of outfile tree (newick format)')
+    parser.add_argument('--outtable', dest='outtable', type=str, 
+                        help='name of output table file')
+    
     parser.add_argument('-O', dest='outtrees', metavar="PATH",
                         help='name of outfile with all trees (newick format)')
-    parser.add_argument('--phyml', dest='phyml', type=str, required=True,
+    parser.add_argument('--phyml', dest='PHYML', type=str, required=True,
                         help='path to phyml binary')
     parser.add_argument('--support', action='store_true',
                         dest='support', default=False,
@@ -427,7 +450,6 @@ def get_options():
                         help= '''[%(default)s] DNA/AA models.
                         e.g.: -m "JC,TrN,GTR"''')
     opts = parser.parse_args()
-    print(opts)
     
     typ = 'aa' if opts.protein else 'dna'
     if not opts.algt:
@@ -533,8 +555,6 @@ MODELNAMES = { 'nt': { '000000' + ''    : ['JC'      , 0 ],
                        'HIVw'     + '+F': ['HIVw'    , 19],
                        'HIVb'     + '+F': ['HIVb'    , 19]}
                }
-
-PHYML = "phyml"
 
 if __name__ == "__main__":
     main()
