@@ -74,8 +74,6 @@ def main():
         if opts.clean:
             clean_all(job_list, opts.algt)
 
-    tree = re_run_best(ord_aic[0], job_list[ord_aic[0]]['cmd'], opts.algt,
-                       verbose=opts.verb)
     if opts.clean:
         clean_all({ord_aic[0]: job_list[ord_aic[0]]}, opts.algt)
 
@@ -89,6 +87,9 @@ def main():
         open(opts.outfile, 'w').write (tree)
         
     if opts.outtrees:
+        tree = re_run_best(ord_aic[0], job_list[ord_aic[0]]['cmd'], opts.algt,
+                           verbose=opts.verb)
+
         out_t = open (opts.outtrees, 'w')
         for run in job_list:
             out_t.write ('command: ' + \
@@ -106,7 +107,7 @@ def get_job_list(algt, wanted_models, speed=True, verbose=False, protein=False,
     '''
     typ = 'aa' if protein else 'nt'
     job_list = {}
-    for model in MODELS [typ]:
+    for model in MODELS[typ]:
         for freq in FREQS[typ].keys():
             if MODELNAMES[typ][model+freq][0] not in wanted_models:
                 continue
@@ -136,12 +137,12 @@ def get_job_list(algt, wanted_models, speed=True, verbose=False, protein=False,
     return job_list
 
 def launch_job(job):
-
     signal.signal(signal.SIGINT, sys.exit)
     jobname = job[0]
     jobdata = job[1]
     cmd_args = jobdata["cmd"]
     cmd = ' '.join(cmd_args)
+    print(cmd)
     try:
         p = Popen(cmd, stdout=PIPE, stderr=PIPE, shell=True)
     except:
@@ -160,6 +161,10 @@ def run_jobs(job_list, nprocs=1, refresh=2):
     for jname, out, err in data.get():
         job_list[jname]['out'] = out
         job_list[jname]['err'] = err
+        if err or 'error' in out.lower():
+            print(out, file=sys.stderr)
+            print(err, file=sys.stderr)
+            raise ValueError("Error running %s"%jname)
     return job_list
 
     
@@ -169,7 +174,8 @@ def parse_jobs(job_list, algt):
     '''
     try:
         for job in job_list:
-            numspe, lnl, dic = parse_stats(algt + '_phyml_stats_%s.txt' % job)
+            fname = algt + '_phyml_stats_%s.txt' % job
+            numspe, lnl, dic = parse_stats(fname)
             numparam = job_list[job]['params'] + numspe*2-3
             aic = 2*numparam-2*lnl
             job_list[job]['AIC' ] = aic
@@ -178,7 +184,8 @@ def parse_jobs(job_list, algt):
             job_list[job]['dic' ] = dic
             job_list[job]['tree'] = get_tree (algt + '_phyml_tree_%s.txt' % job)
     except IOError:
-        print ('ERROR (parse_job): no outfile found.', file=sys.stderr)
+        fname = algt + '_phyml_stats_%s.txt' % job
+        print ('ERROR (parse_job): no outfile found: %s' %fname, file=sys.stderr)
         exit()
     return job_list
 
@@ -316,6 +323,8 @@ def parse_stats(path):
     parse stats file of phyml, to extract the likelyhood value
     '''
     dic = {}
+    print(path)
+    lnl, numspe, dic = None, None, None
     for line in open(path, "rU"):
         if line.startswith('. Log-likelihood:'):
             lnl          = float (line.strip().split()[-1])
@@ -347,6 +356,10 @@ def parse_stats(path):
         elif line.startswith('  - Gamma shape parameter:'):
             dic['gamma shape'] = float (sub ('.*([0-9]+\.[0-9]+).*',
                                              '\\1', line.strip()))
+
+    if None in (numspe, lnl, dic):
+        raise ValueError("Error parsing Phyml result %s" %path)
+    
     return (numspe, lnl, dic)
 
 def get_tree(path):
