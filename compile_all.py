@@ -68,12 +68,26 @@ def compile_tcoffee():
     rm -f %(BINDIR)s/t_coffee;
     cd %(SRCDIR)s/T-COFFEE_distribution_Version_10.00.r1613/t_coffee_source/ && make clean && make;
     cd %(SRCDIR)s/T-COFFEE_distribution_Version_10.00.r1613;
-    ./install t_coffee m_coffee -plugins=%(BINDIR)s  -dis=%(BINDIR)s -exec=%(BINDIR)s; 
+    ./install t_coffee -plugins=%(BINDIR)s  -dis=%(BINDIR)s -exec=%(BINDIR)s; 
     ls %(BINDIR)s/t_coffee;
     ) >%(BASE)s/tcoffee.log  2>&1;
 
     """ %CONFIG
     return system(cmds) == 0
+
+def compile_mcoffee():
+    cmds = """(
+    rm -f %(BINDIR)s/t_coffee;
+    cd %(SRCDIR)s/T-COFFEE_distribution_Version_10.00.r1613/t_coffee_source/ && make clean && make;
+    cd %(SRCDIR)s/T-COFFEE_distribution_Version_10.00.r1613;
+    ./install mcoffee -plugins=%(BINDIR)s -dis=%(BINDIR)s -exec=%(BINDIR)s; 
+    ls %(BINDIR)s/t_coffee;
+    ) >%(BASE)s/tcoffee.log  2>&1;
+
+    """ %CONFIG
+    return system(cmds) == 0
+
+
 
 def compile_muscle():
     cmds = """(
@@ -215,7 +229,7 @@ def compile_all(targets=None, verbose=False, cores=1):
     
     CONFIG["cores"] = cores
     if not targets:
-        targets= ['fasttree', 'raxml', 'phyml', 'tcoffee', 'trimal', 'clustalo', 'muscle', 'dialigntx', 'mafft', 'consel', 'paml', 'slr']
+        targets= ['fasttree', 'raxml', 'phyml', 'tcoffee', 'trimal', 'clustalo', 'muscle', 'dialigntx', 'mafft', 'consel', 'paml', 'slr', 'mcoffee']
    
     fn = globals()
     for name in targets:
