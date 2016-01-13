@@ -229,7 +229,7 @@ def compile_all(targets=None, verbose=False, cores=1):
     
     CONFIG["cores"] = cores
     if not targets:
-        targets= ['fasttree', 'raxml', 'phyml', 'tcoffee', 'trimal', 'clustalo', 'muscle', 'dialigntx', 'mafft', 'consel', 'paml', 'slr', 'mcoffee']
+        targets= ['fasttree', 'raxml', 'phyml', 'tcoffee', 'trimal', 'clustalo', 'muscle', 'dialigntx', 'mafft', 'consel', 'paml', 'slr']
    
     fn = globals()
     for name in targets:

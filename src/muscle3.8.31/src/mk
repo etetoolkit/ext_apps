@@ -11,9 +11,10 @@ do
 done
 
 LINK_OPTS=
-if [ `uname -s` == Linux ] ; then
-    LINK_OPTS=-static
-fi
+# static linking is giving problems on some systems... (jaime)
+#if [ `uname -s` == Linux ] ; then
+#    LINK_OPTS=-static
+#fi
 g++ $LINK_OPTS $ENV_LINK_OPTS -g -o muscle $ObjNames  >> muscle.make.stdout.txt 2>> muscle.make.stderr.txt
 tail muscle.make.stderr.txt
 
