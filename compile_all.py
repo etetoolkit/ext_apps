@@ -75,18 +75,6 @@ def compile_tcoffee():
     """ %CONFIG
     return system(cmds) == 0
 
-def compile_mcoffee():
-    # -plugins=%(BINDIR)s/t_coffee_plugins/ -dis=%(BINDIR)s/ -exec=%(BINDIR)s; 
-    cmds = """(
-    rm -rf %(BINDIR)s/t_coffee;
-    mkdir %(BINDIR)s/t_coffee/;
-    cd %(SRCDIR)s/T-COFFEE_distribution_Version_11.00.8cbe486;
-    ./install mcoffee  -plugins=%(BINDIR)s/t_coffee/ -dis=%(BINDIR)s/t_coffee/ -exec=%(BINDIR)s/t_coffee/;
-    ) >%(BASE)s/tcoffee.log  2>&1;
-
-    """ %CONFIG
-    return system(cmds) == 0
-
 def compile_kalign():
     cmds = """(
     rm -rf %(BINDIR)s/kalign;
@@ -120,6 +108,15 @@ def compile_probcons():
     cp probcons %(BINDIR)s/; 
     ls %(BINDIR)s/probcons; 
     ) >%(BASE)s/probcons.log  2>&1;
+    """ %CONFIG
+    return system(cmds) == 0
+
+def compile_pmodeltest():
+    cmds = """(
+    rm -rf %(BINDIR)s/pmodeltest.py;
+    cp %(SRCDIR)s/pmodeltest/pmodeltest.py %(BINDIR)s;
+    ls %(BINDIR)s/pmodeltest.py; 
+    ) >%(BASE)s/pmodeltest.log  2>&1;
     """ %CONFIG
     return system(cmds) == 0
 
@@ -205,12 +202,15 @@ def compile_trimal():
 def compile_dialigntx():
     cmds = """(
     rm -f %(BINDIR)s/dialign-tx;
+    rm -rf %(BINDIR)s/dialigntx_conf/;
     cd %(SRCDIR)s/DIALIGN-TX_1.0.2/source/
     make clean;
     make -j %(CORES)s ;
     cp dialign-tx %(BINDIR)s/;
+    cp -r s/DIALIGN-TX_1.0.2/conf/ %(BINDIR)s/dialigntx_conf/;
     make clean;
     ls %(BINDIR)s/dialign-tx;
+    ls %(BINDIR)s/dialigntx_conf/;
     ) >%(BASE)s/dialigntx.log 2>&1;
     """ %CONFIG
     return system(cmds) == 0
@@ -265,6 +265,7 @@ def compile_all(targets=None, verbose=False, cores=1):
     if not targets:
         targets= ['tcoffee', 'clustalo', 'muscle', 'dialigntx', 'mafft', 'kalign', 'prank', 'probcons', 
                   'trimal',
+                  'pmodeltest',
                   'fasttree', 'raxml', 'phyml',
                   'consel', 'paml', 'slr',
         ]
