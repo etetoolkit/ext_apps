@@ -92,7 +92,7 @@ def compile_kalign():
     rm -rf %(BINDIR)s/kalign;
     cd %(SRCDIR)s/kalign-2.03/;
     make clean;
-    ./configure && ./make -j %(CORES)s; 
+    ./configure && make -j %(CORES)s; 
     cp kalign %(BINDIR)s/; 
     ls %(BINDIR)s/kalign; 
     ) >%(BASE)s/kalign.log  2>&1;
@@ -104,7 +104,7 @@ def compile_prank():
     rm -rf %(BINDIR)s/prank;
     cd %(SRCDIR)s/prank-100802/;
     make clean;
-    ./make -j %(CORES)s; 
+    make -j %(CORES)s; 
     cp prank %(BINDIR)s/; 
     ls %(BINDIR)s/prank; 
     ) >%(BASE)s/prank.log  2>&1;
@@ -116,7 +116,7 @@ def compile_probcons():
     rm -rf %(BINDIR)s/probcons;
     cd %(SRCDIR)s/probcons-1.12/;
     make clean;
-    ./make -j %(CORES)s; 
+    make -j %(CORES)s; 
     cp probcons %(BINDIR)s/; 
     ls %(BINDIR)s/probcons; 
     ) >%(BASE)s/probcons.log  2>&1;
@@ -263,7 +263,11 @@ def compile_all(targets=None, verbose=False, cores=1):
     
     CONFIG["cores"] = cores
     if not targets:
-        targets= ['fasttree', 'raxml', 'phyml', 'trimal', 'clustalo', 'muscle', 'dialigntx', 'mafft', 'consel', 'paml', 'slr', 'tcoffee', 'kalign', 'prank', 'probcons']
+        targets= ['tcoffee', 'clustalo', 'muscle', 'dialigntx', 'mafft', 'kalign', 'prank', 'probcons', 
+                  'trimal',
+                  'fasttree', 'raxml', 'phyml',
+                  'consel', 'paml', 'slr',
+        ]
    
     fn = globals()
     for name in targets:
