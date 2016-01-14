@@ -9,14 +9,14 @@ from argparse import ArgumentParser
 
 ARGS = None
 basedir = path.split(path.abspath(__file__))[0]
-DEBUG = False
+DEBUG = True
 
 CONFIG = {
     "BASE": basedir,
     "LOCALDIR": path.join(basedir, 'local'),
     "BINDIR": path.join(basedir, 'bin'),
     "SRCDIR": path.join(basedir, 'src'),
-    "CORES": 1,
+    "CORES": 4,
     }
 
 def compile_fasttree():
@@ -66,8 +66,8 @@ def compile_phyml():
 def compile_tcoffee():
     cmds = """(
     rm -f %(BINDIR)s/t_coffee;
-    cd %(SRCDIR)s/T-COFFEE_distribution_Version_10.00.r1613/t_coffee_source/ && make clean && make;
-    cd %(SRCDIR)s/T-COFFEE_distribution_Version_10.00.r1613;
+    cd %(SRCDIR)s/T-COFFEE_distribution_Version_11.00.8cbe486/t_coffee_source/ && make clean && make;
+    cd %(SRCDIR)s/T-COFFEE_distribution_Version_11.00.8cbe486;
     ./install t_coffee -plugins=%(BINDIR)s  -dis=%(BINDIR)s -exec=%(BINDIR)s; 
     ls %(BINDIR)s/t_coffee;
     ) >%(BASE)s/tcoffee.log  2>&1;
@@ -76,18 +76,52 @@ def compile_tcoffee():
     return system(cmds) == 0
 
 def compile_mcoffee():
+    # -plugins=%(BINDIR)s/t_coffee_plugins/ -dis=%(BINDIR)s/ -exec=%(BINDIR)s; 
     cmds = """(
-    rm -f %(BINDIR)s/t_coffee;
-    cd %(SRCDIR)s/T-COFFEE_distribution_Version_10.00.r1613/t_coffee_source/ && make clean && make;
-    cd %(SRCDIR)s/T-COFFEE_distribution_Version_10.00.r1613;
-    ./install mcoffee -plugins=%(BINDIR)s -dis=%(BINDIR)s -exec=%(BINDIR)s; 
-    ls %(BINDIR)s/t_coffee;
+    rm -rf %(BINDIR)s/t_coffee;
+    mkdir %(BINDIR)s/t_coffee/;
+    cd %(SRCDIR)s/T-COFFEE_distribution_Version_11.00.8cbe486;
+    ./install mcoffee  -plugins=%(BINDIR)s/t_coffee/ -dis=%(BINDIR)s/t_coffee/ -exec=%(BINDIR)s/t_coffee/;
     ) >%(BASE)s/tcoffee.log  2>&1;
 
     """ %CONFIG
     return system(cmds) == 0
 
+def compile_kalign():
+    cmds = """(
+    rm -rf %(BINDIR)s/kalign;
+    cd %(SRCDIR)s/kalign-2.03/;
+    make clean;
+    ./configure && ./make -j %(CORES)s; 
+    cp kalign %(BINDIR)s/; 
+    ls %(BINDIR)s/kalign; 
+    ) >%(BASE)s/kalign.log  2>&1;
+    """ %CONFIG
+    return system(cmds) == 0
 
+def compile_prank():
+    cmds = """(
+    rm -rf %(BINDIR)s/prank;
+    cd %(SRCDIR)s/prank-100802/;
+    make clean;
+    ./make -j %(CORES)s; 
+    cp prank %(BINDIR)s/; 
+    ls %(BINDIR)s/prank; 
+    ) >%(BASE)s/prank.log  2>&1;
+    """ %CONFIG
+    return system(cmds) == 0
+
+def compile_probcons():
+    cmds = """(
+    rm -rf %(BINDIR)s/probcons;
+    cd %(SRCDIR)s/probcons-1.12/;
+    make clean;
+    ./make -j %(CORES)s; 
+    cp probcons %(BINDIR)s/; 
+    ls %(BINDIR)s/probcons; 
+    ) >%(BASE)s/probcons.log  2>&1;
+    """ %CONFIG
+    return system(cmds) == 0
 
 def compile_muscle():
     cmds = """(
@@ -229,7 +263,7 @@ def compile_all(targets=None, verbose=False, cores=1):
     
     CONFIG["cores"] = cores
     if not targets:
-        targets= ['fasttree', 'raxml', 'phyml', 'tcoffee', 'trimal', 'clustalo', 'muscle', 'dialigntx', 'mafft', 'consel', 'paml', 'slr']
+        targets= ['fasttree', 'raxml', 'phyml', 'trimal', 'clustalo', 'muscle', 'dialigntx', 'mafft', 'consel', 'paml', 'slr', 'tcoffee', 'kalign', 'prank', 'probcons']
    
     fn = globals()
     for name in targets:

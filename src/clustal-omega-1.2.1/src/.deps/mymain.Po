@@ -1,187 +1,311 @@
-mymain.o: mymain.c config.h /usr/include/stdio.h /usr/include/features.h \
- /usr/include/x86_64-linux-gnu/bits/predefs.h \
- /usr/include/x86_64-linux-gnu/sys/cdefs.h \
- /usr/include/x86_64-linux-gnu/bits/wordsize.h \
- /usr/include/x86_64-linux-gnu/gnu/stubs.h \
- /usr/include/x86_64-linux-gnu/gnu/stubs-64.h \
- /usr/lib/gcc/x86_64-linux-gnu/4.6/include/stddef.h \
- /usr/include/x86_64-linux-gnu/bits/types.h \
- /usr/include/x86_64-linux-gnu/bits/typesizes.h /usr/include/libio.h \
- /usr/include/_G_config.h /usr/include/wchar.h \
- /usr/lib/gcc/x86_64-linux-gnu/4.6/include/stdarg.h \
- /usr/include/x86_64-linux-gnu/bits/stdio_lim.h \
- /usr/include/x86_64-linux-gnu/bits/sys_errlist.h \
- /usr/include/x86_64-linux-gnu/bits/stdio.h \
- /usr/include/x86_64-linux-gnu/bits/stdio2.h /usr/include/string.h \
- /usr/include/xlocale.h /usr/include/x86_64-linux-gnu/bits/string.h \
- /usr/include/x86_64-linux-gnu/bits/string2.h /usr/include/endian.h \
- /usr/include/x86_64-linux-gnu/bits/endian.h \
- /usr/include/x86_64-linux-gnu/bits/byteswap.h /usr/include/stdlib.h \
- /usr/include/x86_64-linux-gnu/bits/string3.h /usr/include/assert.h \
- /usr/include/unistd.h /usr/include/x86_64-linux-gnu/bits/posix_opt.h \
- /usr/include/x86_64-linux-gnu/bits/environments.h \
- /usr/include/x86_64-linux-gnu/bits/confname.h /usr/include/getopt.h \
- /usr/include/x86_64-linux-gnu/bits/unistd.h /usr/include/argtable2.h \
- /usr/include/time.h /usr/include/x86_64-linux-gnu/bits/time.h \
- /usr/include/x86_64-linux-gnu/bits/timex.h \
- /usr/include/x86_64-linux-gnu/sys/types.h \
- /usr/include/x86_64-linux-gnu/sys/select.h \
- /usr/include/x86_64-linux-gnu/bits/select.h \
- /usr/include/x86_64-linux-gnu/bits/sigset.h \
- /usr/include/x86_64-linux-gnu/bits/select2.h \
- /usr/include/x86_64-linux-gnu/sys/sysmacros.h \
- /usr/include/x86_64-linux-gnu/bits/pthreadtypes.h /usr/include/ctype.h \
- /usr/lib/gcc/x86_64-linux-gnu/4.6/include-fixed/limits.h \
- /usr/lib/gcc/x86_64-linux-gnu/4.6/include-fixed/syslimits.h \
- /usr/include/limits.h /usr/include/x86_64-linux-gnu/bits/posix1_lim.h \
- /usr/include/x86_64-linux-gnu/bits/local_lim.h \
- /usr/include/linux/limits.h \
- /usr/include/x86_64-linux-gnu/bits/posix2_lim.h \
- /usr/include/x86_64-linux-gnu/bits/xopen_lim.h /usr/include/libgen.h \
- clustal-omega.h /usr/lib/gcc/x86_64-linux-gnu/4.6/include/omp.h \
- /usr/lib/gcc/x86_64-linux-gnu/4.6/include/stdbool.h \
+mymain.o: mymain.c config.h /usr/include/stdio.h /usr/include/sys/cdefs.h \
+ /usr/include/sys/_symbol_aliasing.h \
+ /usr/include/sys/_posix_availability.h /usr/include/Availability.h \
+ /usr/include/AvailabilityInternal.h /usr/include/_types.h \
+ /usr/include/sys/_types.h /usr/include/machine/_types.h \
+ /usr/include/i386/_types.h /usr/include/sys/_types/_va_list.h \
+ /usr/include/sys/_types/_size_t.h /usr/include/sys/_types/_null.h \
+ /usr/include/sys/_types/_off_t.h /usr/include/sys/_types/_ssize_t.h \
+ /usr/include/secure/_stdio.h /usr/include/secure/_common.h \
+ /usr/include/string.h /usr/include/sys/_types/_rsize_t.h \
+ /usr/include/sys/_types/_errno_t.h /usr/include/strings.h \
+ /usr/include/secure/_string.h /usr/include/assert.h \
+ /usr/include/unistd.h /usr/include/sys/unistd.h \
+ /usr/include/sys/_types/_posix_vdisable.h \
+ /usr/include/sys/_types/_seek_set.h /usr/include/sys/_types/_gid_t.h \
+ /usr/include/sys/_types/_intptr_t.h /usr/include/sys/_types/_pid_t.h \
+ /usr/include/sys/_types/_uid_t.h /usr/include/sys/_types/_useconds_t.h \
+ /usr/include/sys/select.h /usr/include/sys/appleapiopts.h \
+ /usr/include/sys/_types/_fd_def.h /usr/include/sys/_types/_timespec.h \
+ /usr/include/sys/_types/_timeval.h /usr/include/sys/_types/_time_t.h \
+ /usr/include/sys/_types/_suseconds_t.h \
+ /usr/include/sys/_types/_sigset_t.h \
+ /usr/include/sys/_types/_fd_setsize.h /usr/include/sys/_types/_fd_set.h \
+ /usr/include/sys/_types/_fd_clr.h /usr/include/sys/_types/_fd_isset.h \
+ /usr/include/sys/_types/_fd_zero.h /usr/include/sys/_types/_fd_copy.h \
+ /usr/include/sys/_select.h /usr/include/sys/_types/_dev_t.h \
+ /usr/include/sys/_types/_mode_t.h /usr/include/sys/_types/_uuid_t.h \
+ /usr/include/gethostuuid.h \
+ /Users/jhc/ete3_bundle/ete3/ext_apps/local/include/argtable2.h \
+ /usr/include/time.h /usr/include/_structs.h /usr/include/sys/_structs.h \
+ /usr/include/sys/_types/_clock_t.h /usr/include/sys/types.h \
+ /usr/include/machine/types.h /usr/include/i386/types.h \
+ /usr/include/sys/_types/_int8_t.h /usr/include/sys/_types/_int16_t.h \
+ /usr/include/sys/_types/_int32_t.h /usr/include/sys/_types/_int64_t.h \
+ /usr/include/sys/_types/_uintptr_t.h \
+ /usr/include/sys/_types/___offsetof.h /usr/include/machine/endian.h \
+ /usr/include/i386/endian.h /usr/include/sys/_endian.h \
+ /usr/include/libkern/_OSByteOrder.h \
+ /usr/include/libkern/i386/_OSByteOrder.h \
+ /usr/include/sys/_types/_blkcnt_t.h /usr/include/sys/_types/_blksize_t.h \
+ /usr/include/sys/_types/_in_addr_t.h \
+ /usr/include/sys/_types/_in_port_t.h /usr/include/sys/_types/_ino_t.h \
+ /usr/include/sys/_types/_ino64_t.h /usr/include/sys/_types/_key_t.h \
+ /usr/include/sys/_types/_nlink_t.h /usr/include/sys/_types/_id_t.h \
+ /usr/include/sys/_types/_pthread_attr_t.h \
+ /usr/include/sys/_types/_pthread_cond_t.h \
+ /usr/include/sys/_types/_pthread_condattr_t.h \
+ /usr/include/sys/_types/_pthread_mutex_t.h \
+ /usr/include/sys/_types/_pthread_mutexattr_t.h \
+ /usr/include/sys/_types/_pthread_once_t.h \
+ /usr/include/sys/_types/_pthread_rwlock_t.h \
+ /usr/include/sys/_types/_pthread_rwlockattr_t.h \
+ /usr/include/sys/_types/_pthread_t.h \
+ /usr/include/sys/_types/_pthread_key_t.h \
+ /usr/include/sys/_types/_fsblkcnt_t.h \
+ /usr/include/sys/_types/_fsfilcnt_t.h /usr/include/ctype.h \
+ /usr/include/runetype.h /usr/include/sys/_types/_ct_rune_t.h \
+ /usr/include/sys/_types/_rune_t.h /usr/include/sys/_types/_wchar_t.h \
+ /usr/include/sys/_types/_wint_t.h \
+ /Users/jhc/anaconda/lib/gcc/x86_64-apple-darwin11.4.2/4.8.2/include-fixed/limits.h \
+ /Users/jhc/anaconda/lib/gcc/x86_64-apple-darwin11.4.2/4.8.2/include-fixed/syslimits.h \
+ /usr/include/limits.h /usr/include/machine/limits.h \
+ /usr/include/i386/limits.h /usr/include/i386/_limits.h \
+ /usr/include/sys/syslimits.h /usr/include/libgen.h clustal-omega.h \
+ /Users/jhc/anaconda/lib/gcc/x86_64-apple-darwin11.4.2/4.8.2/include/omp.h \
+ /Users/jhc/anaconda/lib/gcc/x86_64-apple-darwin11.4.2/4.8.2/include/stdbool.h \
  clustal-omega-config.h hhalign/general.h hhalign/../clustal/log.h \
+ /Users/jhc/anaconda/lib/gcc/x86_64-apple-darwin11.4.2/4.8.2/include/stdarg.h \
  hhalign/hhfunc.h clustal/log.h clustal/util.h /usr/include/strings.h \
  clustal/symmatrix.h clustal/seq.h squid/squid.h /usr/include/math.h \
- /usr/include/x86_64-linux-gnu/bits/huge_val.h \
- /usr/include/x86_64-linux-gnu/bits/huge_valf.h \
- /usr/include/x86_64-linux-gnu/bits/huge_vall.h \
- /usr/include/x86_64-linux-gnu/bits/inf.h \
- /usr/include/x86_64-linux-gnu/bits/nan.h \
- /usr/include/x86_64-linux-gnu/bits/mathdef.h \
- /usr/include/x86_64-linux-gnu/bits/mathcalls.h \
- /usr/include/x86_64-linux-gnu/bits/mathinline.h \
- /usr/include/x86_64-linux-gnu/bits/waitflags.h \
- /usr/include/x86_64-linux-gnu/bits/waitstatus.h /usr/include/alloca.h \
- /usr/include/x86_64-linux-gnu/bits/stdlib.h config.h squid/msa.h \
- squid/gki.h squid/ssi.h squid/squid.h squid/sqfuncs.h squid/sre_random.h \
- squid/vectorops.h clustal/util.h clustal/tree.h clustal/symmatrix.h \
- clustal/muscle_tree.h clustal/seq.h clustal/mbed.h clustal/weights.h \
- clustal/pair_dist.h clustal/hhalign_wrapper.h mymain.h
+ /usr/include/stdlib.h /usr/include/sys/wait.h /usr/include/sys/signal.h \
+ /usr/include/machine/signal.h /usr/include/i386/signal.h \
+ /usr/include/machine/_mcontext.h /usr/include/i386/_mcontext.h \
+ /usr/include/mach/i386/_structs.h /usr/include/sys/_types/_sigaltstack.h \
+ /usr/include/sys/_types/_ucontext.h /usr/include/sys/resource.h \
+ /Users/jhc/anaconda/lib/gcc/x86_64-apple-darwin11.4.2/4.8.2/include/stdint.h \
+ /Users/jhc/anaconda/lib/gcc/x86_64-apple-darwin11.4.2/4.8.2/include-fixed/stdint.h \
+ /usr/include/alloca.h config.h squid/msa.h squid/gki.h squid/ssi.h \
+ squid/squid.h squid/sqfuncs.h squid/sre_random.h squid/vectorops.h \
+ clustal/util.h clustal/tree.h clustal/symmatrix.h clustal/muscle_tree.h \
+ clustal/seq.h clustal/mbed.h clustal/weights.h clustal/pair_dist.h \
+ clustal/hhalign_wrapper.h mymain.h
 
 config.h:
 
 /usr/include/stdio.h:
 
-/usr/include/features.h:
+/usr/include/sys/cdefs.h:
 
-/usr/include/x86_64-linux-gnu/bits/predefs.h:
+/usr/include/sys/_symbol_aliasing.h:
 
-/usr/include/x86_64-linux-gnu/sys/cdefs.h:
+/usr/include/sys/_posix_availability.h:
 
-/usr/include/x86_64-linux-gnu/bits/wordsize.h:
+/usr/include/Availability.h:
 
-/usr/include/x86_64-linux-gnu/gnu/stubs.h:
+/usr/include/AvailabilityInternal.h:
 
-/usr/include/x86_64-linux-gnu/gnu/stubs-64.h:
+/usr/include/_types.h:
 
-/usr/lib/gcc/x86_64-linux-gnu/4.6/include/stddef.h:
+/usr/include/sys/_types.h:
 
-/usr/include/x86_64-linux-gnu/bits/types.h:
+/usr/include/machine/_types.h:
 
-/usr/include/x86_64-linux-gnu/bits/typesizes.h:
+/usr/include/i386/_types.h:
 
-/usr/include/libio.h:
+/usr/include/sys/_types/_va_list.h:
 
-/usr/include/_G_config.h:
+/usr/include/sys/_types/_size_t.h:
 
-/usr/include/wchar.h:
+/usr/include/sys/_types/_null.h:
 
-/usr/lib/gcc/x86_64-linux-gnu/4.6/include/stdarg.h:
+/usr/include/sys/_types/_off_t.h:
 
-/usr/include/x86_64-linux-gnu/bits/stdio_lim.h:
+/usr/include/sys/_types/_ssize_t.h:
 
-/usr/include/x86_64-linux-gnu/bits/sys_errlist.h:
+/usr/include/secure/_stdio.h:
 
-/usr/include/x86_64-linux-gnu/bits/stdio.h:
-
-/usr/include/x86_64-linux-gnu/bits/stdio2.h:
+/usr/include/secure/_common.h:
 
 /usr/include/string.h:
 
-/usr/include/xlocale.h:
+/usr/include/sys/_types/_rsize_t.h:
 
-/usr/include/x86_64-linux-gnu/bits/string.h:
+/usr/include/sys/_types/_errno_t.h:
 
-/usr/include/x86_64-linux-gnu/bits/string2.h:
+/usr/include/strings.h:
 
-/usr/include/endian.h:
-
-/usr/include/x86_64-linux-gnu/bits/endian.h:
-
-/usr/include/x86_64-linux-gnu/bits/byteswap.h:
-
-/usr/include/stdlib.h:
-
-/usr/include/x86_64-linux-gnu/bits/string3.h:
+/usr/include/secure/_string.h:
 
 /usr/include/assert.h:
 
 /usr/include/unistd.h:
 
-/usr/include/x86_64-linux-gnu/bits/posix_opt.h:
+/usr/include/sys/unistd.h:
 
-/usr/include/x86_64-linux-gnu/bits/environments.h:
+/usr/include/sys/_types/_posix_vdisable.h:
 
-/usr/include/x86_64-linux-gnu/bits/confname.h:
+/usr/include/sys/_types/_seek_set.h:
 
-/usr/include/getopt.h:
+/usr/include/sys/_types/_gid_t.h:
 
-/usr/include/x86_64-linux-gnu/bits/unistd.h:
+/usr/include/sys/_types/_intptr_t.h:
 
-/usr/include/argtable2.h:
+/usr/include/sys/_types/_pid_t.h:
+
+/usr/include/sys/_types/_uid_t.h:
+
+/usr/include/sys/_types/_useconds_t.h:
+
+/usr/include/sys/select.h:
+
+/usr/include/sys/appleapiopts.h:
+
+/usr/include/sys/_types/_fd_def.h:
+
+/usr/include/sys/_types/_timespec.h:
+
+/usr/include/sys/_types/_timeval.h:
+
+/usr/include/sys/_types/_time_t.h:
+
+/usr/include/sys/_types/_suseconds_t.h:
+
+/usr/include/sys/_types/_sigset_t.h:
+
+/usr/include/sys/_types/_fd_setsize.h:
+
+/usr/include/sys/_types/_fd_set.h:
+
+/usr/include/sys/_types/_fd_clr.h:
+
+/usr/include/sys/_types/_fd_isset.h:
+
+/usr/include/sys/_types/_fd_zero.h:
+
+/usr/include/sys/_types/_fd_copy.h:
+
+/usr/include/sys/_select.h:
+
+/usr/include/sys/_types/_dev_t.h:
+
+/usr/include/sys/_types/_mode_t.h:
+
+/usr/include/sys/_types/_uuid_t.h:
+
+/usr/include/gethostuuid.h:
+
+/Users/jhc/ete3_bundle/ete3/ext_apps/local/include/argtable2.h:
 
 /usr/include/time.h:
 
-/usr/include/x86_64-linux-gnu/bits/time.h:
+/usr/include/_structs.h:
 
-/usr/include/x86_64-linux-gnu/bits/timex.h:
+/usr/include/sys/_structs.h:
 
-/usr/include/x86_64-linux-gnu/sys/types.h:
+/usr/include/sys/_types/_clock_t.h:
 
-/usr/include/x86_64-linux-gnu/sys/select.h:
+/usr/include/sys/types.h:
 
-/usr/include/x86_64-linux-gnu/bits/select.h:
+/usr/include/machine/types.h:
 
-/usr/include/x86_64-linux-gnu/bits/sigset.h:
+/usr/include/i386/types.h:
 
-/usr/include/x86_64-linux-gnu/bits/select2.h:
+/usr/include/sys/_types/_int8_t.h:
 
-/usr/include/x86_64-linux-gnu/sys/sysmacros.h:
+/usr/include/sys/_types/_int16_t.h:
 
-/usr/include/x86_64-linux-gnu/bits/pthreadtypes.h:
+/usr/include/sys/_types/_int32_t.h:
+
+/usr/include/sys/_types/_int64_t.h:
+
+/usr/include/sys/_types/_uintptr_t.h:
+
+/usr/include/sys/_types/___offsetof.h:
+
+/usr/include/machine/endian.h:
+
+/usr/include/i386/endian.h:
+
+/usr/include/sys/_endian.h:
+
+/usr/include/libkern/_OSByteOrder.h:
+
+/usr/include/libkern/i386/_OSByteOrder.h:
+
+/usr/include/sys/_types/_blkcnt_t.h:
+
+/usr/include/sys/_types/_blksize_t.h:
+
+/usr/include/sys/_types/_in_addr_t.h:
+
+/usr/include/sys/_types/_in_port_t.h:
+
+/usr/include/sys/_types/_ino_t.h:
+
+/usr/include/sys/_types/_ino64_t.h:
+
+/usr/include/sys/_types/_key_t.h:
+
+/usr/include/sys/_types/_nlink_t.h:
+
+/usr/include/sys/_types/_id_t.h:
+
+/usr/include/sys/_types/_pthread_attr_t.h:
+
+/usr/include/sys/_types/_pthread_cond_t.h:
+
+/usr/include/sys/_types/_pthread_condattr_t.h:
+
+/usr/include/sys/_types/_pthread_mutex_t.h:
+
+/usr/include/sys/_types/_pthread_mutexattr_t.h:
+
+/usr/include/sys/_types/_pthread_once_t.h:
+
+/usr/include/sys/_types/_pthread_rwlock_t.h:
+
+/usr/include/sys/_types/_pthread_rwlockattr_t.h:
+
+/usr/include/sys/_types/_pthread_t.h:
+
+/usr/include/sys/_types/_pthread_key_t.h:
+
+/usr/include/sys/_types/_fsblkcnt_t.h:
+
+/usr/include/sys/_types/_fsfilcnt_t.h:
 
 /usr/include/ctype.h:
 
-/usr/lib/gcc/x86_64-linux-gnu/4.6/include-fixed/limits.h:
+/usr/include/runetype.h:
 
-/usr/lib/gcc/x86_64-linux-gnu/4.6/include-fixed/syslimits.h:
+/usr/include/sys/_types/_ct_rune_t.h:
+
+/usr/include/sys/_types/_rune_t.h:
+
+/usr/include/sys/_types/_wchar_t.h:
+
+/usr/include/sys/_types/_wint_t.h:
+
+/Users/jhc/anaconda/lib/gcc/x86_64-apple-darwin11.4.2/4.8.2/include-fixed/limits.h:
+
+/Users/jhc/anaconda/lib/gcc/x86_64-apple-darwin11.4.2/4.8.2/include-fixed/syslimits.h:
 
 /usr/include/limits.h:
 
-/usr/include/x86_64-linux-gnu/bits/posix1_lim.h:
+/usr/include/machine/limits.h:
 
-/usr/include/x86_64-linux-gnu/bits/local_lim.h:
+/usr/include/i386/limits.h:
 
-/usr/include/linux/limits.h:
+/usr/include/i386/_limits.h:
 
-/usr/include/x86_64-linux-gnu/bits/posix2_lim.h:
-
-/usr/include/x86_64-linux-gnu/bits/xopen_lim.h:
+/usr/include/sys/syslimits.h:
 
 /usr/include/libgen.h:
 
 clustal-omega.h:
 
-/usr/lib/gcc/x86_64-linux-gnu/4.6/include/omp.h:
+/Users/jhc/anaconda/lib/gcc/x86_64-apple-darwin11.4.2/4.8.2/include/omp.h:
 
-/usr/lib/gcc/x86_64-linux-gnu/4.6/include/stdbool.h:
+/Users/jhc/anaconda/lib/gcc/x86_64-apple-darwin11.4.2/4.8.2/include/stdbool.h:
 
 clustal-omega-config.h:
 
 hhalign/general.h:
 
 hhalign/../clustal/log.h:
+
+/Users/jhc/anaconda/lib/gcc/x86_64-apple-darwin11.4.2/4.8.2/include/stdarg.h:
 
 hhalign/hhfunc.h:
 
@@ -199,29 +323,33 @@ squid/squid.h:
 
 /usr/include/math.h:
 
-/usr/include/x86_64-linux-gnu/bits/huge_val.h:
+/usr/include/stdlib.h:
 
-/usr/include/x86_64-linux-gnu/bits/huge_valf.h:
+/usr/include/sys/wait.h:
 
-/usr/include/x86_64-linux-gnu/bits/huge_vall.h:
+/usr/include/sys/signal.h:
 
-/usr/include/x86_64-linux-gnu/bits/inf.h:
+/usr/include/machine/signal.h:
 
-/usr/include/x86_64-linux-gnu/bits/nan.h:
+/usr/include/i386/signal.h:
 
-/usr/include/x86_64-linux-gnu/bits/mathdef.h:
+/usr/include/machine/_mcontext.h:
 
-/usr/include/x86_64-linux-gnu/bits/mathcalls.h:
+/usr/include/i386/_mcontext.h:
 
-/usr/include/x86_64-linux-gnu/bits/mathinline.h:
+/usr/include/mach/i386/_structs.h:
 
-/usr/include/x86_64-linux-gnu/bits/waitflags.h:
+/usr/include/sys/_types/_sigaltstack.h:
 
-/usr/include/x86_64-linux-gnu/bits/waitstatus.h:
+/usr/include/sys/_types/_ucontext.h:
+
+/usr/include/sys/resource.h:
+
+/Users/jhc/anaconda/lib/gcc/x86_64-apple-darwin11.4.2/4.8.2/include/stdint.h:
+
+/Users/jhc/anaconda/lib/gcc/x86_64-apple-darwin11.4.2/4.8.2/include-fixed/stdint.h:
 
 /usr/include/alloca.h:
-
-/usr/include/x86_64-linux-gnu/bits/stdlib.h:
 
 config.h:
 

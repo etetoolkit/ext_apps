@@ -30,12 +30,15 @@ Kernel configured for up to 8 processors.
 Processor type: i486 (Intel 80486)
 Processors active: 0 1 2 3 4 5 6 7
 Primary memory available: 16.00 gigabytes
-Default processor set: 230 tasks, 1172 threads, 8 processors
-Load average: 1.50, Mach factor: 6.49
+Default processor set: 209 tasks, 1092 threads, 8 processors
+Load average: 5.34, Mach factor: 2.75
 /bin/machine           = unknown
 /usr/bin/oslevel       = unknown
 /bin/universe          = unknown
 
+PATH: /Users/jhc/anaconda/bin
+PATH: /Users/jhc/anaconda/bin
+PATH: /opt/local/libexec/gnubin
 PATH: /opt/local/bin
 PATH: /opt/local/sbin
 PATH: /opt/local/bin
@@ -52,14 +55,20 @@ PATH: /Users/jhc/_Devel/BUILD_NPR/ext_apps/bin/
 ## ----------- ##
 
 configure:2270: checking for a BSD-compatible install
-configure:2338: result: /opt/local/bin/ginstall -c
+configure:2338: result: /opt/local/libexec/gnubin/install -c
 configure:2349: checking whether build environment is sane
 configure:2399: result: yes
 configure:2540: checking for a thread-safe mkdir -p
-configure:2579: result: /opt/local/bin/gmkdir -p
+configure:2579: result: /opt/local/libexec/gnubin/mkdir -p
 configure:2592: checking for gawk
-configure:2608: found /opt/local/bin/gawk
-configure:2619: result: gawk
+configure:2622: result: no
+configure:2592: checking for mawk
+configure:2622: result: no
+configure:2592: checking for nawk
+configure:2622: result: no
+configure:2592: checking for awk
+configure:2608: found /usr/bin/awk
+configure:2619: result: awk
 configure:2630: checking whether make sets $(MAKE)
 configure:2652: result: yes
 configure:2822: checking build system type
@@ -67,28 +76,34 @@ configure:2836: result: i386-apple-darwin13.4.0
 configure:2856: checking host system type
 configure:2869: result: i386-apple-darwin13.4.0
 configure:2939: checking for gcc
-configure:2955: found /usr/bin/gcc
+configure:2955: found /Users/jhc/anaconda/bin/gcc
 configure:2966: result: gcc
 configure:3195: checking for C compiler version
 configure:3204: gcc --version >&5
-Apple LLVM version 6.0 (clang-600.0.51) (based on LLVM 3.5svn)
-Target: x86_64-apple-darwin13.4.0
-Thread model: posix
-Configured with: --prefix=/Applications/Xcode.app/Contents/Developer/usr --with-gxx-include-dir=/usr/include/c++/4.2.1
+gcc (GCC) 4.8.2
+Copyright (C) 2013 Free Software Foundation, Inc.
+This is free software; see the source for copying conditions.  There is NO
+warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+
 configure:3215: $? = 0
 configure:3204: gcc -v >&5
-Configured with: --prefix=/Applications/Xcode.app/Contents/Developer/usr --with-gxx-include-dir=/usr/include/c++/4.2.1
-Apple LLVM version 6.0 (clang-600.0.51) (based on LLVM 3.5svn)
-Target: x86_64-apple-darwin13.4.0
+Using built-in specs.
+COLLECT_GCC=gcc
+COLLECT_LTO_WRAPPER=/Users/jhc/anaconda/libexec/gcc/x86_64-apple-darwin11.4.2/4.8.2/lto-wrapper
+Target: x86_64-apple-darwin11.4.2
+Configured with: ./configure --prefix=/Users/jhc/anaconda --libdir=/Users/jhc/anaconda/lib --with-gmp=/Users/jhc/anaconda --with-mpfr=/Users/jhc/anaconda --with-mpc=/Users/jhc/anaconda --with-isl=/Users/jhc/anaconda --with-cloog=/Users/jhc/anaconda --with-boot-ldflags=-Wl,-headerpad_max_install_names --with-stage1-ldflags=-Wl,-headerpad_max_install_names --disable-multilib
 Thread model: posix
+gcc version 4.8.2 (GCC) 
 configure:3215: $? = 0
 configure:3204: gcc -V >&5
-clang: error: argument to '-V' is missing (expected 1 value)
-clang: error: no input files
+gcc: error: unrecognized command line option '-V'
+gcc: fatal error: no input files
+compilation terminated.
 configure:3215: $? = 1
 configure:3204: gcc -qversion >&5
-clang: error: unknown argument: '-qversion'
-clang: error: no input files
+gcc: error: unrecognized command line option '-qversion'
+gcc: fatal error: no input files
+compilation terminated.
 configure:3215: $? = 1
 configure:3235: checking whether the C compiler works
 configure:3257: gcc    conftest.c  >&5
@@ -130,21 +145,19 @@ configure:3872: checking dependency style of gcc
 configure:3982: result: gcc3
 configure:4000: checking for log in -lm
 configure:4025: gcc -o conftest -g -O2   conftest.c -lm   >&5
-conftest.c:22:6: warning: incompatible redeclaration of library function 'log' [-Wincompatible-library-redeclaration]
-char log ();
-     ^
-conftest.c:22:6: note: 'log' is a builtin with type 'double (double)'
-1 warning generated.
+conftest.c:22:6: warning: conflicting types for built-in function 'log' [enabled by default]
+ char log ();
+      ^
 configure:4025: $? = 0
 configure:4034: result: yes
 configure:4052: checking how to run the C preprocessor
 configure:4083: gcc -E  conftest.c
 configure:4083: $? = 0
 configure:4097: gcc -E  conftest.c
-conftest.c:16:10: fatal error: 'ac_nonexistent.h' file not found
-#include <ac_nonexistent.h>
-         ^
-1 error generated.
+conftest.c:16:28: fatal error: ac_nonexistent.h: No such file or directory
+ #include <ac_nonexistent.h>
+                            ^
+compilation terminated.
 configure:4097: $? = 1
 configure: failed program was:
 | /* confdefs.h */
@@ -167,10 +180,10 @@ configure:4122: result: gcc -E
 configure:4142: gcc -E  conftest.c
 configure:4142: $? = 0
 configure:4156: gcc -E  conftest.c
-conftest.c:16:10: fatal error: 'ac_nonexistent.h' file not found
-#include <ac_nonexistent.h>
-         ^
-1 error generated.
+conftest.c:16:28: fatal error: ac_nonexistent.h: No such file or directory
+ #include <ac_nonexistent.h>
+                            ^
+compilation terminated.
 configure:4156: $? = 1
 configure: failed program was:
 | /* confdefs.h */
@@ -265,10 +278,10 @@ configure:4581: checking for size_t
 configure:4581: gcc -c -g -O2  conftest.c >&5
 configure:4581: $? = 0
 configure:4581: gcc -c -g -O2  conftest.c >&5
-conftest.c:66:21: error: expected expression
-if (sizeof ((size_t)))
-                    ^
-1 error generated.
+conftest.c: In function 'main':
+conftest.c:66:21: error: expected expression before ')' token
+ if (sizeof ((size_t)))
+                     ^
 configure:4581: $? = 1
 configure: failed program was:
 | /* confdefs.h */
@@ -360,20 +373,18 @@ configure:4697: $? = 0
 configure:4707: result: yes
 configure:4737: checking for vprintf
 configure:4737: gcc -o conftest -g -O2   conftest.c -lm  >&5
-conftest.c:57:6: warning: incompatible redeclaration of library function 'vprintf' [-Wincompatible-library-redeclaration]
-char vprintf ();
-     ^
-conftest.c:57:6: note: 'vprintf' is a builtin with type 'int (const char *, __va_list_tag *)'
-1 warning generated.
+conftest.c:57:6: warning: conflicting types for built-in function 'vprintf' [enabled by default]
+ char vprintf ();
+      ^
 configure:4737: $? = 0
 configure:4737: result: yes
 configure:4743: checking for _doprnt
 configure:4743: gcc -o conftest -g -O2   conftest.c -lm  >&5
 Undefined symbols for architecture x86_64:
   "__doprnt", referenced from:
-      _main in conftest-1bcfd8.o
+      _main in ccoThgFf.o
 ld: symbol(s) not found for architecture x86_64
-clang: error: linker command failed with exit code 1 (use -v to see invocation)
+collect2: error: ld returned 1 exit status
 configure:4743: $? = 1
 configure: failed program was:
 | /* confdefs.h */
@@ -451,56 +462,44 @@ configure: failed program was:
 configure:4743: result: no
 configure:4757: checking for floor
 configure:4757: gcc -o conftest -g -O2   conftest.c -lm  >&5
-conftest.c:58:6: warning: incompatible redeclaration of library function 'floor' [-Wincompatible-library-redeclaration]
-char floor ();
-     ^
-conftest.c:58:6: note: 'floor' is a builtin with type 'double (double)'
-1 warning generated.
+conftest.c:58:6: warning: conflicting types for built-in function 'floor' [enabled by default]
+ char floor ();
+      ^
 configure:4757: $? = 0
 configure:4757: result: yes
 configure:4757: checking for pow
 configure:4757: gcc -o conftest -g -O2   conftest.c -lm  >&5
-conftest.c:59:6: warning: incompatible redeclaration of library function 'pow' [-Wincompatible-library-redeclaration]
-char pow ();
-     ^
-conftest.c:59:6: note: 'pow' is a builtin with type 'double (double, double)'
-1 warning generated.
+conftest.c:59:6: warning: conflicting types for built-in function 'pow' [enabled by default]
+ char pow ();
+      ^
 configure:4757: $? = 0
 configure:4757: result: yes
 configure:4757: checking for rint
 configure:4757: gcc -o conftest -g -O2   conftest.c -lm  >&5
-conftest.c:60:6: warning: incompatible redeclaration of library function 'rint' [-Wincompatible-library-redeclaration]
-char rint ();
-     ^
-conftest.c:60:6: note: 'rint' is a builtin with type 'double (double)'
-1 warning generated.
+conftest.c:60:6: warning: conflicting types for built-in function 'rint' [enabled by default]
+ char rint ();
+      ^
 configure:4757: $? = 0
 configure:4757: result: yes
 configure:4757: checking for sqrt
 configure:4757: gcc -o conftest -g -O2   conftest.c -lm  >&5
-conftest.c:61:6: warning: incompatible redeclaration of library function 'sqrt' [-Wincompatible-library-redeclaration]
-char sqrt ();
-     ^
-conftest.c:61:6: note: 'sqrt' is a builtin with type 'double (double)'
-1 warning generated.
+conftest.c:61:6: warning: conflicting types for built-in function 'sqrt' [enabled by default]
+ char sqrt ();
+      ^
 configure:4757: $? = 0
 configure:4757: result: yes
 configure:4757: checking for strchr
 configure:4757: gcc -o conftest -g -O2   conftest.c -lm  >&5
-conftest.c:62:6: warning: incompatible redeclaration of library function 'strchr' [-Wincompatible-library-redeclaration]
-char strchr ();
-     ^
-conftest.c:62:6: note: 'strchr' is a builtin with type 'char *(const char *, int)'
-1 warning generated.
+conftest.c:62:6: warning: conflicting types for built-in function 'strchr' [enabled by default]
+ char strchr ();
+      ^
 configure:4757: $? = 0
 configure:4757: result: yes
 configure:4757: checking for strstr
 configure:4757: gcc -o conftest -g -O2   conftest.c -lm  >&5
-conftest.c:63:6: warning: incompatible redeclaration of library function 'strstr' [-Wincompatible-library-redeclaration]
-char strstr ();
-     ^
-conftest.c:63:6: note: 'strstr' is a builtin with type 'char *(const char *, const char *)'
-1 warning generated.
+conftest.c:63:6: warning: conflicting types for built-in function 'strstr' [enabled by default]
+ char strstr ();
+      ^
 configure:4757: $? = 0
 configure:4757: result: yes
 configure:5179: creating ./config.status
@@ -579,9 +578,9 @@ ac_cv_lib_m_log=yes
 ac_cv_objext=o
 ac_cv_path_EGREP='/usr/bin/grep -E'
 ac_cv_path_GREP=/usr/bin/grep
-ac_cv_path_install='/opt/local/bin/ginstall -c'
-ac_cv_path_mkdir=/opt/local/bin/gmkdir
-ac_cv_prog_AWK=gawk
+ac_cv_path_install='/opt/local/libexec/gnubin/install -c'
+ac_cv_path_mkdir=/opt/local/libexec/gnubin/mkdir
+ac_cv_prog_AWK=awk
 ac_cv_prog_CPP='gcc -E'
 ac_cv_prog_ac_ct_CC=gcc
 ac_cv_prog_cc_c89=
@@ -594,17 +593,17 @@ am_cv_CC_dependencies_compiler_type=gcc3
 ## Output variables. ##
 ## ----------------- ##
 
-ACLOCAL='${SHELL} /Users/jhc/_Devel/ext_apps/src/phyml-20120412-patched/missing --run aclocal-1.11'
+ACLOCAL='${SHELL} /Users/jhc/ete3_bundle/ete3/ext_apps/src/phyml-20120412-patched/missing --run aclocal-1.11'
 AMDEPBACKSLASH='\'
 AMDEP_FALSE='#'
 AMDEP_TRUE=''
-AMTAR='${SHELL} /Users/jhc/_Devel/ext_apps/src/phyml-20120412-patched/missing --run tar'
+AMTAR='${SHELL} /Users/jhc/ete3_bundle/ete3/ext_apps/src/phyml-20120412-patched/missing --run tar'
 AM_BACKSLASH='\'
 AM_DEFAULT_VERBOSITY='1'
-AUTOCONF='${SHELL} /Users/jhc/_Devel/ext_apps/src/phyml-20120412-patched/missing --run autoconf'
-AUTOHEADER='${SHELL} /Users/jhc/_Devel/ext_apps/src/phyml-20120412-patched/missing --run autoheader'
-AUTOMAKE='${SHELL} /Users/jhc/_Devel/ext_apps/src/phyml-20120412-patched/missing --run automake-1.11'
-AWK='gawk'
+AUTOCONF='${SHELL} /Users/jhc/ete3_bundle/ete3/ext_apps/src/phyml-20120412-patched/missing --run autoconf'
+AUTOHEADER='${SHELL} /Users/jhc/ete3_bundle/ete3/ext_apps/src/phyml-20120412-patched/missing --run autoheader'
+AUTOMAKE='${SHELL} /Users/jhc/ete3_bundle/ete3/ext_apps/src/phyml-20120412-patched/missing --run automake-1.11'
+AWK='awk'
 CC='gcc'
 CCDEPMODE='depmode=gcc3'
 CFLAGS='-Wall -O2 -msse -fomit-frame-pointer -funroll-loops '
@@ -627,8 +626,8 @@ LDFLAGS=''
 LIBOBJS=''
 LIBS='-lm '
 LTLIBOBJS=''
-MAKEINFO='${SHELL} /Users/jhc/_Devel/ext_apps/src/phyml-20120412-patched/missing --run makeinfo'
-MKDIR_P='/opt/local/bin/gmkdir -p'
+MAKEINFO='${SHELL} /Users/jhc/ete3_bundle/ete3/ext_apps/src/phyml-20120412-patched/missing --run makeinfo'
+MKDIR_P='/opt/local/libexec/gnubin/mkdir -p'
 OBJEXT='o'
 PACKAGE='phyml'
 PACKAGE_BUGREPORT='s.guindon@auckland.ac.nz'
@@ -690,13 +689,13 @@ host_vendor='apple'
 htmldir='${docdir}'
 includedir='${prefix}/include'
 infodir='${datarootdir}/info'
-install_sh='${SHELL} /Users/jhc/_Devel/ext_apps/src/phyml-20120412-patched/install-sh'
+install_sh='${SHELL} /Users/jhc/ete3_bundle/ete3/ext_apps/src/phyml-20120412-patched/install-sh'
 libdir='${exec_prefix}/lib'
 libexecdir='${exec_prefix}/libexec'
 localedir='${datarootdir}/locale'
 localstatedir='${prefix}/var'
 mandir='${datarootdir}/man'
-mkdir_p='/opt/local/bin/gmkdir -p'
+mkdir_p='/opt/local/libexec/gnubin/mkdir -p'
 oldincludedir='/usr/include'
 pdfdir='${docdir}'
 prefix='/usr/local'

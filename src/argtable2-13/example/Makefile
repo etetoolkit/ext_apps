@@ -28,7 +28,7 @@
 
 CC        = gcc
 #add the -static switch to CFLAGS to force static linking if desired
-CFLAGS    += -I/usr/local/include -g
+CFLAGS    += -I/Users/jhc/ete3_bundle/ete3/ext_apps/local/include -g
 LDLIBS    += -largtable2
 
 TARGETS = uname rm mv echo ls myprog myprog_C89 multisyntax argcustom callbacks hasoptvalue
