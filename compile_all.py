@@ -11,7 +11,7 @@ from glob import glob
 
 ARGS = None
 basedir = path.split(path.abspath(__file__))[0]
-DEBUG = True
+DEBUG = False
 
 CONFIG = {
     "BASE": basedir,
@@ -276,6 +276,7 @@ def compile_all(targets=None, verbose=False, cores=1):
             os.remove(fname)
    
     fn = globals()
+    errors = 0
     for name in targets:
         print('Compiling', name, "...", end="")
         if not fn.get("compile_%s"%name)():
@@ -285,9 +286,11 @@ def compile_all(targets=None, verbose=False, cores=1):
                 print(logfile)
             else:
                 print("ERROR\nCompiling %s. Check log %s/%s.log" %(name, CONFIG["BASE"], name))
+            errors += 1
         else:     
             print("Ok")
-
+    return errors
+            
 def system(cmd):
     if DEBUG:
         print(cmd)
@@ -301,8 +304,9 @@ def _main():
     parser.add_argument(dest="targets", nargs="*")
 
     ARGS = parser.parse_args()
-    compile_all(targets=ARGS.targets, verbose=ARGS.verbose)
-
+    errors = compile_all(targets=ARGS.targets, verbose=ARGS.verbose)
+    if errors:
+        sys.exit(-1)
 
 if __name__ == "__main__":
     _main()
