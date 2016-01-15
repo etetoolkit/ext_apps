@@ -209,7 +209,7 @@ def compile_dialigntx():
     make clean;
     make -j %(CORES)s ;
     cp dialign-tx %(BINDIR)s/;
-    cp -r s/DIALIGN-TX_1.0.2/conf/ %(BINDIR)s/dialigntx_conf/;
+    cp -r %(SRCDIR)s/DIALIGN-TX_1.0.2/conf/ %(BINDIR)s/dialigntx_conf/;
     make clean;
     ls %(BINDIR)s/dialign-tx;
     ls %(BINDIR)s/dialigntx_conf/;
