@@ -1,5 +1,13 @@
 #!/bin/bash
 
+# ClustaOmega dependency
+cd src/argtable2-13/
+./configure --prefix $PREFIX
+make
+make install
+cd ../../
+
+# Install tools
 $PYTHON compile_all.py
 mkdir $PREFIX/bin/ete3_apps/
 cp -r bin/ $PREFIX/bin/ete3_apps/
