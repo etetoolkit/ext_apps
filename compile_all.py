@@ -271,6 +271,9 @@ def compile_all(targets=None, verbose=False, cores=1):
                   'fasttree', 'raxml', 'phyml',
                   'consel', 'paml', 'slr',
         ]
+        if sys.platform == "darwin":
+            targets.remove("dialigntx")
+        
         for fname in glob(os.path.join(CONFIG["BINDIR"], "*")):
             print("cleaning", fname)
             os.remove(fname)
