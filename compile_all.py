@@ -6,6 +6,8 @@ import os
 from os import path
 import subprocess 
 from argparse import ArgumentParser
+import multiprocessing
+from glob import glob
 
 ARGS = None
 basedir = path.split(path.abspath(__file__))[0]
@@ -16,7 +18,7 @@ CONFIG = {
     "LOCALDIR": path.join(basedir, 'local'),
     "BINDIR": path.join(basedir, 'bin'),
     "SRCDIR": path.join(basedir, 'src'),
-    "CORES": 4,
+    "CORES":  multiprocessing.cpu_count(),
     }
 
 def compile_fasttree():
@@ -269,6 +271,9 @@ def compile_all(targets=None, verbose=False, cores=1):
                   'fasttree', 'raxml', 'phyml',
                   'consel', 'paml', 'slr',
         ]
+        for fname in glob(os.path.join(CONFIG["BINDIR"], "*")):
+            print("cleaning", fname)
+            os.remove(fname)
    
     fn = globals()
     for name in targets:
@@ -297,6 +302,7 @@ def _main():
 
     ARGS = parser.parse_args()
     compile_all(targets=ARGS.targets, verbose=ARGS.verbose)
+
 
 if __name__ == "__main__":
     _main()
