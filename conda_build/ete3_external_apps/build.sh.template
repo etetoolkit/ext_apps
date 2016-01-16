@@ -4,7 +4,7 @@
 export CFLAGS="-I$PREFIX/include"
 
 # Install tools
-$PYTHON compile_all.py 
+$PYTHON compile_all.py slr --debug
 mkdir $PREFIX/bin/ete3_apps/
 cp -r bin/ $PREFIX/bin/ete3_apps/
 echo %VERSION% > $PREFIX/bin/ete3_apps/__version__
