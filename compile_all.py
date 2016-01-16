@@ -255,7 +255,6 @@ def compile_slr():
     rm ../bin/Slr;
     make -j %(CORES)s ;
     cp ../bin/Slr %(BINDIR)s/;
-    rm ../bin/Slr;    
     ls %(BINDIR)s/Slr;
     ) >%(BASE)s/slr.log 2>&1;
     """ %CONFIG
@@ -315,6 +314,6 @@ def _main():
     errors = compile_all(targets=ARGS.targets, verbose=ARGS.verbose)
     #if errors:
     #    sys.exit(-1)
-
+    
 if __name__ == "__main__":
     _main()

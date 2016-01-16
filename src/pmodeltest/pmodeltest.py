@@ -472,11 +472,6 @@ def get_options():
     parser.add_argument('--version', action='version', version='%(prog)s v1.4')
     
     opts = parser.parse_args()
-    if opts.version:
-        print(__title__)
-        sys.exit(0)
-
-
     
     typ = 'aa' if opts.protein else 'dna'
     if not opts.algt:
