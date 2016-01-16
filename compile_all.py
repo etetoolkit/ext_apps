@@ -161,7 +161,7 @@ def compile_clustalo():
         rm -f %(BINDIR)s/clustalo;
         cd %(SRCDIR)s/clustal-omega-1.2.1;
         make clean;
-        ./configure %(FLAGS)s &&
+        ./configure &&
         make -j %(CORES)s ;
         cp src/clustalo %(BINDIR)s/;
         ls %(BINDIR)s/clustalo;
