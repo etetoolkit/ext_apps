@@ -95,7 +95,7 @@ def compile_prank():
     rm -rf %(BINDIR)s/prank;
     cd %(SRCDIR)s/prank-100802/;
     make clean;
-    rm prank
+    rm prank;
     make -j %(CORES)s; 
     cp prank %(BINDIR)s/; 
     ls %(BINDIR)s/prank; 
