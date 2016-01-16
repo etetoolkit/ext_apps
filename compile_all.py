@@ -95,6 +95,7 @@ def compile_prank():
     rm -rf %(BINDIR)s/prank;
     cd %(SRCDIR)s/prank-100802/;
     make clean;
+    rm prank
     make -j %(CORES)s; 
     cp prank %(BINDIR)s/; 
     ls %(BINDIR)s/prank; 
@@ -304,13 +305,16 @@ def system(cmd):
     return os.system(cmd)
 
 def _main():
-    global ARGS
+    global ARGS, DEBUG
     parser = ArgumentParser()
     parser.add_argument("-v", dest="verbose", action="store_true")
     parser.add_argument("--debug", dest="debug", action="store_true")
     parser.add_argument(dest="targets", nargs="*")
 
     ARGS = parser.parse_args()
+    if ARGS.debug:
+        DEBUG = True
+    
     errors = compile_all(targets=ARGS.targets, verbose=ARGS.verbose)
     #if errors:
     #    sys.exit(-1)

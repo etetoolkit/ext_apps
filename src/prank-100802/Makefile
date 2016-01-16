@@ -4,9 +4,10 @@ CC            = gcc
 CXX           = g++
 CFLAGS        = -pipe -O2
 CXXFLAGS      = -pipe -O2
-INCPATH       = -I/usr/include -I.
+#INCPATH       = -I/usr/include -I.
+INCPATH       = -I.
 LINK          = g++
-LIBS          = -L/usr/lib
+#LIBS          = -L/usr/lib
 DEL_FILE      = rm -f
 
 ####### Output directory
