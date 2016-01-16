@@ -1,9 +1,10 @@
 #!/bin/bash
 
-ls /Users/jhc/anaconda/envs/_build/lib|grep table --color
-ls /Users/jhc/anaconda/envs/_build/include|grep table --color
+# Needed to find argtable, dont know why it is not automatic...
+export CFLAGS='-I../../include'
+
 # Install tools
-$PYTHON compile_all.py clustalo --debug
+$PYTHON compile_all.py
 mkdir $PREFIX/bin/ete3_apps/
 cp -r bin/ $PREFIX/bin/ete3_apps/
 echo %VERSION% > $PREFIX/bin/ete3_apps/__version__
