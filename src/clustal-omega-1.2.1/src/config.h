@@ -11,7 +11,7 @@
 /* #undef CYGWIN */
 
 /* This is a Darwin system */
-#define DARWIN 1
+/* #undef DARWIN */
 
 /* Define to 1 if you have the <argtable2.h> header file. */
 #define HAVE_ARGTABLE2_H 1
@@ -35,7 +35,7 @@
 #define HAVE_FSEEKO 1
 
 /* Define to 1 if you have the `fseeko64' function. */
-/* #undef HAVE_FSEEKO64 */
+#define HAVE_FSEEKO64 1
 
 /* Define to 1 if you have the `ftell64' function. */
 /* #undef HAVE_FTELL64 */
@@ -44,7 +44,7 @@
 #define HAVE_FTELLO 1
 
 /* Define to 1 if you have the `ftello64' function. */
-/* #undef HAVE_FTELLO64 */
+#define HAVE_FTELLO64 1
 
 /* Define to 1 if you have the <inttypes.h> header file. */
 #define HAVE_INTTYPES_H 1
@@ -119,7 +119,7 @@
 #define HAVE_UNISTD_H 1
 
 /* This is a LINUX system */
-/* #undef LINUX */
+#define LINUX 1
 
 /* Define to the sub-directory in which libtool stores uninstalled libraries.
    */
@@ -152,11 +152,14 @@
 /* Define to the one symbol short name of this package. */
 #define PACKAGE_TARNAME "clustal-omega"
 
+/* Define to the home page for this package. */
+#define PACKAGE_URL ""
+
 /* Define to the version of this package. */
 #define PACKAGE_VERSION "1.2.1"
 
 /* The size of `fpos_t', as computed by sizeof. */
-#define SIZEOF_FPOS_T 8
+#define SIZEOF_FPOS_T 16
 
 /* The size of `unsigned int', as computed by sizeof. */
 #define SIZEOF_UNSIGNED_INT 4

@@ -85,7 +85,7 @@
 #define PACKAGE_NAME "PhyML"
 
 /* Define to the full name and version of this package. */
-#define PACKAGE_STRING "PhyML 20140629"
+#define PACKAGE_STRING "PhyML 20160115"
 
 /* Define to the one symbol short name of this package. */
 #define PACKAGE_TARNAME "phyml"
@@ -94,7 +94,7 @@
 #define PACKAGE_URL ""
 
 /* Define to the version of this package. */
-#define PACKAGE_VERSION "20140629"
+#define PACKAGE_VERSION "20160115"
 
 /* PART tag on */
 /* #undef PART */
@@ -127,7 +127,7 @@
 #define UNIX 1
 
 /* Version number of package */
-#define VERSION "20140629"
+#define VERSION "20160115"
 
 /* Define to empty if `const' does not conform to ANSI C. */
 /* #undef const */

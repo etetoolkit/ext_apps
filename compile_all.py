@@ -8,6 +8,7 @@ import subprocess
 from argparse import ArgumentParser
 import multiprocessing
 from glob import glob
+import shutil
 
 ARGS = None
 basedir = path.split(path.abspath(__file__))[0]
@@ -209,7 +210,7 @@ def compile_dialigntx():
     make clean;
     make -j %(CORES)s ;
     cp dialign-tx %(BINDIR)s/;
-    cp -r s/DIALIGN-TX_1.0.2/conf/ %(BINDIR)s/dialigntx_conf/;
+    cp -r %(SRCDIR)s/DIALIGN-TX_1.0.2/conf/ %(BINDIR)s/dialigntx_conf/;
     make clean;
     ls %(BINDIR)s/dialign-tx;
     ls %(BINDIR)s/dialigntx_conf/;
@@ -276,12 +277,16 @@ def compile_all(targets=None, verbose=False, cores=1):
         
         for fname in glob(os.path.join(CONFIG["BINDIR"], "*")):
             print("cleaning", fname)
-            os.remove(fname)
+            if os.path.isdir(fname):
+                shutil.rmtree(fname)
+            else:
+                os.remove(fname)
    
     fn = globals()
     errors = 0
     for name in targets:
         print('Compiling', name, "...", end="")
+        sys.stdout.flush()
         if not fn.get("compile_%s"%name)():
             if verbose:
                 print("ERROR\nCompiling %s. Check log %s/%s.log" %(name, CONFIG["BASE"], name))
