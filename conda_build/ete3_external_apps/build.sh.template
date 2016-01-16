@@ -1,8 +1,7 @@
 #!/bin/bash
 
 # Needed to find argtable, dont know why it is not automatic...
-export CFLAGS='-I../../include'
-export LDFLAGS='-L../../lib/'
+export CFLAGS="-I$PREFIX/include"
 
 # Install tools
 $PYTHON compile_all.py clustalo --debug

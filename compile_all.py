@@ -158,7 +158,6 @@ def compile_clustalo():
         else:
             CONFIG["FLAGS"] = ""
         cmds = """(
-        env|grep FLAG;
         rm -f %(BINDIR)s/clustalo;
         cd %(SRCDIR)s/clustal-omega-1.2.1;
         make clean;
