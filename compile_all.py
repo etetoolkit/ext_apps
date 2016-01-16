@@ -308,8 +308,8 @@ def _main():
 
     ARGS = parser.parse_args()
     errors = compile_all(targets=ARGS.targets, verbose=ARGS.verbose)
-    if errors:
-        sys.exit(-1)
+    #if errors:
+    #    sys.exit(-1)
 
 if __name__ == "__main__":
     _main()
