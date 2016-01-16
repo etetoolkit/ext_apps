@@ -14,8 +14,11 @@ if [ "$SYS" == "Linux" ]; then
     (cd src/slr/src/ &&
         make clean &&
         make BLASDIR=$PREFIX/lib &&
-        cp ../bin/Slr ../../bin);
+        cp ../bin/Slr ../../../bin;
+)
+
+
 fi;
-    
+
 cp -r bin/ $PREFIX/bin/ete3_apps/
 echo %VERSION% > $PREFIX/bin/ete3_apps/__version__
