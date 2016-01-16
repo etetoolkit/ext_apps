@@ -3,18 +3,24 @@ package:
   version: %VERSION%
   
 source:
-  git_url: https://github.com/jhcepas/ext_apps.git
-    
+    git_url: ../../
+    # or
+    #  git_url: https://github.com/jhcepas/ext_apps.git
 requirements:
   build:
     - gcc
     - python
+    - argtable2
     
   run:
+    - gcc
     - python
+    - argtable2
     
 test:
   requires:
+    - gcc
+    - argtable2
     - python
     - six
     - lxml

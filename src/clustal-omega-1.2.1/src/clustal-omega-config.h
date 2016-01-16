@@ -17,7 +17,9 @@
 /* #undef CYGWIN */
 
 /* This is a Darwin system */
-/* #undef DARWIN */
+#ifndef CLUSTAL_OMEGA_DARWIN
+#define CLUSTAL_OMEGA_DARWIN 1
+#endif
 
 /* Define to 1 if you have the <argtable2.h> header file. */
 #ifndef CLUSTAL_OMEGA_HAVE_ARGTABLE2_H
@@ -53,9 +55,7 @@
 #endif
 
 /* Define to 1 if you have the `fseeko64' function. */
-#ifndef CLUSTAL_OMEGA_HAVE_FSEEKO64
-#define CLUSTAL_OMEGA_HAVE_FSEEKO64 1
-#endif
+/* #undef HAVE_FSEEKO64 */
 
 /* Define to 1 if you have the `ftell64' function. */
 /* #undef HAVE_FTELL64 */
@@ -66,9 +66,7 @@
 #endif
 
 /* Define to 1 if you have the `ftello64' function. */
-#ifndef CLUSTAL_OMEGA_HAVE_FTELLO64
-#define CLUSTAL_OMEGA_HAVE_FTELLO64 1
-#endif
+/* #undef HAVE_FTELLO64 */
 
 /* Define to 1 if you have the <inttypes.h> header file. */
 #ifndef CLUSTAL_OMEGA_HAVE_INTTYPES_H
@@ -185,9 +183,7 @@
 #endif
 
 /* This is a LINUX system */
-#ifndef CLUSTAL_OMEGA_LINUX
-#define CLUSTAL_OMEGA_LINUX 1
-#endif
+/* #undef LINUX */
 
 /* Define to the sub-directory in which libtool stores uninstalled libraries.
    */
@@ -236,6 +232,11 @@
 #define CLUSTAL_OMEGA_PACKAGE_TARNAME "clustal-omega"
 #endif
 
+/* Define to the home page for this package. */
+#ifndef CLUSTAL_OMEGA_PACKAGE_URL
+#define CLUSTAL_OMEGA_PACKAGE_URL ""
+#endif
+
 /* Define to the version of this package. */
 #ifndef CLUSTAL_OMEGA_PACKAGE_VERSION
 #define CLUSTAL_OMEGA_PACKAGE_VERSION "1.2.1"
@@ -243,7 +244,7 @@
 
 /* The size of `fpos_t', as computed by sizeof. */
 #ifndef CLUSTAL_OMEGA_SIZEOF_FPOS_T
-#define CLUSTAL_OMEGA_SIZEOF_FPOS_T 16
+#define CLUSTAL_OMEGA_SIZEOF_FPOS_T 8
 #endif
 
 /* The size of `unsigned int', as computed by sizeof. */

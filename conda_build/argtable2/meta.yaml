@@ -1,0 +1,15 @@
+package:
+  name: argtable2
+  version: 2.13
+  
+source:
+    path: ../../src/argtable2-13/
+    
+requirements:
+  build:
+    - gcc    
+    
+about:
+  license: GPL 2
+  summary: "argtable2"
+
