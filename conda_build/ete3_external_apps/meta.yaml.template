@@ -11,11 +11,13 @@ requirements:
     - gcc
     - python
     - argtable2
+    - openblas    [linux]
     
   run:
     - gcc
     - python
     - argtable2
+    - openblas    [linux]   
     
 test:
   requires:
@@ -26,13 +28,13 @@ test:
     - lxml
     - numpy
     - pyqt 
-  
+    - openblas    [linux]
+
   commands:
     - pip install https://github.com/jhcepas/ete/zipball/master
     - ete3 version
     - ete3 build check
-    
-    
+        
 about:
   home: http://etetoolkit.org
   license: Multiple (OpenSource)
