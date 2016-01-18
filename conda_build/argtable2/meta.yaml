@@ -1,6 +1,6 @@
 package:
   name: argtable2
-  version: 2.13
+  version: "2.13"
   
 source:
     path: ../../src/argtable2-13/

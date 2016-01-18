@@ -13,7 +13,7 @@ echo $SYS
 if [ "$SYS" == "Linux" ]; then
     (cd src/slr/src/ &&
         make clean &&
-        make BLASDIR=$PREFIX/lib &&
+        make BLASDIR=$PREFIX/lib CC=/usr/bin/gcc LD=/usr/bin/ld &&
         cp ../bin/Slr ../../../bin;
 )
 
