@@ -268,7 +268,7 @@ def compile_slr():
     cd %(SRCDIR)s/slr/src/
     make clean;
     rm ../bin/Slr;    
-    make -j %(CORES)s";
+    make -j %(CORES)s;
     cp ../bin/Slr %(BINDIR)s/;
     ls %(BINDIR)s/Slr;
     ) >%(BASE)s/slr.log 2>&1;
