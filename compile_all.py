@@ -125,7 +125,7 @@ def compile_pmodeltest():
     return system(cmds) == 0
 
 def compile_muscle():
-    cmds = """(
+    compile_cmds = """(
     rm -f %(BINDIR)s/muscle;
     cd %(SRCDIR)s/muscle/src/
     make clean;
@@ -135,7 +135,23 @@ def compile_muscle():
     ) >%(BASE)s/muscle.log 2>&1;
 
     """ %CONFIG
-    return system(cmds) == 0
+
+    if sys.platform == "darwin":
+        cp_cmds = """(   
+        rm %(BINDIR)s/muscle;
+        cp %(SRCDIR)s/muscle/muscle-darwin %(BINDIR)s/muscle;
+        ls %(BINDIR)s/muscle;
+        ) >%(BASE)s/muscle.log 2>&1;
+    """ %CONFIG        
+    else:
+        cp_cmds = """(   
+        rm %(BINDIR)s/muscle;
+        cp %(SRCDIR)s/muscle/muscle-linux %(BINDIR)s/muscle;
+        ls %(BINDIR)s/muscle;
+        ) >%(BASE)s/muscle.log 2>&1;
+    """ %CONFIG        
+
+    return system(cp_cmds) == 0
 
 def compile_argtable2():
     cmds = """(
