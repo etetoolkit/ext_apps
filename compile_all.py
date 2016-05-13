@@ -317,7 +317,8 @@ def compile_all(targets=None, verbose=False, cores=1):
         ]
         if sys.platform == "darwin":
             targets.remove("dialigntx")
-        
+            
+        # clear output binary dir
         for fname in glob(os.path.join(CONFIG["BINDIR"], "*")):
             print("cleaning", fname)
             if os.path.isdir(fname):
