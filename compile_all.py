@@ -175,7 +175,7 @@ def compile_clustalo():
             CONFIG["FLAGS"] = ""
         cmds = """(
         rm -f %(BINDIR)s/clustalo;
-        cd %(SRCDIR)s/clustal-omega;
+        cd %(SRCDIR)s/clustalo;
         make clean;
         ./configure %(FLAGS)s &&
         make -j %(CORES)s ;
