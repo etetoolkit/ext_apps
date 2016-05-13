@@ -295,7 +295,7 @@ def compile_iqtree():
 def compile_phylobayes():
     cmds = """(   
     rm %(BINDIR)s/pb;
-    cd %(SRCDIR)s/phylobayes/source/
+    cd %(SRCDIR)s/phylobayes/source/;
     make clean;
     make -j %(CORES)s";
     cp -r ../data/* %(BINDIR)s/;
