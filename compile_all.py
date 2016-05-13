@@ -246,7 +246,6 @@ def compile_paml():
     """ %CONFIG
     return system(cmds) == 0
 
-
 def compile_slr():
     cmds = """(   
     rm %(BINDIR)s/Slr;
@@ -261,11 +260,33 @@ def compile_slr():
     return system(cmds) == 0
 
 def compile_iqtree():
-    pass
-
+    if sys.platform == "darwin":
+        cmds = """(   
+        rm %(BINDIR)s/iqtree-omp;
+        cp %(SRCDIR)s/iqtree-omp-MacOSX/bin/iqtree-omp %(BINDIR)s/;
+        ls %(BINDIR)s/iqtree-omp;
+        ) >%(BASE)s/iqtree.log 2>&1;
+    """ %CONFIG        
+    else:
+        cmds = """(   
+        rm %(BINDIR)s/iqtree-omp;
+        cp %(SRCDIR)s/iqtree-omp-Linux/bin/iqtree-omp %(BINDIR)s/;
+        ls %(BINDIR)s/iqtree-omp;
+        ) >%(BASE)s/iqtree.log 2>&1;
+        """ %CONFIG        
+    return system(cmds) == 0
+        
 def compile_phylobayes():
-    pass
-
+    cmds = """(   
+    rm %(BINDIR)s/pb;
+    cd %(SRCDIR)s/phylobayes/source/
+    make clean;
+    make -j %(CORES)s";
+    cp -r ../data/* %(BINDIR)s/;
+    ls %(BINDIR)s/pb;
+    ) >%(BASE)s/phylobayes.log 2>&1;
+    """ %CONFIG
+    return system(cmds) == 0
 
 def compile_all(targets=None, verbose=False, cores=1):
     global CONFIG
