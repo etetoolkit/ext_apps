@@ -56,7 +56,7 @@ def compile_phyml():
     cmds = """(
     rm -f %(BINDIR)s/phyml;
     cd %(SRCDIR)s;
-    cd phyml-20120412-patched;
+    cd phyml;
     make clean;
     ./configure; 
     make -j %(CORES)s;
@@ -69,8 +69,8 @@ def compile_phyml():
 def compile_tcoffee():
     cmds = """(
     rm -f %(BINDIR)s/t_coffee;
-    cd %(SRCDIR)s/T-COFFEE_distribution_Version_11.00.8cbe486/t_coffee_source/ && make clean && make;
-    cd %(SRCDIR)s/T-COFFEE_distribution_Version_11.00.8cbe486;
+    cd %(SRCDIR)s/tcoffee/t_coffee_source/ && make clean && make;
+    cd %(SRCDIR)s/tcoffee;
     ./install t_coffee -plugins=%(BINDIR)s  -dis=%(BINDIR)s -exec=%(BINDIR)s; 
     ls %(BINDIR)s/t_coffee;
     ) >%(BASE)s/tcoffee.log  2>&1;
@@ -81,7 +81,7 @@ def compile_tcoffee():
 def compile_kalign():
     cmds = """(
     rm -rf %(BINDIR)s/kalign;
-    cd %(SRCDIR)s/kalign-2.03/;
+    cd %(SRCDIR)s/kalign/;
     make clean;
     ./configure && make -j %(CORES)s; 
     cp kalign %(BINDIR)s/; 
@@ -93,7 +93,7 @@ def compile_kalign():
 def compile_prank():
     cmds = """(
     rm -rf %(BINDIR)s/prank;
-    cd %(SRCDIR)s/prank-100802/;
+    cd %(SRCDIR)s/prank/;
     make clean;
     rm prank;
     make -j %(CORES)s; 
@@ -106,7 +106,7 @@ def compile_prank():
 def compile_probcons():
     cmds = """(
     rm -rf %(BINDIR)s/probcons;
-    cd %(SRCDIR)s/probcons-1.12/;
+    cd %(SRCDIR)s/probcons/;
     make clean;
     make -j %(CORES)s; 
     cp probcons %(BINDIR)s/; 
@@ -127,7 +127,7 @@ def compile_pmodeltest():
 def compile_muscle():
     cmds = """(
     rm -f %(BINDIR)s/muscle;
-    cd %(SRCDIR)s/muscle3.8.31/src/
+    cd %(SRCDIR)s/muscle/src/
     make clean;
     ./mk 
     cp muscle %(BINDIR)s/; 
@@ -159,7 +159,7 @@ def compile_clustalo():
             CONFIG["FLAGS"] = ""
         cmds = """(
         rm -f %(BINDIR)s/clustalo;
-        cd %(SRCDIR)s/clustal-omega-1.2.1;
+        cd %(SRCDIR)s/clustal-omega;
         make clean;
         ./configure %(FLAGS)s &&
         make -j %(CORES)s ;
@@ -176,7 +176,7 @@ def compile_clustalo():
 def compile_mafft():
     cmds = """(
     rm -f %(BINDIR)s/mafft*;
-    cd %(SRCDIR)s/mafft-6.861-without-extensions/core/;
+    cd %(SRCDIR)s/mafft/core/;
     make clean;
     make -j %(CORES)s ;
     cp ../binaries/* %(BINDIR)s/;
@@ -192,7 +192,7 @@ def compile_trimal():
     rm -f %(BINDIR)s/trimal;
     rm -f %(BINDIR)s/readal;
     rm -f %(BINDIR)s/statal;
-    cd %(SRCDIR)s/trimal-1.4/source/
+    cd %(SRCDIR)s/trimal/source/
     make clean;
     make -j %(CORES)s ;
     cp trimal statal readal %(BINDIR)s/;
@@ -206,11 +206,11 @@ def compile_dialigntx():
     cmds = """(
     rm -f %(BINDIR)s/dialign-tx;
     rm -rf %(BINDIR)s/dialigntx_conf/;
-    cd %(SRCDIR)s/DIALIGN-TX_1.0.2/source/
+    cd %(SRCDIR)s/dialigntx/source/
     make clean;
     make -j %(CORES)s ;
     cp dialign-tx %(BINDIR)s/;
-    cp -r %(SRCDIR)s/DIALIGN-TX_1.0.2/conf/ %(BINDIR)s/dialigntx_conf/;
+    cp -r %(SRCDIR)s/dialigntx/conf/ %(BINDIR)s/dialigntx_conf/;
     make clean;
     ls %(BINDIR)s/dialign-tx;
     ls %(BINDIR)s/dialigntx_conf/;
@@ -236,7 +236,7 @@ def compile_consel():
 def compile_paml():
     cmds = """(
     rm %(BINDIR)s/codeml;
-    cd %(SRCDIR)s/paml4.8/src/
+    cd %(SRCDIR)s/paml/src/
     rm codeml;
     make codeml -j %(CORES)s ;
     cp codeml %(BINDIR)s/;
@@ -260,6 +260,13 @@ def compile_slr():
     """ %CONFIG
     return system(cmds) == 0
 
+def compile_iqtree():
+    pass
+
+def compile_phylobayes():
+    pass
+
+
 def compile_all(targets=None, verbose=False, cores=1):
     global CONFIG
     
@@ -268,7 +275,7 @@ def compile_all(targets=None, verbose=False, cores=1):
         targets= ['tcoffee', 'clustalo', 'muscle', 'dialigntx', 'mafft', 'kalign', 'prank', 'probcons', 
                   'trimal',
                   'pmodeltest',
-                  'fasttree', 'raxml', 'phyml',
+                  'fasttree', 'raxml', 'phyml', 'iqtree', 'phylobayes',
                   'consel', 'paml', 'slr',
         ]
         if sys.platform == "darwin":

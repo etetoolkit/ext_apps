@@ -1,0 +1,10 @@
+
+pdf("thetaml.pdf")
+
+x <- read.table("out");
+
+ plot(x[[3]]~x[[1]], pch=16,cex=1.0,lwd=2,xlab=expression(ln ~theta),cex.lab=1.5,ylab="ln L")
+
+dev.off()
+
+

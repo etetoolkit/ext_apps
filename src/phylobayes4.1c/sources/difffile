@@ -1,0 +1,262 @@
+BF.cpp
+Bipartition.cpp
+BipartitionList.cpp
+BPCompare.cpp
+Chain.cpp
+202c202
+< 			// Trace_os << "\tlogprior";
+---
+> 			Trace_os << "\tlogprior";
+1036d1035
+< 
+1216c1215
+< 		// os << '\t' << -pb->logPrior();
+---
+> 		os << '\t' << pb->logPrior();
+Check.cpp
+Chrono.cpp
+Clock.cpp
+Consensus.cpp
+correlation.cpp
+231d230
+< 
+correl.cpp
+CVrep.cpp
+EM.cpp
+fastreadthermo.cpp
+GeneJacknife.cpp
+JackBoot.cpp
+JackGeneTaxa.cpp
+JackTaxa.cpp
+linalg.cpp
+MakeConcat.cpp
+MakeHisto.cpp
+MakeRandomConcat.cpp
+MakeRandomTree.cpp
+MaxLikelihood.cpp
+MCParameters.cpp
+15,18d14
+< 	// only for ancestral sequences
+< 	// under homogeneous models
+< 	midpointrooting = 0;
+< 
+4110,4113d4105
+< 	if (CalibIndex)	{
+< 		cerr << "error : calibration arrays allocated twice\n";
+< 		exit(1);
+< 	}
+Misc.cpp
+ML.cpp
+Move.cpp
+5290,5306d5289
+< void PhyloBayes::RootAtMidPoint()	{
+< 	if ((mParam->MBL) || (mParam->GeneBLMultiplier))	{
+< 		cerr << "error : mid point rooting not available under branch length mixtures\n";
+< 		exit(1);
+< 	}
+< 
+< 	Node* node1 = root->left;
+< 	Node* node2 = root->right;
+< 	double length = BL[node1->label] + BL[node2->label];
+< 	BL[node1->label] = 0.5 * length;
+< 	BL[node2->label] = 0.5 * length;
+< 	length = node1->branchLength + node2->branchLength;
+< 	node1->branchLength = 0.5 * length;
+< 	node2->branchLength = 0.5 * length;
+< }
+< 
+< 	
+mystream.cpp
+mystring.cpp
+PB.cpp
+169c169
+< 				cerr << "phylobayes version 3.3c\n";
+---
+> 				cerr << "phylobayes version 3.2e\n";
+1148,1149c1148,1149
+< 	// doublestream os((name + ".log").c_str());
+< 	ofstream os((name + ".log").c_str());
+---
+> 	doublestream os((name + ".log").c_str());
+> 	// ofstream os((name + ".log").c_str());
+1152c1152
+< 	os << "phylobayes version 3.3c\n";
+---
+> 	os << "phylobayes version 3.2f\n";
+1782,1787c1782,1787
+< 				if (! improperlowerbound)	{
+< 					mParam->ImproperLowerBound = 0;
+< 					mParam->LowerC = lowerc;
+< 					mParam->LowerP = lowerp;
+< 					os << "lower bounds as in Paml 4.2 (truncated Cauchy), p = " << lowerp << " and c = " << lowerc << '\n';
+< 				}
+---
+> 			}
+> 			if (! improperlowerbound)	{
+> 				mParam->ImproperLowerBound = 0;
+> 				mParam->LowerC = lowerc;
+> 				mParam->LowerP = lowerp;
+> 				os << "lower bounds as in Paml 4.2 (truncated Cauchy), p = " << lowerp << " and c = " << lowerc << '\n';
+1953a1954
+> 	/*
+1955a1957
+> 	*/
+PhyloBayes.cpp
+4021c4021
+< 	if ((! mParam->ActivateClock) && (! mParam->NH) && (! mParam->midpointrooting))	{
+---
+> 	if ((! mParam->ActivateClock) && (! mParam->NH))	{
+4058,4059c4058,4059
+< 	if ((! mParam->ActivateClock) && (! mParam->NH) && (! mParam->midpointrooting))	{
+< 		if ((j == root->label) && (!BL[root->left->label]))	{
+---
+> 	if ((! mParam->ActivateClock) && (! mParam->NH))	{
+> 		if (j == root->label)	{
+6794,6797d6793
+< 		if ((index < 0)	|| (index >=mParam->Nnode))	{
+< 			cerr << "in make clock tree : out of bound\n";
+< 			exit(1);
+< 		}
+6838,6839d6833
+< 	cerr << root->label << '\t';
+< 	cerr << mParam->Nnode << '\n';
+6851d6844
+< 			cerr << j << '\t' << age[j] << '\t' << age[tree[j].up->label] << '\n';
+6993,6996d6985
+< 	if ((label < 0) || (label >= mParam->Nnode))	{
+< 		cerr << "error in draw node age\n";
+< 		exit(1);
+< 	}
+7019d7007
+< 		
+7086a7075
+> 			exit(1);
+PhyloEM.cpp
+PhyloProbs.cpp
+2383,2414d2382
+< 	if (mLogSampling > 1e6)	{
+< 		cerr << "numerical error here\n";
+< 		cerr << Nmode << '\t' << NRateMode << '\n';
+< 		for (int i=0; i<mParam->Nsite; i++)	{
+< 			if (mSiteLogSampling[i] < 0)	{
+< 				cerr << i << '\t' << mSiteLogSampling[i] << '\n';
+< 				// for (int k=0; k<Nmode; k++)	{
+< 					// SetMode(i,k);
+< 					for (int l=0; l<NRateMode; l++)	{
+< 						SetRateMode(i,l);
+< 						cerr << l << '\t' << ModeRate[l] << '\t' << SimpleSiteLogSampling(i) << '\n';
+< 						// cerr << k << '\t' << l << '\t' << SimpleSiteLogSampling(i) << '\n';
+< 					}
+< 				// }
+< 				cerr << '\n';
+< 				for (int k=0; k<Nstate; k++)	{
+< 					cerr << mParam->Alphabet[k] << '\t' << Stationary[Mode[i]][k] << '\t' << ModeStatCenter[k] << '\n';
+< 				}
+< 				cerr << ModeStatAlpha << '\n';
+< 				exit(1);
+< 			}
+< 		}
+< 		/*
+< 		cerr << '\n';
+< 		for (int i=0; i<Nmode; i++)	{
+< 			cerr << "MODE : " << i << '\n';
+< 			mMatrixArray[i]->CheckDiag();
+< 			cerr << '\n';
+< 		}
+< 		*/
+< 
+< 	}
+3291,3296d3258
+< 			/*
+< 			if (tbl[root->label][j] < 0)	{
+< 				cerr << "in simple site log sampling\n";
+< 				cerr << mParam->Alphabet[j] << '\t' << tbl[root->label][j] << '\n';
+< 			}
+< 			*/
+PickData.cpp
+PolyNode.cpp
+PostPred.cpp
+Pruning.cpp
+804,805d803
+< 			matrix->CheckDiag();
+< 			cerr << '\n';
+3999,4004c3997
+< 				if (temp < 0)	{
+< 					logp[j][k] = mParam->InfProb;
+< 				}
+< 				else	{
+< 					logp[j][k] = -log(temp) + (*p) + *(q);
+< 				}
+---
+> 				logp[j][k] = -log(temp) + (*p) + *(q);
+Random.cpp
+27c27
+< 		// Random::InitRandom(837828);
+---
+> 		// Random::InitRandom(425904);
+ReadCheck.cpp
+ReadCov.cpp
+ReadCV.cpp
+ReadDiv.cpp
+ReadSample.cpp
+ReadThermo.cpp
+ReadTopoCheck.cpp
+RemoveTaxa.cpp
+RemoveUnknown.cpp
+Sample.cpp
+1389a1390
+> 
+1418,1420d1418
+< 		if (mParam->midpointrooting)	{
+< 			pb->RootAtMidPoint();
+< 		}
+1463c1461
+< 				nos << j+1 << '\t';
+---
+> 				nos << i << '\t';
+1480c1478
+< 	tree->Phylip(label_os, 0, 0, 1, 1);
+---
+> 	tree->Phylip(label_os, 1, 0, 1, 1);
+1662c1660
+< 				nos << j+1 << '\t';
+---
+> 				nos << i+1 << '\t';
+1679c1677
+< 	tree->Phylip(label_os, 0, 0, 1, 1);
+---
+> 	tree->Phylip(label_os, 1, 0, 1, 1);
+SampleSub.cpp
+25,26d24
+< 	int midpointrooting = 0;
+< 
+95,97d92
+< 			else if (s == "-midpointrooting")	{
+< 				midpointrooting = 1;
+< 			}
+168,170d162
+< 		if (midpointrooting)	{
+< 			mParam->midpointrooting = 1;
+< 		}
+196a189
+> 		cerr << imin+1 << '\t' << imax << '\n';
+StopAfter.cpp
+StopChain.cpp
+SubMatrix.cpp
+SubSample.cpp
+SumCV.cpp
+SumThermo.cpp
+TaxaParameters.cpp
+TaxaRandomSubSample.cpp
+TaxaSubSample.cpp
+Test.cpp
+TraceComp.cpp
+106a107
+> 	tracesize--;
+Tree.cpp
+576,578d575
+< 	if (withInternalLabels && IsDichotomous())	{
+< 		os << mRoot->label;
+< 	}
+TreeList.cpp
+TreeToPS.cpp
